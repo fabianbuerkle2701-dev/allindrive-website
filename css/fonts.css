@@ -1,0 +1,19 @@
+/* =========================================================================
+   Eine Schrift fuer die ganze Seite.
+
+   Karla stammt aus dem App-Bundle selbst, wo sie als Base64 eingebettet
+   liegt, und wurde unveraendert herausgeloest. Damit traegt die Website
+   dieselbe Schrift wie das Produkt, ohne dass beim Aufruf eine IP-Adresse
+   an Google geht. Spart ausserdem eine Kategorie im Einwilligungsbanner.
+
+   Eine variable Datei deckt alle Schnitte von 400 bis 700 ab, deshalb
+   genuegt ein einziger Abruf von 24 KB fuer die gesamte Seite.
+   ========================================================================= */
+
+@font-face {
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/karla.woff2") format("woff2");
+}

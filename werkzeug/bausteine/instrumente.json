@@ -1,0 +1,64 @@
+{
+  "index.html": {
+    "links": {
+      "aria": "Instrument Sonderfahrten: 9 von 12 Unterrichtseinheiten erledigt",
+      "caption": "Sonderfahrten",
+      "unit": "UE",
+      "lo": 0,
+      "hi": 12,
+      "value": 9,
+      "readout": "9",
+      "majors": 4,
+      "minors": 3,
+      "size_class": "dial--klein"
+    },
+    "mitte": {
+      "size_class": "dial--main",
+      "aria": "Hauptinstrument Prüfungsreife: 78 von 100 Prozent",
+      "caption": "Prüfungsreife",
+      "unit": "Prozent",
+      "lo": 0,
+      "hi": 100,
+      "value": 78,
+      "readout": "78",
+      "majors": 5,
+      "minors": 4,
+      "zone": [
+        75,
+        100,
+        "good"
+      ]
+    },
+    "rechts": {
+      "aria": "Instrument Auslastung dieser Woche: 86 Prozent",
+      "caption": "Auslastung",
+      "unit": "%",
+      "lo": 0,
+      "hi": 100,
+      "value": 86,
+      "readout": "86",
+      "majors": 4,
+      "minors": 5,
+      "figures": false,
+      "size_class": "dial--klein"
+    },
+    "reife": {
+      "size_class": "dial--gross",
+      "aria": "Instrument Prüfungsreife einer Beispielschülerin: 78 Prozent",
+      "caption": "Prüfungsreife",
+      "unit": "Prozent",
+      "lo": 0,
+      "hi": 100,
+      "value": 78,
+      "readout": "78",
+      "majors": 5,
+      "minors": 4,
+      "zone": [
+        75,
+        100,
+        "good"
+      ],
+      "scroll": true
+    }
+  }
+}

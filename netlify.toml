@@ -1,0 +1,54 @@
+# Auslieferung auf Netlify. Die Seite ist reines HTML, es wird nichts gebaut.
+
+# Es wird nichts kompiliert. Der Befehl setzt nur die wiederkehrenden
+# Bausteine (Bildmarke, Piktogramme, Fusszeile) in alle Seiten ein und
+# schreibt die sitemap.xml neu. Ohne ihn koennen unausgefuellte Marker
+# lautlos live gehen.
+[build]
+  publish = "."
+  command = "python3 werkzeug/bausteine.py && python3 werkzeug/sitemap.py"
+
+# Schriften und Bilder aendern sich nicht mehr; sie duerfen lange im Zwischen-
+# speicher bleiben. HTML dagegen muss bei jedem Aufruf frisch geprueft werden,
+# sonst sehen Besucher nach einer Aenderung tagelang die alte Fassung.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Die Seite laedt ausschliesslich eigene Dateien. Deshalb kann die
+# Inhaltsrichtlinie eng gefasst werden: kein fremdes Skript, keine fremde
+# Schrift, kein Einbetten in fremde Rahmen.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

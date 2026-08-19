@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Allindrive FAQ: Fragen zur Fahrschulsoftware | Allindrive</title>
+<meta name="description" content="Allindrive FAQ: Antworten zu Einrichtung, digitaler ADK, Terminbuchung, Fahrschüler-App, KI, Technik, Datenschutz und Beta-Betrieb der Fahrschulsoftware.">
+<link rel="canonical" href="https://www.allindrive.de/faq.html">
+
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#100e0b" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Allindrive">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="Allindrive FAQ: Fragen und Antworten zur Fahrschulsoftware">
+<meta property="og:description" content="Einrichtung, digitale ADK, Termine, Fahrschüler-App, KI, Technik, Datenschutz und Beta-Betrieb, der Reihe nach beantwortet.">
+<meta property="og:url" content="https://www.allindrive.de/faq.html">
+<meta property="og:image" content="https://www.allindrive.de/images/app/allindrive-startseite.webp">
+<meta property="og:image:alt" content="Die Startseite von Allindrive mit Kennzahlen, Terminen und offenen Anfragen">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/icon-180.png" sizes="180x180" type="image/png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="preload" href="fonts/karla.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/style.css">
+
+<script>
+  // Beides muss vor dem ersten Anzeigen feststehen, sonst blitzt das falsche
+  // Farbschema auf und die Abschnitte springen sichtbar.
+  document.documentElement.classList.add("js");
+  try {
+    var t = localStorage.getItem("allindrive-farbschema");
+    if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.allindrive.de/#organization",
+      "name": "Allindrive",
+      "url": "https://www.allindrive.de/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.allindrive.de/images/icon-512.png",
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.allindrive.de/#website",
+      "url": "https://www.allindrive.de/",
+      "name": "Allindrive",
+      "inLanguage": "de-DE",
+      "publisher": { "@id": "https://www.allindrive.de/#organization" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.allindrive.de/faq.html#webpage",
+      "url": "https://www.allindrive.de/faq.html",
+      "name": "Allindrive FAQ: Fragen zur Fahrschulsoftware | Allindrive",
+      "description": "Allindrive FAQ: Antworten zu Einrichtung, digitaler ADK, Terminbuchung, Fahrschüler-App, KI, Technik, Datenschutz und Beta-Betrieb der Fahrschulsoftware.",
+      "isPartOf": { "@id": "https://www.allindrive.de/#website" },
+      "about": { "@id": "https://www.allindrive.de/#organization" },
+      "primaryImageOfPage": "https://www.allindrive.de/images/app/allindrive-startseite.webp",
+      "inLanguage": "de-DE",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Wie fange ich mit Allindrive an?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Du legst deine Fahrschule an, danach führt dich der Onboarding-Assistent durch die Grundeinstellungen: Standort, Führerscheinklassen, Fahrzeuge und die ADK-Vorlage je Klasse. Für den Anfang reichen ein Standort, ein Fahrzeug und eine Klasse, alles Weitere lässt sich später ergänzen. Anschließend lädst du Kollegen über einen Einladungscode ein und trägst die ersten Fahrschüler ein."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Können mehrere Fahrlehrer gleichzeitig arbeiten?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Fahrschüler, Kalender und Fahrzeuge gehören der Fahrschule, nicht dem einzelnen Gerät. Neue Fahrlehrer kommen über einen Einladungscode dazu; wer welche Rechte hat, legt der Fahrschul-Admin fest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was passiert mit meinen Papier-ADKs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Du fotografierst sie. Die KI-Funktion liest die abgehakten Übungen aus dem Foto aus und überträgt sie auf die digitale Karte. Was sie erkannt hat, wird dir vor dem Speichern angezeigt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Muss ich jeden Fahrschüler von Hand anlegen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Du fotografierst die ausgefüllte Anmeldung, und die KI-Funktion überträgt die Stammdaten in den neuen Schülerdatensatz. Jedes Feld siehst du, bevor gespeichert wird. Wer von sich aus auf deine Fahrschule zukommt, meldet sich über den Fahrschul-Code selbst als Interessent an und steht danach in deiner Liste, mit Wiedervorlage, damit niemand vergessen wird."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wir haben mehrere Standorte. Geht das?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Standorte und Filialen werden getrennt geführt, Fahrzeuge hängen am Standort und haben einen eigenen Fahrzeugkalender, damit sich zwei Fahrlehrer nicht dasselbe Auto einplanen. Einzelne Fahrschüler kannst du mit Kollegen teilen, etwa für Vertretungen oder Sonderfahrten. Welche Führerscheinklassen deine Fahrschule ausbildet, stellst du einmal ein, die passenden ADK-Vorlagen hängen daran."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie funktioniert die digitale ADK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Die Ausbildungsdiagrammkarte liegt digital am Fahrschüler: Abschnitte, darunter die einzelnen Übungen, dazu die Anzahl der Wiederholungen, eine Bewertung und das Datum. Über jedem Abschnitt steht als Prozentwert, wie weit er erledigt ist. Abgehakt wird direkt nach der Fahrstunde im Auto, und jeder Kollege sieht denselben Stand. Die digitale ADK im Detail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Zählt Allindrive die Sonderfahrten mit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Überlandfahrt, Autobahnfahrt und Fahrt bei Dunkelheit werden getrennt gezählt, jeweils in Unterrichtseinheiten zu 45 Minuten. Wie viele Unterrichtseinheiten je Führerscheinklasse anfallen sollen, stellst du selbst ein, sodass B, B197, B96 und die Zweiradklassen nach euren Vorgaben laufen. Der Fahrschüler sieht denselben Stand in seiner App und fragt deshalb seltener nach."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bekomme ich einen Ausbildungsnachweis als PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Aus der Leistungserfassung entsteht der Ausbildungsnachweis als PDF. Unterschrieben wird auf dem Gerät, mit dem Finger auf dem Bildschirm, von dir und vom Fahrschüler. Das fertige PDF kannst du speichern, weitergeben oder ausdrucken. Denselben Weg gibt es für den Schaltkompetenz-Test nach B197."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wird die gefahrene Strecke aufgezeichnet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wenn du die Aufzeichnung startest, ja. Allindrive verfolgt die Fahrt per GPS, und du setzt unterwegs Pins an Stellen, die noch einmal geübt werden sollen. Alle Strecken eines Fahrschülers lassen sich zusammen auf einer Karte anzeigen, sodass du siehst, welche Streckenarten noch fehlen. Dazu kommt der Streckenkatalog mit den festen Übungsstrecken deiner Fahrschule."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie hilft Allindrive vor der praktischen Prüfung?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Es gibt eine Prüfungssimulation mit Live-Timer, in der du Fehler während der Fahrt festhältst, per KI-Schnelleintrag auch im Vorbeigehen. Über mehrere Simulationen hinweg zeigt Allindrive, welche Fehler wiederkehren. Dazu kommen die Prüfungsreife-Ampel, der Schaltkompetenz-Test nach B197 und der Quotenpilot mit den Erfolgsquoten nach Klasse, Zeitraum und Fahrlehrer. Die Prüfungssimulation im Detail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Verhindert der Kalender Doppelbuchungen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Der Kalender prüft beim Speichern Fahrlehrer, Fahrschüler und Fahrzeug zugleich. Überschneidet sich etwas oder ist das Ausbildungslimit für den Tag erreicht, bekommst du eine Warnung, bevor der Termin steht. Deine Arbeitszeiten, Urlaub und sonstige Tätigkeiten wirken als Grenzen, innerhalb derer überhaupt gebucht werden kann."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Können Fahrschüler ihre Termine selbst buchen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja, über einen Buchungslink oder den QR-Code deiner Fahrschule und in der Fahrschüler-App. Zu sehen sind nur freie Zeiten. Jede Anfrage landet bei dir: Du bestätigst sie, lehnst sie ab oder schickst einen Gegenvorschlag. Auch Stornoanfragen laufen darüber, statt per Anruf mitten in der Fahrstunde. Die Fahrstundenplanung im Detail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Sehe ich meine Termine auch im Handy-Kalender?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Allindrive stellt ein Kalender-Abo bereit (ICS beziehungsweise webcal), das du einmal in Apple Kalender, Google Kalender oder Outlook einträgst. Das Abo ist schreibgeschützt: Termine kommen dort an, geändert wird weiterhin in Allindrive, damit es nur einen gültigen Stand gibt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was passiert, wenn eine Stunde kurzfristig ausfällt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Die frei gewordene Zeit lässt sich den Fahrschülern auf der Warteliste anbieten, statt sie verfallen zu lassen. Du kannst einzelnen Fahrschülern Terminvorschläge schicken und die Bestätigung per WhatsApp senden. Am Abend fasst der Tagesabschluss zusammen, was für morgen noch offen ist."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was sehen meine Fahrschüler in ihrer App?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ihren Ausbildungsstand als Prozentring, die Übungen aus der ADK, den Stand der Sonderfahrten, ihre Termine und die eigenen Fahrstunden samt aufgezeichneter Strecke auf der Karte. Dazu Lernvideos, die deine Fahrschule selbst hinterlegt, kleine Erfolge und den KI-Chat „Frag uns“ für die Fragen zwischendurch. Die Fahrschüler-App im Detail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie kommt ein Fahrschüler in die App hinein?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Du schaltest den Fahrschülerbereich frei, der Fahrschüler meldet sich mit dem Code deiner Fahrschule an und vergibt dabei einen eigenen PIN. Danach hat er sein Profil mit Bild und seinen Zugang. Für Eltern und Kostenträger gibt es einen getrennten Zugang, unabhängig vom Zugang des Fahrschülers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Gibt es die Fahrschüler-App auch in anderen Sprachen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja, in Deutsch, Englisch, Türkisch und Russisch. Die Sprache stellt der Fahrschüler selbst um, du musst dafür nichts vorbereiten. Der Fahrlehrer-Teil bleibt deutsch."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Unterstützt die App die Begleitfahrten nach BF17?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Im Bereich „Üben“ führen Fahrschüler und Begleitperson ein Fahrtenbuch und arbeiten einen Ausbildungsplan aus 16 Übungen in vier Stufen ab. Die Übungsfahrten lassen sich per GPS aufzeichnen. Du siehst in der Auswertung, wie viel begleitet gefahren wurde, und kannst das in der nächsten Fahrstunde aufgreifen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was macht die KI-Assistenz konkret?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Der KI-Helfer schwebt über der Oberfläche und versteht normale Sätze: „Trag morgen 15 Uhr eine Überlandfahrt ein“ wird zum Termin. Genauso legt er Fahrstunden, ADK-Punkte, Strecken und Schülerdaten an. Dazu liest er Fotos aus: eine Papier-ADK, den Screenshot eines Kalenders, eine ausgefüllte Anmeldung. Auf der Startseite steht ein kurzes Tages-Briefing. Die KI-Assistenz im Detail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Trägt die KI etwas ein, ohne dass ich es sehe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nein. Jeder Vorschlag wird dir vor dem Speichern angezeigt, Feld für Feld, und du bestätigst oder änderst ihn. Ohne diese Bestätigung wird nichts geschrieben. Alle KI-Funktionen liegen hinter dem Login und stehen damit nur angemeldeten Fahrlehrern und Fahrschülern offen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Läuft Allindrive auch ohne Installation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Allindrive läuft im Browser auf Rechner, Tablet und Handy und lässt sich als App auf den Startbildschirm legen. Zusätzlich gibt es native Apps für iPhone und Android, je eine für Fahrlehrer und für Fahrschüler."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bekomme ich Erinnerungen auf das Handy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Die nativen Apps schicken Push-Benachrichtigungen, etwa wenn eine Buchungsanfrage hereinkommt. Dazu gibt es ein Widget für den Startbildschirm, das die heutigen Termine zeigt, ohne dass du die App öffnest. Erinnerungen für deine Fahrschüler kannst du als WhatsApp-Serie für den nächsten Tag vorbereiten."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Komme ich an meine Daten heran, wenn ich sie brauche?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Du kannst ein Backup deiner Fahrschuldaten herunterladen, das Fahrtenbuch als CSV ausgeben und jeden Ausbildungsnachweis als PDF sichern. Während der Arbeit speichert Allindrive laufend automatisch, damit nichts an einer vergessenen Schaltfläche hängen bleibt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wo liegen die Daten meiner Fahrschüler?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In einer Datenbank innerhalb der EU. Jede Zeile darin ist fest an die Fahrschule gebunden, zu der sie gehört (Row Level Security), sodass eine Fahrschule die Daten einer anderen nicht sehen kann. Innerhalb deiner Fahrschule regeln Rollen, wer was darf: Fahrlehrer und Fahrschul-Admin. Mehr zu Datenschutz und Sicherheit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie lange bleiben die Daten gespeichert?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Allindrive rechnet die Aufbewahrungsfristen für Ausbildungsunterlagen mit, nach § 31 FahrlG und nach der Abgabenordnung, und das Fristen-Radar zeigt, was demnächst fällig wird. Fahrschüler, die bestanden haben, wandern ins Archiv und lassen sich von dort zurückholen. Was im Einzelfall gilt, entscheidet weiterhin deine Fahrschule. Die Datenschutzerklärung im Wortlaut."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was kostet Allindrive?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Allindrive ist im Beta-Betrieb. Wir vergeben Zugänge persönlich und besprechen den Preis dabei direkt, damit klar ist, mit welchen Klassen und wie vielen Fahrlehrern du arbeitest. Mehr dazu auf der Preisseite."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Was bedeutet Beta-Betrieb im Alltag?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Allindrive wird in Fahrschulen benutzt, während wir weiter daran bauen. Funktionen kommen laufend dazu, und was uns aus dem Alltag gemeldet wird, landet oft schon in der nächsten Fassung. Umgekehrt heißt das: Wenn dir etwas fehlt oder eine Stelle hakt, sag es uns. Genau dafür ist diese Phase da."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie bekomme ich einen Zugang?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Über ein kurzes Gespräch. Schreib uns, mit welchen Führerscheinklassen du ausbildest, wie viele Fahrlehrer ihr seid und an wie vielen Standorten. Danach richten wir den Zugang ein und gehen die Grundeinstellungen gemeinsam durch, damit du nicht bei null anfängst. Zum Kontaktformular."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.allindrive.de/faq.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://www.allindrive.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Häufige Fragen",
+          "item": "https://www.allindrive.de/faq.html"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.allindrive.de/#software",
+      "name": "Allindrive",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Fahrschulverwaltung",
+      "operatingSystem": "Web, iOS, Android",
+      "inLanguage": "de-DE",
+      "url": "https://www.allindrive.de/",
+      "screenshot": "https://www.allindrive.de/images/app/allindrive-startseite.webp",
+      "description": "Fahrschulverwaltung mit digitaler Ausbildungsdiagrammkarte, Fahrstundenplanung, Online-Terminbuchung, Prüfungssimulation, Fuhrpark und eigenen Apps für Fahrlehrer und Fahrschüler.",
+      "publisher": { "@id": "https://www.allindrive.de/#organization" },
+      "featureList": [
+        "Digitale Ausbildungsdiagrammkarte (ADK)",
+        "Fahrstundenplanung und Fahrzeugkalender",
+        "Online-Terminbuchung für Fahrschüler",
+        "Prüfungssimulation der praktischen Prüfung",
+        "Schaltkompetenz-Test B197",
+        "GPS-Streckenaufzeichnung",
+        "Eigene App für Fahrschüler",
+        "Fuhrparkverwaltung mit HU-Countdown"
+      ]
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<!--SPRITE-->
+<!-- Zeichenvorrat der Seite: die Bildmarke und alle Piktogramme, einmal je
+     Seite abgelegt und ueber <use> so oft eingesetzt wie noetig. Liegt
+     inline und nicht als externe Datei, weil die Fahrbahnstriche der
+     Bildmarke sonst nicht per CSS bewegt werden koennen.
+
+     Die Piktogramme sind durchgaengig auf 24x24 gezeichnet, mit einer
+     Strichstaerke und runden Enden. Gemischte Strichstaerken faellt in
+     einer Reihe sofort auf. -->
+<svg class="vh" aria-hidden="true" focusable="false" width="0" height="0">
+
+<symbol id="ad" viewBox="0 0 100 68.20">
+<g class="ad__road">
+<path class="ad__dash" d="M1.99 -3.72L3.41 -3.39L3.74 -2.73L-0.75 3.19L-3.38 3.41L-3.71 2.64C-3.71 2.64 -1.57 -0.20 -0.97 -0.87C-0.38 -1.54 1.56 -3.31 1.88 -3.61C2.19 -3.91 1.99 -3.72 1.99 -3.72Z"/>
+<path class="ad__dash" d="M1.99 -3.72L3.41 -3.39L3.74 -2.73L-0.75 3.19L-3.38 3.41L-3.71 2.64C-3.71 2.64 -1.57 -0.20 -0.97 -0.87C-0.38 -1.54 1.56 -3.31 1.88 -3.61C2.19 -3.91 1.99 -3.72 1.99 -3.72Z"/>
+<path class="ad__dash" d="M1.99 -3.72L3.41 -3.39L3.74 -2.73L-0.75 3.19L-3.38 3.41L-3.71 2.64C-3.71 2.64 -1.57 -0.20 -0.97 -0.87C-0.38 -1.54 1.56 -3.31 1.88 -3.61C2.19 -3.91 1.99 -3.72 1.99 -3.72Z"/>
+<path class="ad__dash" d="M1.99 -3.72L3.41 -3.39L3.74 -2.73L-0.75 3.19L-3.38 3.41L-3.71 2.64C-3.71 2.64 -1.57 -0.20 -0.97 -0.87C-0.38 -1.54 1.56 -3.31 1.88 -3.61C2.19 -3.91 1.99 -3.72 1.99 -3.72Z"/>
+</g>
+<path class="ad__d" d="M56.25 0.00C56.25 0.00 66.34 -0.06 68.09 0.00C69.85 0.06 71.59 0.31 72.70 0.55C73.81 0.78 77.30 1.73 78.51 2.19C79.71 2.66 82.93 4.29 83.99 4.93C85.06 5.58 87.54 7.39 88.49 8.22C89.43 9.05 92.17 11.90 92.87 12.72C93.57 13.54 94.60 15.12 95.07 15.90C95.53 16.68 96.84 19.10 97.26 20.07C97.68 21.04 98.73 23.97 99.01 25.00C99.29 26.03 99.80 28.46 99.89 29.71C99.98 30.97 100.00 35.43 99.89 36.73C99.79 38.03 99.20 40.81 98.90 41.89C98.61 42.96 97.61 45.80 97.15 46.82C96.69 47.84 95.27 50.45 94.63 51.43C93.98 52.40 91.87 55.09 91.12 55.92C90.37 56.75 88.43 58.54 87.61 59.21C86.79 59.88 84.48 61.57 83.44 62.17C82.40 62.77 78.92 64.38 77.85 64.80C76.79 65.22 74.45 65.92 73.46 66.12C72.48 66.32 71.42 66.62 68.64 66.67C65.86 66.71 47.37 66.56 47.37 66.56C47.37 66.56 48.42 63.93 48.79 63.27C49.17 62.60 50.27 61.03 50.88 60.31C51.49 59.58 53.75 57.17 54.50 56.47C55.24 55.77 57.89 53.73 57.89 53.73C57.89 53.73 67.85 53.59 69.41 53.51C70.96 53.43 71.67 53.21 72.48 52.96C73.29 52.71 76.17 51.62 76.97 51.21C77.78 50.80 79.40 49.66 80.04 49.12C80.69 48.58 82.48 46.77 83.00 46.16C83.53 45.55 84.58 44.13 84.98 43.42C85.38 42.71 86.46 40.25 86.73 39.47C87.00 38.70 87.41 37.06 87.50 36.18C87.59 35.31 87.68 32.17 87.61 31.25C87.54 30.33 87.17 28.46 86.84 27.52C86.51 26.59 84.96 23.25 84.54 22.48C84.12 21.71 83.49 20.90 82.89 20.29C82.30 19.67 79.88 17.32 78.95 16.67C78.01 16.01 75.15 14.53 74.12 14.14C73.09 13.76 70.56 13.17 69.30 13.05C68.04 12.93 62.28 13.05 62.28 13.05L55.92 0.55C55.92 0.55 56.11 0.17 56.14 0.11C56.18 0.05 56.25 0.00 56.25 0.00Z"/>
+<path class="ad__a" d="M39.91 0.00L50.33 0.00L51.21 0.55C51.21 0.55 65.02 28.39 67.00 32.46C68.97 36.53 69.74 38.71 69.74 38.71L54.93 40.24C54.93 40.24 45.82 21.53 44.63 19.19C43.43 16.85 43.75 18.31 43.75 18.31L42.65 18.31C42.65 18.31 42.98 16.99 40.79 21.16C38.60 25.34 22.15 57.46 22.15 57.46C22.15 57.46 30.48 51.96 32.13 50.99C33.78 50.02 36.22 48.93 37.61 48.36C39.00 47.78 43.01 46.22 45.18 45.61C47.34 45.01 55.73 43.07 57.89 42.65C60.06 42.23 64.16 41.77 65.46 41.67C66.76 41.56 70.07 41.67 70.07 41.67C70.07 41.67 64.23 42.44 62.50 42.76C60.77 43.09 55.44 44.30 53.84 44.74C52.24 45.17 48.93 46.26 47.48 46.82C46.03 47.38 41.70 49.24 40.24 50.00C38.78 50.76 34.96 53.13 33.77 53.95C32.58 54.77 29.96 56.90 29.06 57.68C28.16 58.45 26.32 60.07 25.33 61.18C24.33 62.30 19.74 68.09 19.74 68.09L0.00 68.09C0.00 68.09 29.20 11.17 33.00 4.06C36.81 -3.05 35.13 1.81 35.64 1.43C36.14 1.04 37.27 0.58 37.72 0.44C38.16 0.30 39.80 0.11 39.80 0.11L39.91 0.00Z"/>
+</symbol>
+
+<symbol id="i-pfeil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></symbol>
+<symbol id="i-haken" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+<symbol id="i-menue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+<symbol id="i-schliessen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></symbol>
+
+<symbol id="i-sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2"/><path d="M12 19.2v2.2"/><path d="M4.4 4.4 6 6"/><path d="M18 18l1.6 1.6"/><path d="M2.6 12h2.2"/><path d="M19.2 12h2.2"/><path d="M4.4 19.6 6 18"/><path d="M18 6l1.6-1.6"/></symbol>
+<symbol id="i-mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.2A8.4 8.4 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2Z"/></symbol>
+
+<!-- Kontrollleuchten. Fahrschul-Motive, ein Strichgewicht, wie ISO-Piktogramme
+     gezeichnet: klare Grundform, keine Details, die bei 20 px zulaufen. -->
+<symbol id="i-karte" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 9h18"/><path d="M9 9v10.5"/><path d="M15 9v10.5"/><path d="M3 14.2h18"/></symbol>
+<symbol id="i-frage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.4a2.7 2.7 0 1 1 3.4 2.6c-.6.2-.8.7-.8 1.3v.5"/><path d="M12 17.1v.05"/></symbol>
+<symbol id="i-telefon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.3 3.5h2.3l1.6 4-2 1.3a12 12 0 0 0 5.5 5.5l1.3-2 4 1.6v2.3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.3 5.7a2 2 0 0 1 2-2.2Z"/><path d="M15.5 3.6a5.6 5.6 0 0 1 4.9 4.9"/></symbol>
+<symbol id="i-kalender" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="5" width="17.6" height="15.5" rx="2"/><path d="M3.2 9.6h17.6"/><path d="M8 3v4"/><path d="M16 3v4"/><path d="m9.6 14.4 2 2 3.4-3.6"/></symbol>
+<symbol id="i-sanduhr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10"/><path d="M7 21h10"/><path d="M7.6 3c0 4 4.4 5.2 4.4 9s-4.4 5-4.4 9"/><path d="M16.4 3c0 4-4.4 5.2-4.4 9s4.4 5 4.4 9"/></symbol>
+<symbol id="i-stift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4.2L19.4 8.8a2.3 2.3 0 0 0-3.2-3.2L5 16.8Z"/><path d="m14.6 7.2 3.2 3.2"/></symbol>
+
+<symbol id="i-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 15.5v-2.2l1.9-4.6A2 2 0 0 1 7 7.4h10a2 2 0 0 1 1.9 1.3l1.9 4.6v2.2"/><path d="M3.2 13.3h17.6"/><circle cx="7.2" cy="16.6" r="1.7"/><circle cx="16.8" cy="16.6" r="1.7"/></symbol>
+<symbol id="i-schild" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 4.6 5.6v5.6c0 4.4 3 8.2 7.4 10 4.4-1.8 7.4-5.6 7.4-10V5.6Z"/><path d="m8.9 11.8 2.2 2.2 4-4.4"/></symbol>
+<symbol id="i-schloss" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4.6" y="10.4" width="14.8" height="10.2" rx="2"/><path d="M8.2 10.4V7.6a3.8 3.8 0 0 1 7.6 0v2.8"/><path d="M12 14.6v2.2"/></symbol>
+<symbol id="i-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.2" r="3.7"/><path d="M4.8 20.2a7.2 7.2 0 0 1 14.4 0"/></symbol>
+<symbol id="i-blitz" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 2.6 5 13.4h5.4l-.6 8 8.2-10.8h-5.4Z"/></symbol>
+<symbol id="i-uhr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.4 2"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.4c4.2-4.4 6.3-7.6 6.3-10.4a6.3 6.3 0 1 0-12.6 0c0 2.8 2.1 6 6.3 10.4Z"/><circle cx="12" cy="10.8" r="2.4"/></symbol>
+<symbol id="i-diagramm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 20v-5.4"/><path d="M12.6 20V9.4"/><path d="M17.2 20v-8"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.2" width="18" height="13.6" rx="2"/><path d="m3.6 6.6 8.4 6 8.4-6"/></symbol>
+<symbol id="i-handy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6.4" y="2.4" width="11.2" height="19.2" rx="2.6"/><path d="M10.6 18.6h2.8"/></symbol>
+<symbol id="i-wolke" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.4 18.4A4.4 4.4 0 0 1 7.8 9.7a5.6 5.6 0 0 1 10.7 1.5 3.7 3.7 0 0 1-.7 7.2Z"/></symbol>
+<symbol id="i-warnung" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.6 2.9 19.4h18.2Z"/><path d="M12 9.8v4.2"/><path d="M12 17.1v.05"/></symbol>
+<symbol id="i-unterschrift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.6c3.4 0 3.8-9.6 6.4-9.6 1.9 0 1.3 7.2 3.3 7.2 1.5 0 1.9-4 3.4-4 1.2 0 1.3 2.4 2.4 2.4"/><path d="M3.6 20.4h16.8"/></symbol>
+</svg>
+<!--/SPRITE-->
+
+<header class="top" data-top>
+  <div class="shell top__in">
+    <a class="marke" href="index.html" aria-label="Allindrive, zur Startseite">
+      <svg class="ad ad--faehrt" viewBox="0 0 100 68.2" width="30" height="21" aria-hidden="true" focusable="false"><use href="#ad"></use></svg>
+      <span class="marke__wort">Allindrive</span>
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="funktionen.html">Funktionen</a>
+      <a href="digitale-adk.html">Digitale ADK</a>
+      <a href="fahrschueler-app.html">Fahrschüler-App</a>
+      <a href="preise.html">Preise</a>
+      <a href="faq.html" aria-current="page">Fragen</a>
+    </nav>
+
+    <div class="top__aktionen">
+      <button class="schalter" type="button" data-schalter="farbschema" aria-label="Zum dunklen Farbschema wechseln">
+        <svg class="ic-mond" aria-hidden="true" focusable="false"><use href="#i-mond"></use></svg>
+        <svg class="ic-sonne" aria-hidden="true" focusable="false"><use href="#i-sonne"></use></svg>
+      </button>
+      <a class="btn btn--klein" href="https://allindrive.netlify.app" rel="noopener">App öffnen</a>
+      <button class="schalter burger" type="button" data-schalter="menue" aria-controls="menue" aria-expanded="false" aria-label="Menü öffnen">
+        <svg class="ic-menue" aria-hidden="true" focusable="false"><use href="#i-menue"></use></svg>
+        <svg class="ic-schliessen" aria-hidden="true" focusable="false"><use href="#i-schliessen"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="schublade" id="menue">
+    <nav aria-label="Hauptnavigation, mobil">
+      <a href="funktionen.html">Funktionen</a>
+      <a href="digitale-adk.html">Digitale ADK</a>
+      <a href="fahrstundenplanung.html">Fahrstundenplanung</a>
+      <a href="fahrschueler-app.html">Fahrschüler-App</a>
+      <a href="pruefungssimulation.html">Prüfungssimulation</a>
+      <a href="ki-assistenz.html">KI-Assistenz</a>
+      <a href="sicherheit.html">Datenschutz</a>
+      <a href="vergleich.html">Vergleich</a>
+      <a href="preise.html">Preise</a>
+      <a href="faq.html" aria-current="page">Häufige Fragen</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="btn" href="https://allindrive.netlify.app" rel="noopener">App öffnen</a>
+  </div>
+</header>
+
+<main id="inhalt">
+
+  <!-- ============================================================ Auftakt -->
+  <section class="auftakt">
+    <div class="shell">
+      <h1>Allindrive FAQ: die Fragen aus dem Fahrschulalltag.</h1>
+      <p class="lede">
+        Von der Einrichtung über die digitale ADK bis zu Datenschutz und
+        Beta-Betrieb. Alles, was Fahrlehrer uns vor dem ersten Zugang fragen,
+        an einer Stelle beantwortet.
+      </p>
+      <div class="btn-reihe">
+        <a class="btn" href="https://allindrive.netlify.app" rel="noopener">
+          App öffnen
+          <svg width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+        </a>
+        <a class="btn btn--linie" href="kontakt.html">Frage stellen</a>
+      </div>
+      <p class="notiz">Allindrive ist im Beta-Betrieb. Zugänge vergeben wir persönlich.</p>
+    </div>
+  </section>
+
+  <!-- ======================================================== Themenindex -->
+  <section class="band band--soft">
+    <div class="shell">
+      <div class="kopf auf">
+        <h2>Acht Themen, der Reihe nach.</h2>
+        <p class="lede">
+          Jeder Block sammelt die Fragen zu einem Bereich. Ein Klick auf eine
+          Frage klappt die Antwort auf.
+        </p>
+      </div>
+
+      <ul class="liste liste--zwei">
+        <li class="auf">
+          <h3><a href="#einstieg">Einstieg und Einrichtung</a></h3>
+          <p>Erste Schritte, mehrere Fahrlehrer, Papier-ADKs, Schülerdaten, Standorte.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="#ausbildung">Ausbildungsdokumentation</a></h3>
+          <p>Digitale ADK, Sonderfahrten, Ausbildungsnachweis, Strecken, Prüfungsvorbereitung.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="#termine">Termine und Buchung</a></h3>
+          <p>Doppelbuchungen, Buchungslink, Kalender-Abo, kurzfristige Ausfälle.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="#app">Fahrschüler-App</a></h3>
+          <p>Inhalte, Freischaltung, Sprachen, Begleitfahrten nach BF17.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="#ki">Künstliche Intelligenz</a></h3>
+          <p>Was der KI-Helfer übernimmt und warum nichts ungefragt gespeichert wird.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="#technik">Technik und Geräte</a></h3>
+          <p>Browser, native Apps, Benachrichtigungen, eigene Daten herunterladen.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="#datenschutz">Datenschutz</a></h3>
+          <p>Wo die Daten liegen, wer sie sieht, wie lange sie bleiben.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="#preise">Preise und Beta</a></h3>
+          <p>Was der Beta-Betrieb bedeutet und wie du an einen Zugang kommst.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================================== Einstieg und Ausbildungsdokumentation -->
+  <section class="band">
+    <div class="shell shell--schmal">
+
+      <div class="kopf auf" id="einstieg" style="margin-bottom:24px">
+        <h2>Einstieg und Einrichtung</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Wie fange ich mit Allindrive an?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Du legst deine Fahrschule an, danach führt dich der
+              Onboarding-Assistent durch die Grundeinstellungen: Standort,
+              Führerscheinklassen, Fahrzeuge und die ADK-Vorlage je Klasse. Für
+              den Anfang reichen ein Standort, ein Fahrzeug und eine Klasse,
+              alles Weitere lässt sich später ergänzen. Anschließend lädst du
+              Kollegen über einen Einladungscode ein und trägst die ersten
+              Fahrschüler ein.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Können mehrere Fahrlehrer gleichzeitig arbeiten?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja. Fahrschüler, Kalender und Fahrzeuge gehören der Fahrschule,
+              nicht dem einzelnen Gerät. Neue Fahrlehrer kommen über einen
+              Einladungscode dazu; wer welche Rechte hat, legt der
+              Fahrschul-Admin fest.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Was passiert mit meinen Papier-ADKs?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Du fotografierst sie. Die KI-Funktion liest die abgehakten
+              Übungen aus dem Foto aus und überträgt sie auf die digitale
+              Karte. Was sie erkannt hat, wird dir vor dem Speichern angezeigt.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Muss ich jeden Fahrschüler von Hand anlegen?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Nein. Du fotografierst die ausgefüllte Anmeldung, und die
+              KI-Funktion überträgt die Stammdaten in den neuen Schülerdatensatz.
+              Jedes Feld siehst du, bevor gespeichert wird. Wer von sich aus auf
+              deine Fahrschule zukommt, meldet sich über den Fahrschul-Code
+              selbst als Interessent an und steht danach in deiner Liste, mit
+              Wiedervorlage, damit niemand vergessen wird.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Wir haben mehrere Standorte. Geht das?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja. Standorte und Filialen werden getrennt geführt, Fahrzeuge
+              hängen am Standort und haben einen eigenen Fahrzeugkalender, damit
+              sich zwei Fahrlehrer nicht dasselbe Auto einplanen. Einzelne
+              Fahrschüler kannst du mit Kollegen teilen, etwa für Vertretungen
+              oder Sonderfahrten. Welche Führerscheinklassen deine Fahrschule
+              ausbildet, stellst du einmal ein, die passenden ADK-Vorlagen
+              hängen daran.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="kopf auf" id="ausbildung" style="margin-top:clamp(64px,8vw,104px);margin-bottom:24px">
+        <h2>Ausbildungsdokumentation</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Wie funktioniert die digitale ADK?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Die Ausbildungsdiagrammkarte liegt digital am Fahrschüler:
+              Abschnitte, darunter die einzelnen Übungen, dazu die Anzahl der
+              Wiederholungen, eine Bewertung und das Datum. Über jedem Abschnitt
+              steht als Prozentwert, wie weit er erledigt ist. Abgehakt wird
+              direkt nach der Fahrstunde im Auto, und jeder Kollege sieht
+              denselben Stand.
+              <a href="digitale-adk.html">Die digitale ADK im Detail.</a>
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Zählt Allindrive die Sonderfahrten mit?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja. Überlandfahrt, Autobahnfahrt und Fahrt bei Dunkelheit werden
+              getrennt gezählt, jeweils in Unterrichtseinheiten zu 45 Minuten.
+              Wie viele Unterrichtseinheiten je Führerscheinklasse anfallen
+              sollen, stellst du selbst ein, sodass B, B197, B96 und die
+              Zweiradklassen nach euren Vorgaben laufen. Der Fahrschüler sieht
+              denselben Stand in seiner App und fragt deshalb seltener nach.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Bekomme ich einen Ausbildungsnachweis als PDF?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja. Aus der Leistungserfassung entsteht der Ausbildungsnachweis
+              als PDF. Unterschrieben wird auf dem Gerät, mit dem Finger auf dem
+              Bildschirm, von dir und vom Fahrschüler. Das fertige PDF kannst du
+              speichern, weitergeben oder ausdrucken. Denselben Weg gibt es für
+              den Schaltkompetenz-Test nach B197.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Wird die gefahrene Strecke aufgezeichnet?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Wenn du die Aufzeichnung startest, ja. Allindrive verfolgt die
+              Fahrt per GPS, und du setzt unterwegs Pins an Stellen, die noch
+              einmal geübt werden sollen. Alle Strecken eines Fahrschülers
+              lassen sich zusammen auf einer Karte anzeigen, sodass du siehst,
+              welche Streckenarten noch fehlen. Dazu kommt der Streckenkatalog
+              mit den festen Übungsstrecken deiner Fahrschule.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Wie hilft Allindrive vor der praktischen Prüfung?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Es gibt eine Prüfungssimulation mit Live-Timer, in der du Fehler
+              während der Fahrt festhältst, per KI-Schnelleintrag auch im
+              Vorbeigehen. Über mehrere Simulationen hinweg zeigt Allindrive,
+              welche Fehler wiederkehren. Dazu kommen die Prüfungsreife-Ampel,
+              der Schaltkompetenz-Test nach B197 und der Quotenpilot mit den
+              Erfolgsquoten nach Klasse, Zeitraum und Fahrlehrer.
+              <a href="pruefungssimulation.html">Die Prüfungssimulation im Detail.</a>
+            </p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================ Termine und Buchung, Fahrschüler-App -->
+  <section class="band band--soft">
+    <div class="shell shell--schmal">
+
+      <div class="kopf auf" id="termine" style="margin-bottom:24px">
+        <h2>Termine und Buchung</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Verhindert der Kalender Doppelbuchungen?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Der Kalender prüft beim Speichern Fahrlehrer, Fahrschüler und
+              Fahrzeug zugleich. Überschneidet sich etwas oder ist das
+              Ausbildungslimit für den Tag erreicht, bekommst du eine Warnung,
+              bevor der Termin steht. Deine Arbeitszeiten, Urlaub und sonstige
+              Tätigkeiten wirken als Grenzen, innerhalb derer überhaupt gebucht
+              werden kann.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Können Fahrschüler ihre Termine selbst buchen?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja, über einen Buchungslink oder den QR-Code deiner Fahrschule und
+              in der Fahrschüler-App. Zu sehen sind nur freie Zeiten. Jede
+              Anfrage landet bei dir: Du bestätigst sie, lehnst sie ab oder
+              schickst einen Gegenvorschlag. Auch Stornoanfragen laufen darüber,
+              statt per Anruf mitten in der Fahrstunde.
+              <a href="fahrstundenplanung.html">Die Fahrstundenplanung im Detail.</a>
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Sehe ich meine Termine auch im Handy-Kalender?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja. Allindrive stellt ein Kalender-Abo bereit (ICS
+              beziehungsweise webcal), das du einmal in Apple Kalender, Google
+              Kalender oder Outlook einträgst. Das Abo ist schreibgeschützt:
+              Termine kommen dort an, geändert wird weiterhin in Allindrive,
+              damit es nur einen gültigen Stand gibt.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Was passiert, wenn eine Stunde kurzfristig ausfällt?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Die frei gewordene Zeit lässt sich den Fahrschülern auf der
+              Warteliste anbieten, statt sie verfallen zu lassen. Du kannst
+              einzelnen Fahrschülern Terminvorschläge schicken und die
+              Bestätigung per WhatsApp senden. Am Abend fasst der Tagesabschluss
+              zusammen, was für morgen noch offen ist.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="kopf auf" id="app" style="margin-top:clamp(64px,8vw,104px);margin-bottom:24px">
+        <h2>Fahrschüler-App</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Was sehen meine Fahrschüler in ihrer App?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ihren Ausbildungsstand als Prozentring, die Übungen aus der ADK,
+              den Stand der Sonderfahrten, ihre Termine und die eigenen
+              Fahrstunden samt aufgezeichneter Strecke auf der Karte. Dazu
+              Lernvideos, die deine Fahrschule selbst hinterlegt, kleine Erfolge
+              und den KI-Chat „Frag uns“ für die Fragen zwischendurch.
+              <a href="fahrschueler-app.html">Die Fahrschüler-App im Detail.</a>
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Wie kommt ein Fahrschüler in die App hinein?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Du schaltest den Fahrschülerbereich frei, der Fahrschüler meldet
+              sich mit dem Code deiner Fahrschule an und vergibt dabei einen
+              eigenen PIN. Danach hat er sein Profil mit Bild und seinen
+              Zugang. Für Eltern und Kostenträger gibt es einen getrennten
+              Zugang, unabhängig vom Zugang des Fahrschülers.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Gibt es die Fahrschüler-App auch in anderen Sprachen?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja, in Deutsch, Englisch, Türkisch und Russisch. Die Sprache
+              stellt der Fahrschüler selbst um, du musst dafür nichts
+              vorbereiten. Der Fahrlehrer-Teil bleibt deutsch.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Unterstützt die App die Begleitfahrten nach BF17?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja. Im Bereich „Üben“ führen Fahrschüler und Begleitperson ein
+              Fahrtenbuch und arbeiten einen Ausbildungsplan aus 16 Übungen in
+              vier Stufen ab. Die Übungsfahrten lassen sich per GPS aufzeichnen.
+              Du siehst in der Auswertung, wie viel begleitet gefahren wurde,
+              und kannst das in der nächsten Fahrstunde aufgreifen.
+            </p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================== Künstliche Intelligenz, Technik -->
+  <section class="band">
+    <div class="shell shell--schmal">
+
+      <div class="kopf auf" id="ki" style="margin-bottom:24px">
+        <h2>Künstliche Intelligenz</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Was macht die KI-Assistenz konkret?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Der KI-Helfer schwebt über der Oberfläche und versteht normale
+              Sätze: „Trag morgen 15 Uhr eine Überlandfahrt ein“ wird zum
+              Termin. Genauso legt er Fahrstunden, ADK-Punkte, Strecken und
+              Schülerdaten an. Dazu liest er Fotos aus: eine Papier-ADK, den
+              Screenshot eines Kalenders, eine ausgefüllte Anmeldung. Auf der
+              Startseite steht ein kurzes Tages-Briefing.
+              <a href="ki-assistenz.html">Die KI-Assistenz im Detail.</a>
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Trägt die KI etwas ein, ohne dass ich es sehe?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Nein. Jeder Vorschlag wird dir vor dem Speichern angezeigt, Feld
+              für Feld, und du bestätigst oder änderst ihn. Ohne diese
+              Bestätigung wird nichts geschrieben. Alle KI-Funktionen liegen
+              hinter dem Login und stehen damit nur angemeldeten Fahrlehrern und
+              Fahrschülern offen.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="kopf auf" id="technik" style="margin-top:clamp(64px,8vw,104px);margin-bottom:24px">
+        <h2>Technik und Geräte</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Läuft Allindrive auch ohne Installation?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja. Allindrive läuft im Browser auf Rechner, Tablet und Handy und
+              lässt sich als App auf den Startbildschirm legen. Zusätzlich gibt
+              es native Apps für iPhone und Android, je eine für Fahrlehrer und
+              für Fahrschüler.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Bekomme ich Erinnerungen auf das Handy?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Die nativen Apps schicken Push-Benachrichtigungen, etwa wenn eine
+              Buchungsanfrage hereinkommt. Dazu gibt es ein Widget für den
+              Startbildschirm, das die heutigen Termine zeigt, ohne dass du die
+              App öffnest. Erinnerungen für deine Fahrschüler kannst du als
+              WhatsApp-Serie für den nächsten Tag vorbereiten.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Komme ich an meine Daten heran, wenn ich sie brauche?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ja. Du kannst ein Backup deiner Fahrschuldaten herunterladen, das
+              Fahrtenbuch als CSV ausgeben und jeden Ausbildungsnachweis als PDF
+              sichern. Während der Arbeit speichert Allindrive laufend
+              automatisch, damit nichts an einer vergessenen Schaltfläche hängen
+              bleibt.
+            </p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================== Datenschutz, Preise und Beta -->
+  <section class="band band--soft">
+    <div class="shell shell--schmal">
+
+      <div class="kopf auf" id="datenschutz" style="margin-bottom:24px">
+        <h2>Datenschutz</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Wo liegen die Daten meiner Fahrschüler?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              In einer Datenbank innerhalb der EU. Jede Zeile darin ist fest an
+              die Fahrschule gebunden, zu der sie gehört (Row Level Security),
+              sodass eine Fahrschule die Daten einer anderen nicht sehen kann.
+              Innerhalb deiner Fahrschule regeln Rollen, wer was darf:
+              Fahrlehrer und Fahrschul-Admin.
+              <a href="sicherheit.html">Mehr zu Datenschutz und Sicherheit.</a>
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Wie lange bleiben die Daten gespeichert?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Allindrive rechnet die Aufbewahrungsfristen für
+              Ausbildungsunterlagen mit, nach § 31 FahrlG und nach der
+              Abgabenordnung, und das Fristen-Radar zeigt, was demnächst fällig
+              wird. Fahrschüler, die bestanden haben, wandern ins Archiv und
+              lassen sich von dort zurückholen. Was im Einzelfall gilt,
+              entscheidet weiterhin deine Fahrschule.
+              <a href="datenschutz.html">Die Datenschutzerklärung im Wortlaut.</a>
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <p class="hinweis auf" style="margin-top:22px">
+        Belegbare Angaben zu Serverstandort, Auftragsverarbeitungsvertrag und
+        Zertifizierungen gehören an diese Stelle:
+        <span class="offen">Angaben stehen noch aus</span>. Bis dahin steht hier
+        nur, was wir wirklich belegen können.
+      </p>
+
+      <div class="kopf auf" id="preise" style="margin-top:clamp(64px,8vw,104px);margin-bottom:24px">
+        <h2>Preise und Beta</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Was kostet Allindrive?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Allindrive ist im Beta-Betrieb. Wir vergeben Zugänge persönlich
+              und besprechen den Preis dabei direkt, damit klar ist, mit
+              welchen Klassen und wie vielen Fahrlehrern du arbeitest.
+              <a href="preise.html">Mehr dazu auf der Preisseite.</a>
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Was bedeutet Beta-Betrieb im Alltag?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Allindrive wird in Fahrschulen benutzt, während wir weiter daran
+              bauen. Funktionen kommen laufend dazu, und was uns aus dem Alltag
+              gemeldet wird, landet oft schon in der nächsten Fassung.
+              Umgekehrt heißt das: Wenn dir etwas fehlt oder eine Stelle hakt,
+              sag es uns. Genau dafür ist diese Phase da.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Wie bekomme ich einen Zugang?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Über ein kurzes Gespräch. Schreib uns, mit welchen
+              Führerscheinklassen du ausbildest, wie viele Fahrlehrer ihr seid
+              und an wie vielen Standorten. Danach richten wir den Zugang ein
+              und gehen die Grundeinstellungen gemeinsam durch, damit du nicht
+              bei null anfängst.
+              <a href="kontakt.html">Zum Kontaktformular.</a>
+            </p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================= Weiterlesen -->
+  <section class="band">
+    <div class="shell">
+      <div class="kopf auf">
+        <h2>Wenn eine Antwort nicht reicht.</h2>
+        <p class="lede">
+          Die Themenseiten gehen weiter als eine aufgeklappte Frage. Dort steht
+          auch, was Allindrive bewusst nicht macht.
+        </p>
+      </div>
+
+      <ul class="liste liste--zwei">
+        <li class="auf">
+          <h3><a href="funktionen.html">Alle Funktionen im Überblick</a></h3>
+          <p>Ausbildung, Termine, Fuhrpark, Frühwarnung und Auswertung auf einer Seite.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="digitale-adk.html">Digitale ADK</a></h3>
+          <p>Abschnitte, Übungen, Vorlagen je Klasse, Strecken und Ausbildungsnachweis.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="fahrstundenplanung.html">Fahrstundenplanung</a></h3>
+          <p>Kalender, Terminserien, Fahrzeugkalender, Buchungslink und Warteliste.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="pruefungssimulation.html">Prüfungssimulation</a></h3>
+          <p>Live-Timer, wiederkehrende Fehler, Prüfungsreife-Ampel und Erfolgsquoten.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="vergleich.html">Vergleich mit Papier</a></h3>
+          <p>Was sich gegenüber Papier und klassischer Fahrschulsoftware ändert.</p>
+        </li>
+        <li class="auf">
+          <h3><a href="sicherheit.html">Datenschutz und Sicherheit</a></h3>
+          <p>Rollen, Zeilenschutz, Löschfristen und was die KI zu sehen bekommt.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- =========================================================== Schluss -->
+  <section class="band band--eng band--linie">
+    <div class="shell">
+      <div class="auf" style="max-width:640px">
+        <h2>Deine Frage steht nicht dabei?</h2>
+        <p class="lede" style="margin-top:1.1rem">
+          Dann schreib sie uns. Was mehrfach gefragt wird, kommt auf diese
+          Seite. Und wenn du lieber selbst nachsiehst: Die App steht offen,
+          leg deine Fahrschule an und probier es an den nächsten Fahrstunden
+          aus.
+        </p>
+        <div class="btn-reihe" style="margin-top:28px">
+          <a class="btn" href="https://allindrive.netlify.app" rel="noopener">
+            App öffnen
+            <svg width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+          </a>
+          <a class="btn btn--linie" href="kontakt.html">Kontakt aufnehmen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!--FOOTER-->
+<footer class="fuss">
+  <div class="shell">
+    <div class="fuss__raster">
+      <div>
+        <a class="marke" href="index.html" aria-label="Allindrive, zur Startseite">
+          <svg class="ad ad--faehrt" viewBox="0 0 100 68.2" width="30" height="21" aria-hidden="true" focusable="false"><use href="#ad"></use></svg>
+          <span class="marke__wort">Allindrive</span>
+        </a>
+        <p style="margin-top:14px;color:var(--muted);font-size:.9375rem;max-width:32ch">
+          Fahrschulverwaltung für Fahrlehrer, die den größten Teil ihres
+          Arbeitstags nicht am Schreibtisch verbringen.
+        </p>
+      </div>
+
+      <div>
+        <h2>Produkt</h2>
+        <ul>
+          <li><a href="funktionen.html">Alle Funktionen</a></li>
+          <li><a href="digitale-adk.html">Digitale ADK</a></li>
+          <li><a href="fahrstundenplanung.html">Fahrstundenplanung</a></li>
+          <li><a href="pruefungssimulation.html">Prüfungssimulation</a></li>
+          <li><a href="fahrschueler-app.html">Fahrschüler-App</a></li>
+          <li><a href="ki-assistenz.html">KI-Assistenz</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Entscheiden</h2>
+        <ul>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="vergleich.html">Vergleich</a></li>
+          <li><a href="sicherheit.html">Datenschutz &amp; Sicherheit</a></li>
+          <li><a href="faq.html">Häufige Fragen</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Rechtliches</h2>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+          <li><a href="agb.html">AGB</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fuss__leiste">
+      <p>© 2026 Allindrive</p>
+      <p><a href="https://allindrive.netlify.app" rel="noopener">Zur App</a></p>
+    </div>
+  </div>
+</footer>
+<!--/FOOTER-->
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

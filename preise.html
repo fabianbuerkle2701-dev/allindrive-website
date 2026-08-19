@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Fahrschulsoftware Preise im Beta-Betrieb | Allindrive</title>
+<meta name="description" content="Allindrive ist im Beta-Betrieb: Statt Preisliste gibt es ein Gespräch. Was im Zugang enthalten ist, was Beta bedeutet und wonach sich der Preis bemisst.">
+<link rel="canonical" href="https://www.allindrive.de/preise.html">
+
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#100e0b" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Allindrive">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="Fahrschulsoftware Preise: persönlich besprochen statt Preisliste">
+<meta property="og:description" content="Allindrive ist im Beta-Betrieb. Der Zugang enthält den vollen Funktionsumfang, den Preis besprechen wir im Gespräch.">
+<meta property="og:url" content="https://www.allindrive.de/preise.html">
+<meta property="og:image" content="https://www.allindrive.de/images/app/allindrive-startseite.webp">
+<meta property="og:image:alt" content="Die Startseite von Allindrive mit Kennzahlen, Terminen und offenen Anfragen">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/icon-180.png" sizes="180x180" type="image/png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="preload" href="fonts/karla.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/style.css">
+
+<script>
+  // Beides muss vor dem ersten Anzeigen feststehen, sonst blitzt das falsche
+  // Farbschema auf und die Abschnitte springen sichtbar.
+  document.documentElement.classList.add("js");
+  try {
+    var t = localStorage.getItem("allindrive-farbschema");
+    if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.allindrive.de/#organization",
+      "name": "Allindrive",
+      "url": "https://www.allindrive.de/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.allindrive.de/images/icon-512.png",
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.allindrive.de/#website",
+      "url": "https://www.allindrive.de/",
+      "name": "Allindrive",
+      "inLanguage": "de-DE",
+      "publisher": { "@id": "https://www.allindrive.de/#organization" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.allindrive.de/preise.html#webpage",
+      "url": "https://www.allindrive.de/preise.html",
+      "name": "Fahrschulsoftware Preise im Beta-Betrieb | Allindrive",
+      "description": "Allindrive ist im Beta-Betrieb: Statt Preisliste gibt es ein Gespräch. Was im Zugang enthalten ist, was Beta bedeutet und wonach sich der Preis bemisst.",
+      "isPartOf": { "@id": "https://www.allindrive.de/#website" },
+      "about": { "@id": "https://www.allindrive.de/#organization" },
+      "primaryImageOfPage": "https://www.allindrive.de/images/app/allindrive-startseite.webp",
+      "inLanguage": "de-DE"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.allindrive.de/preise.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://www.allindrive.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Preise",
+          "item": "https://www.allindrive.de/preise.html"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.allindrive.de/#software",
+      "name": "Allindrive",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Fahrschulverwaltung",
+      "operatingSystem": "Web, iOS, Android",
+      "inLanguage": "de-DE",
+      "url": "https://www.allindrive.de/",
+      "screenshot": "https://www.allindrive.de/images/app/allindrive-startseite.webp",
+      "description": "Fahrschulverwaltung mit digitaler Ausbildungsdiagrammkarte, Fahrstundenplanung, Online-Terminbuchung, Prüfungssimulation, Fuhrpark und eigenen Apps für Fahrlehrer und Fahrschüler.",
+      "publisher": { "@id": "https://www.allindrive.de/#organization" },
+      "featureList": [
+        "Digitale Ausbildungsdiagrammkarte (ADK)",
+        "Fahrstundenplanung und Fahrzeugkalender",
+        "Online-Terminbuchung für Fahrschüler",
+        "Prüfungssimulation der praktischen Prüfung",
+        "Schaltkompetenz-Test B197",
+        "GPS-Streckenaufzeichnung",
+        "Eigene App für Fahrschüler",
+        "Fuhrparkverwaltung mit HU-Countdown"
+      ]
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<!--SPRITE-->
+<!-- Zeichenvorrat der Seite: die Bildmarke und alle Piktogramme, einmal je
+     Seite abgelegt und ueber <use> so oft eingesetzt wie noetig. Liegt
+     inline und nicht als externe Datei, weil die Fahrbahnstriche der
+     Bildmarke sonst nicht per CSS bewegt werden koennen.
+
+     Die Piktogramme sind durchgaengig auf 24x24 gezeichnet, mit einer
+     Strichstaerke und runden Enden. Gemischte Strichstaerken faellt in
+     einer Reihe sofort auf. -->
+<svg class="vh" aria-hidden="true" focusable="false" width="0" height="0">
+
+<symbol id="ad" viewBox="0 0 100 68.20">
+<g class="ad__road">
+<path class="ad__dash" d="M1.99 -3.72L3.41 -3.39L3.74 -2.73L-0.75 3.19L-3.38 3.41L-3.71 2.64C-3.71 2.64 -1.57 -0.20 -0.97 -0.87C-0.38 -1.54 1.56 -3.31 1.88 -3.61C2.19 -3.91 1.99 -3.72 1.99 -3.72Z"/>
+<path class="ad__dash" d="M1.99 -3.72L3.41 -3.39L3.74 -2.73L-0.75 3.19L-3.38 3.41L-3.71 2.64C-3.71 2.64 -1.57 -0.20 -0.97 -0.87C-0.38 -1.54 1.56 -3.31 1.88 -3.61C2.19 -3.91 1.99 -3.72 1.99 -3.72Z"/>
+<path class="ad__dash" d="M1.99 -3.72L3.41 -3.39L3.74 -2.73L-0.75 3.19L-3.38 3.41L-3.71 2.64C-3.71 2.64 -1.57 -0.20 -0.97 -0.87C-0.38 -1.54 1.56 -3.31 1.88 -3.61C2.19 -3.91 1.99 -3.72 1.99 -3.72Z"/>
+<path class="ad__dash" d="M1.99 -3.72L3.41 -3.39L3.74 -2.73L-0.75 3.19L-3.38 3.41L-3.71 2.64C-3.71 2.64 -1.57 -0.20 -0.97 -0.87C-0.38 -1.54 1.56 -3.31 1.88 -3.61C2.19 -3.91 1.99 -3.72 1.99 -3.72Z"/>
+</g>
+<path class="ad__d" d="M56.25 0.00C56.25 0.00 66.34 -0.06 68.09 0.00C69.85 0.06 71.59 0.31 72.70 0.55C73.81 0.78 77.30 1.73 78.51 2.19C79.71 2.66 82.93 4.29 83.99 4.93C85.06 5.58 87.54 7.39 88.49 8.22C89.43 9.05 92.17 11.90 92.87 12.72C93.57 13.54 94.60 15.12 95.07 15.90C95.53 16.68 96.84 19.10 97.26 20.07C97.68 21.04 98.73 23.97 99.01 25.00C99.29 26.03 99.80 28.46 99.89 29.71C99.98 30.97 100.00 35.43 99.89 36.73C99.79 38.03 99.20 40.81 98.90 41.89C98.61 42.96 97.61 45.80 97.15 46.82C96.69 47.84 95.27 50.45 94.63 51.43C93.98 52.40 91.87 55.09 91.12 55.92C90.37 56.75 88.43 58.54 87.61 59.21C86.79 59.88 84.48 61.57 83.44 62.17C82.40 62.77 78.92 64.38 77.85 64.80C76.79 65.22 74.45 65.92 73.46 66.12C72.48 66.32 71.42 66.62 68.64 66.67C65.86 66.71 47.37 66.56 47.37 66.56C47.37 66.56 48.42 63.93 48.79 63.27C49.17 62.60 50.27 61.03 50.88 60.31C51.49 59.58 53.75 57.17 54.50 56.47C55.24 55.77 57.89 53.73 57.89 53.73C57.89 53.73 67.85 53.59 69.41 53.51C70.96 53.43 71.67 53.21 72.48 52.96C73.29 52.71 76.17 51.62 76.97 51.21C77.78 50.80 79.40 49.66 80.04 49.12C80.69 48.58 82.48 46.77 83.00 46.16C83.53 45.55 84.58 44.13 84.98 43.42C85.38 42.71 86.46 40.25 86.73 39.47C87.00 38.70 87.41 37.06 87.50 36.18C87.59 35.31 87.68 32.17 87.61 31.25C87.54 30.33 87.17 28.46 86.84 27.52C86.51 26.59 84.96 23.25 84.54 22.48C84.12 21.71 83.49 20.90 82.89 20.29C82.30 19.67 79.88 17.32 78.95 16.67C78.01 16.01 75.15 14.53 74.12 14.14C73.09 13.76 70.56 13.17 69.30 13.05C68.04 12.93 62.28 13.05 62.28 13.05L55.92 0.55C55.92 0.55 56.11 0.17 56.14 0.11C56.18 0.05 56.25 0.00 56.25 0.00Z"/>
+<path class="ad__a" d="M39.91 0.00L50.33 0.00L51.21 0.55C51.21 0.55 65.02 28.39 67.00 32.46C68.97 36.53 69.74 38.71 69.74 38.71L54.93 40.24C54.93 40.24 45.82 21.53 44.63 19.19C43.43 16.85 43.75 18.31 43.75 18.31L42.65 18.31C42.65 18.31 42.98 16.99 40.79 21.16C38.60 25.34 22.15 57.46 22.15 57.46C22.15 57.46 30.48 51.96 32.13 50.99C33.78 50.02 36.22 48.93 37.61 48.36C39.00 47.78 43.01 46.22 45.18 45.61C47.34 45.01 55.73 43.07 57.89 42.65C60.06 42.23 64.16 41.77 65.46 41.67C66.76 41.56 70.07 41.67 70.07 41.67C70.07 41.67 64.23 42.44 62.50 42.76C60.77 43.09 55.44 44.30 53.84 44.74C52.24 45.17 48.93 46.26 47.48 46.82C46.03 47.38 41.70 49.24 40.24 50.00C38.78 50.76 34.96 53.13 33.77 53.95C32.58 54.77 29.96 56.90 29.06 57.68C28.16 58.45 26.32 60.07 25.33 61.18C24.33 62.30 19.74 68.09 19.74 68.09L0.00 68.09C0.00 68.09 29.20 11.17 33.00 4.06C36.81 -3.05 35.13 1.81 35.64 1.43C36.14 1.04 37.27 0.58 37.72 0.44C38.16 0.30 39.80 0.11 39.80 0.11L39.91 0.00Z"/>
+</symbol>
+
+<symbol id="i-pfeil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></symbol>
+<symbol id="i-haken" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+<symbol id="i-menue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+<symbol id="i-schliessen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></symbol>
+
+<symbol id="i-sonne" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2"/><path d="M12 19.2v2.2"/><path d="M4.4 4.4 6 6"/><path d="M18 18l1.6 1.6"/><path d="M2.6 12h2.2"/><path d="M19.2 12h2.2"/><path d="M4.4 19.6 6 18"/><path d="M18 6l1.6-1.6"/></symbol>
+<symbol id="i-mond" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.2A8.4 8.4 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2Z"/></symbol>
+
+<!-- Kontrollleuchten. Fahrschul-Motive, ein Strichgewicht, wie ISO-Piktogramme
+     gezeichnet: klare Grundform, keine Details, die bei 20 px zulaufen. -->
+<symbol id="i-karte" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 9h18"/><path d="M9 9v10.5"/><path d="M15 9v10.5"/><path d="M3 14.2h18"/></symbol>
+<symbol id="i-frage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.4a2.7 2.7 0 1 1 3.4 2.6c-.6.2-.8.7-.8 1.3v.5"/><path d="M12 17.1v.05"/></symbol>
+<symbol id="i-telefon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.3 3.5h2.3l1.6 4-2 1.3a12 12 0 0 0 5.5 5.5l1.3-2 4 1.6v2.3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.3 5.7a2 2 0 0 1 2-2.2Z"/><path d="M15.5 3.6a5.6 5.6 0 0 1 4.9 4.9"/></symbol>
+<symbol id="i-kalender" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="5" width="17.6" height="15.5" rx="2"/><path d="M3.2 9.6h17.6"/><path d="M8 3v4"/><path d="M16 3v4"/><path d="m9.6 14.4 2 2 3.4-3.6"/></symbol>
+<symbol id="i-sanduhr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10"/><path d="M7 21h10"/><path d="M7.6 3c0 4 4.4 5.2 4.4 9s-4.4 5-4.4 9"/><path d="M16.4 3c0 4-4.4 5.2-4.4 9s4.4 5 4.4 9"/></symbol>
+<symbol id="i-stift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4.2L19.4 8.8a2.3 2.3 0 0 0-3.2-3.2L5 16.8Z"/><path d="m14.6 7.2 3.2 3.2"/></symbol>
+
+<symbol id="i-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 15.5v-2.2l1.9-4.6A2 2 0 0 1 7 7.4h10a2 2 0 0 1 1.9 1.3l1.9 4.6v2.2"/><path d="M3.2 13.3h17.6"/><circle cx="7.2" cy="16.6" r="1.7"/><circle cx="16.8" cy="16.6" r="1.7"/></symbol>
+<symbol id="i-schild" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 4.6 5.6v5.6c0 4.4 3 8.2 7.4 10 4.4-1.8 7.4-5.6 7.4-10V5.6Z"/><path d="m8.9 11.8 2.2 2.2 4-4.4"/></symbol>
+<symbol id="i-schloss" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4.6" y="10.4" width="14.8" height="10.2" rx="2"/><path d="M8.2 10.4V7.6a3.8 3.8 0 0 1 7.6 0v2.8"/><path d="M12 14.6v2.2"/></symbol>
+<symbol id="i-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.2" r="3.7"/><path d="M4.8 20.2a7.2 7.2 0 0 1 14.4 0"/></symbol>
+<symbol id="i-blitz" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 2.6 5 13.4h5.4l-.6 8 8.2-10.8h-5.4Z"/></symbol>
+<symbol id="i-uhr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.4 2"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.4c4.2-4.4 6.3-7.6 6.3-10.4a6.3 6.3 0 1 0-12.6 0c0 2.8 2.1 6 6.3 10.4Z"/><circle cx="12" cy="10.8" r="2.4"/></symbol>
+<symbol id="i-diagramm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 20v-5.4"/><path d="M12.6 20V9.4"/><path d="M17.2 20v-8"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.2" width="18" height="13.6" rx="2"/><path d="m3.6 6.6 8.4 6 8.4-6"/></symbol>
+<symbol id="i-handy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6.4" y="2.4" width="11.2" height="19.2" rx="2.6"/><path d="M10.6 18.6h2.8"/></symbol>
+<symbol id="i-wolke" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.4 18.4A4.4 4.4 0 0 1 7.8 9.7a5.6 5.6 0 0 1 10.7 1.5 3.7 3.7 0 0 1-.7 7.2Z"/></symbol>
+<symbol id="i-warnung" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.6 2.9 19.4h18.2Z"/><path d="M12 9.8v4.2"/><path d="M12 17.1v.05"/></symbol>
+<symbol id="i-unterschrift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16.6c3.4 0 3.8-9.6 6.4-9.6 1.9 0 1.3 7.2 3.3 7.2 1.5 0 1.9-4 3.4-4 1.2 0 1.3 2.4 2.4 2.4"/><path d="M3.6 20.4h16.8"/></symbol>
+</svg>
+<!--/SPRITE-->
+
+<header class="top" data-top>
+  <div class="shell top__in">
+    <a class="marke" href="index.html" aria-label="Allindrive, zur Startseite">
+      <svg class="ad ad--faehrt" viewBox="0 0 100 68.2" width="30" height="21" aria-hidden="true" focusable="false"><use href="#ad"></use></svg>
+      <span class="marke__wort">Allindrive</span>
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="funktionen.html">Funktionen</a>
+      <a href="digitale-adk.html">Digitale ADK</a>
+      <a href="fahrschueler-app.html">Fahrschüler-App</a>
+      <a href="preise.html" aria-current="page">Preise</a>
+      <a href="faq.html">Fragen</a>
+    </nav>
+
+    <div class="top__aktionen">
+      <button class="schalter" type="button" data-schalter="farbschema" aria-label="Zum dunklen Farbschema wechseln">
+        <svg class="ic-mond" aria-hidden="true" focusable="false"><use href="#i-mond"></use></svg>
+        <svg class="ic-sonne" aria-hidden="true" focusable="false"><use href="#i-sonne"></use></svg>
+      </button>
+      <a class="btn btn--klein" href="https://allindrive.netlify.app" rel="noopener">App öffnen</a>
+      <button class="schalter burger" type="button" data-schalter="menue" aria-controls="menue" aria-expanded="false" aria-label="Menü öffnen">
+        <svg class="ic-menue" aria-hidden="true" focusable="false"><use href="#i-menue"></use></svg>
+        <svg class="ic-schliessen" aria-hidden="true" focusable="false"><use href="#i-schliessen"></use></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="schublade" id="menue">
+    <nav aria-label="Hauptnavigation, mobil">
+      <a href="funktionen.html">Funktionen</a>
+      <a href="digitale-adk.html">Digitale ADK</a>
+      <a href="fahrstundenplanung.html">Fahrstundenplanung</a>
+      <a href="fahrschueler-app.html">Fahrschüler-App</a>
+      <a href="pruefungssimulation.html">Prüfungssimulation</a>
+      <a href="ki-assistenz.html">KI-Assistenz</a>
+      <a href="sicherheit.html">Datenschutz</a>
+      <a href="vergleich.html">Vergleich</a>
+      <a href="preise.html" aria-current="page">Preise</a>
+      <a href="faq.html">Häufige Fragen</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <a class="btn" href="https://allindrive.netlify.app" rel="noopener">App öffnen</a>
+  </div>
+</header>
+
+<main id="inhalt">
+
+  <!-- ============================================================ Auftakt -->
+  <section class="auftakt">
+    <div class="shell">
+      <h1>Was Allindrive kostet.</h1>
+      <p class="lede">
+        Auf dieser Seite steht kein Betrag, und das hat einen Grund: Allindrive
+        ist im Beta-Betrieb. Zugänge vergeben wir einzeln, und den Preis für die
+        Fahrschulsoftware besprechen wir dabei persönlich.
+      </p>
+      <div class="btn-reihe">
+        <a class="btn" href="#zugang">
+          Zugang anfragen
+          <svg width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+        </a>
+        <a class="btn btn--linie" href="https://allindrive.netlify.app" rel="noopener">App öffnen</a>
+      </div>
+      <p class="notiz">
+        Keine Testphase mit Countdown, kein Abschluss über einen Knopf. Erst
+        reden, dann einrichten.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================================================== Warum kein Betrag -->
+  <section class="band band--soft">
+    <div class="shell shell--schmal">
+      <div class="kopf auf">
+        <h2>Warum hier keine Preisliste steht.</h2>
+        <p class="lede">
+          Eine Tabelle mit drei Paketen wäre schnell gebaut. Sie würde nur
+          nicht stimmen.
+        </p>
+      </div>
+
+      <div class="stapel-gross auf">
+        <p>
+          Allindrive läuft in echten Fahrschulen, nicht in einer Vorführung. In
+          dieser Phase kommt laufend etwas dazu, und der Zuschnitt verschiebt
+          sich mit dem, was die ersten Fahrschulen zurückmelden. Ein
+          Listenpreis, der das Produkt von heute beschreibt, wäre in ein paar
+          Wochen eine Zahl, an der wir uns messen lassen müssten, ohne dass sie
+          noch zu irgendetwas passt.
+        </p>
+        <p>
+          Der zweite Grund ist unspektakulär: Fahrschulen sind unterschiedlich.
+          Ein einzelner Fahrlehrer mit Klasse B braucht etwas anderes als ein
+          Betrieb mit vier Fahrlehrern, drei Führerscheinklassen und zwei
+          Filialen. Wir wollen wissen, worüber wir sprechen, bevor wir einen
+          Preis nennen. Das dauert ein Telefonat.
+        </p>
+        <p class="hinweis">
+          Was wir zusagen können: Du erfährst den Preis im ersten Gespräch und
+          nicht erst nach drei Terminen. Und du weißt vorher, woran du bist,
+          bevor du deine Fahrschule anlegst.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================ Was im Zugang steckt -->
+  <section class="band">
+    <div class="shell shell--weit">
+      <div class="zug">
+        <div class="zug__bild auf">
+          <figure class="schirm">
+            <picture>
+              <source media="(max-width: 700px)" srcset="images/app/allindrive-startseite-mobil.webp">
+              <img src="images/app/allindrive-startseite.webp" width="2200" height="1267"
+                 alt="Startseite von Allindrive: Begrüßung, Hinweis auf einen Schüler ohne Termin, Kennzahlen zu aktiven Schülern und Terminen, sowie die Termine des Tages">
+            </picture>
+          </figure>
+          <p class="bildtext">
+            Aufnahme aus der laufenden App. Die Namen darin sind erfunden, die
+            Oberfläche ist es nicht.
+          </p>
+        </div>
+
+        <div class="stapel-gross auf">
+          <h2>Im Beta-Zugang ist der volle Funktions&shy;umfang drin.</h2>
+          <p>
+            Es gibt keine kleine Ausgabe, in der die Hälfte fehlt, und keine
+            Funktion, die erst gegen Aufschlag aufgeht. Wer einen Zugang
+            bekommt, arbeitet mit allem, was Allindrive kann.
+          </p>
+          <ul class="haken">
+            <li>
+              <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
+              <span>Digitale ADK mit Streckenkatalog, GPS-Aufzeichnung, Ausbildungsnachweis als PDF und den Sonderfahrten nach Überland, Autobahn und Dunkelheit</span>
+            </li>
+            <li>
+              <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
+              <span>Kalender mit Fahrzeugkalender, Buchungslink, Warteliste und Kalender-Abo, dazu Fuhrpark mit HU-Countdown und mehrere Standorte</span>
+            </li>
+            <li>
+              <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
+              <span>Prüfungssimulation, Schaltkompetenz-Test B197, Prüfungsreife-Ampel und die KI-Funktionen, die ADK-Karten und Anmeldungen aus einem Foto einlesen</span>
+            </li>
+            <li>
+              <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
+              <span>Die <a href="fahrschueler-app.html">Fahrschüler-App</a> für iPhone, Android und Browser, ohne gesonderten Zugang je Schüler</span>
+            </li>
+          </ul>
+          <a class="pfeil-link" href="funktionen.html">
+            Alle Funktionen ansehen
+            <svg aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= Was Beta ist -->
+  <section class="band band--soft">
+    <div class="shell">
+      <div class="kopf auf">
+        <h2>Was Beta bei uns heißt.</h2>
+        <p class="lede">
+          Beta ist kein Werbewort, sondern eine Ansage mit Folgen. Die solltest
+          du kennen, bevor du deine Fahrschule darin führst.
+        </p>
+      </div>
+
+      <ul class="liste liste--zwei">
+        <li class="auf">
+          <h3>Es kommt laufend etwas dazu</h3>
+          <p>Was heute noch fehlt, kann in wenigen Wochen da sein. Neue Funktionen erscheinen ohne Update-Termin, du musst nichts installieren und nichts freischalten.</p>
+        </li>
+        <li class="auf">
+          <h3>Fehler können auftreten</h3>
+          <p>Software, die wächst, hat Fehler. Die meisten fallen uns selbst auf, manche dir. Wenn dir etwas begegnet, geht die Meldung direkt an die Menschen, die den Code schreiben.</p>
+        </li>
+        <li class="auf">
+          <h3>Wir arbeiten eng zusammen</h3>
+          <p>Beta-Fahrschulen bekommen einen kurzen Draht statt einer Warteschleife. Was du im Alltag vermisst, entscheidet mit, was als Nächstes gebaut wird.</p>
+        </li>
+        <li class="auf">
+          <h3>Du kommst jederzeit an deine Daten</h3>
+          <p>Ein Backup deiner Fahrschule lässt sich jederzeit herunterladen, das Fahrtenbuch zusätzlich als CSV. Wie wir mit deinen Daten umgehen, steht auf der Seite zu <a href="sicherheit.html">Datenschutz und Sicherheit</a>.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================================================== Bemessung des Preises -->
+  <section class="band">
+    <div class="shell shell--schmal">
+      <div class="kopf auf">
+        <h2>Wonach sich der Preis bemisst.</h2>
+        <p class="lede">
+          Drei Größen, die du selbst kennst. Mehr brauchen wir nicht, um
+          einzuschätzen, worüber wir sprechen.
+        </p>
+      </div>
+
+      <ul class="liste">
+        <li class="auf">
+          <h3>Anzahl der Fahrlehrer</h3>
+          <p>Wie viele Menschen arbeiten damit? Ein Einzelbetrieb ist etwas anderes als ein Team mit mehreren Fahrlehrern, Vertretungen und geteilten Fahrschülern.</p>
+        </li>
+        <li class="auf">
+          <h3>Führerscheinklassen</h3>
+          <p>Nur Klasse B, oder dazu Zweirad, Anhänger, Lkw und Bus? Jede Klasse bringt eigene ADK-Vorlagen, eigene Sonderfahrten-Soll-Werte und eigene Ausbildungsfahrt-Arten mit.</p>
+        </li>
+        <li class="auf">
+          <h3>Standorte</h3>
+          <p>Eine Adresse oder mehrere Filialen mit eigenen Fahrzeugen, eigenen Kalendern und Fahrlehrern, die zwischen ihnen wechseln.</p>
+        </li>
+      </ul>
+
+      <p class="auf" style="margin-top:28px">
+        Wie die Staffelung am Ende genau aussieht, steht noch nicht fest.
+        Sobald sie steht, findest du sie an dieser Stelle. Fahrschulen, die
+        vorher dabei sind, erfahren es vorher und nicht aus der Website.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================== Fragen -->
+  <section class="band band--soft">
+    <div class="shell shell--schmal">
+      <div class="kopf auf" style="margin-bottom:24px">
+        <h2>Was dabei meistens gefragt wird.</h2>
+      </div>
+
+      <div class="fragen auf">
+        <details>
+          <summary>Gibt es eine Testphase?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Nicht als Selbstbedienung mit ablaufender Uhr. Es gibt ein
+              Gespräch, danach einen Zugang, mit dem du echte Fahrstunden
+              dokumentierst. Was dabei kaufmännisch gilt, klären wir vorher
+              miteinander, damit hinterher niemand überrascht ist.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Wie lange läuft die Beta?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Ein Enddatum nennen wir nicht, solange wir keines halten können.
+              Sicher ist: Bevor sich an deinem Zugang oder an den Bedingungen
+              etwas ändert, sagen wir es dir und nicht die Website.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Kostet die Fahrschüler-App extra?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Nein. Sie gehört zum Zugang der Fahrschule. Deine Fahrschüler
+              melden sich über den Fahrschul-Code an, nativ auf iPhone und
+              Android oder im Browser, und sehen dort Fortschritt, Termine und
+              ihre gefahrenen Strecken.
+              <a href="fahrschueler-app.html">Die Fahrschüler-App im Detail.</a>
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Was passiert mit meinen Daten, wenn ich aufhöre?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Du lädst dein Backup herunter, das Fahrtenbuch bekommst du
+              zusätzlich als CSV. Welche Aufbewahrungsfristen nach § 31 FahrlG
+              dabei gelten und wie sie in der App berechnet werden, steht unter
+              <a href="sicherheit.html">Datenschutz und Sicherheit</a>.
+            </p>
+          </div>
+        </details>
+        <details>
+          <summary>Lohnt sich der Wechsel überhaupt?
+            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
+          </summary>
+          <div class="fragen__text">
+            <p>
+              Das entscheidet nicht der Preis allein, sondern was danach abends
+              liegen bleibt. Was sich gegenüber Papier und gegenüber
+              klassischer Fahrschulsoftware konkret ändert, steht im
+              <a href="vergleich.html">Vergleich</a>.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="btn-reihe auf" style="margin-top:32px">
+        <a class="btn btn--linie" href="faq.html">Alle Fragen und Antworten</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= Formular -->
+  <section class="band" id="zugang">
+    <div class="shell shell--schmal">
+      <div class="kopf auf">
+        <h2>Zugang anfragen.</h2>
+        <p class="lede">
+          Schreib kurz, wie deine Fahrschule aufgestellt ist. Wir melden uns,
+          besprechen den Preis und richten den Zugang gemeinsam ein.
+        </p>
+      </div>
+
+      <ul class="haken auf" style="margin-bottom:32px">
+        <li>
+          <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
+          <span>Du schreibst uns, mit wie vielen Fahrlehrern und welchen Klassen du arbeitest</span>
+        </li>
+        <li>
+          <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
+          <span>Wir telefonieren kurz, zeigen dir die App und nennen dir den Preis</span>
+        </li>
+        <li>
+          <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
+          <span>Der Zugang wird freigeschaltet, Fahrzeuge und Klassen legen wir zusammen an</span>
+        </li>
+      </ul>
+
+      <form class="formular auf" data-formular>
+        <div class="feld">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+
+        <div class="feld">
+          <label for="fahrschule">Fahrschule</label>
+          <input id="fahrschule" name="fahrschule" type="text" autocomplete="organization" required>
+        </div>
+
+        <div class="feld">
+          <label for="email">E-Mail</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+
+        <div class="feld">
+          <label for="fahrlehrer">Anzahl Fahrlehrer</label>
+          <input id="fahrlehrer" name="fahrlehrer" type="number" min="1" step="1" inputmode="numeric">
+          <p class="feld__hilfe">Dich mitgezählt. Eine ungefähre Zahl reicht.</p>
+        </div>
+
+        <div class="feld">
+          <label for="nachricht">Nachricht</label>
+          <textarea id="nachricht" name="nachricht" rows="5"></textarea>
+          <p class="feld__hilfe">Führerscheinklassen, Standorte, und womit du heute arbeitest.</p>
+        </div>
+
+        <label class="haken-feld" for="einverstanden">
+          <input id="einverstanden" name="einverstanden" type="checkbox" required>
+          <span>Ich bin einverstanden, dass meine Angaben verwendet werden, um mir zu antworten. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span>
+        </label>
+
+        <p class="hinweis" data-formular-hinweis hidden>
+          Ehrlich gesagt: Deine Anfrage ist nicht verschickt worden. Für dieses
+          Formular ist noch kein Empfänger hinterlegt
+          (<span class="offen">Empfängeradresse offen</span>), deine Eingaben
+          verlassen diese Seite nicht und werden nirgends gespeichert. Nimm
+          bitte solange über die <a href="kontakt.html">Kontaktseite</a> Kontakt
+          auf, dort stehen die Wege, die tatsächlich ankommen.
+        </p>
+
+        <div class="btn-reihe">
+          <button class="btn" type="submit">
+            Anfrage senden
+            <svg width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================= Schluss -->
+  <section class="band band--eng band--linie">
+    <div class="shell">
+      <div class="auf" style="max-width:640px">
+        <h2>Erst fahren, dann entscheiden.</h2>
+        <p class="lede" style="margin-top:1.1rem">
+          Ob eine Fahrschulsoftware zu deinem Alltag passt, zeigt sich nicht an
+          einem Betrag auf einer Website, sondern nach der dritten Fahrstunde,
+          die du damit dokumentiert hast. Sieh sie dir an, dann sprechen wir
+          über den Rest.
+        </p>
+        <div class="btn-reihe" style="margin-top:28px">
+          <a class="btn" href="https://allindrive.netlify.app" rel="noopener">
+            App öffnen
+            <svg width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+          </a>
+          <a class="btn btn--linie" href="kontakt.html">Kontakt aufnehmen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!--FOOTER-->
+<footer class="fuss">
+  <div class="shell">
+    <div class="fuss__raster">
+      <div>
+        <a class="marke" href="index.html" aria-label="Allindrive, zur Startseite">
+          <svg class="ad ad--faehrt" viewBox="0 0 100 68.2" width="30" height="21" aria-hidden="true" focusable="false"><use href="#ad"></use></svg>
+          <span class="marke__wort">Allindrive</span>
+        </a>
+        <p style="margin-top:14px;color:var(--muted);font-size:.9375rem;max-width:32ch">
+          Fahrschulverwaltung für Fahrlehrer, die den größten Teil ihres
+          Arbeitstags nicht am Schreibtisch verbringen.
+        </p>
+      </div>
+
+      <div>
+        <h2>Produkt</h2>
+        <ul>
+          <li><a href="funktionen.html">Alle Funktionen</a></li>
+          <li><a href="digitale-adk.html">Digitale ADK</a></li>
+          <li><a href="fahrstundenplanung.html">Fahrstundenplanung</a></li>
+          <li><a href="pruefungssimulation.html">Prüfungssimulation</a></li>
+          <li><a href="fahrschueler-app.html">Fahrschüler-App</a></li>
+          <li><a href="ki-assistenz.html">KI-Assistenz</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Entscheiden</h2>
+        <ul>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="vergleich.html">Vergleich</a></li>
+          <li><a href="sicherheit.html">Datenschutz &amp; Sicherheit</a></li>
+          <li><a href="faq.html">Häufige Fragen</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Rechtliches</h2>
+        <ul>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+          <li><a href="agb.html">AGB</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fuss__leiste">
+      <p>© 2026 Allindrive</p>
+      <p><a href="https://allindrive.netlify.app" rel="noopener">Zur App</a></p>
+    </div>
+  </div>
+</footer>
+<!--/FOOTER-->
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

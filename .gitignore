@@ -1,0 +1,10 @@
+# Werkzeuge der Entwicklungsumgebung, nicht Teil der Website.
+# Ohne diesen Ausschluss landen rund 4 MB Skill-Dateien im Deploy.
+.agents/
+.claude/
+node_modules/
+.DS_Store
+
+# Zwischenstaende
+_*.html
+.impeccable/

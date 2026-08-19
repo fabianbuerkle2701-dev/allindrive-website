@@ -1,0 +1,8 @@
+# Alles darf indexiert werden. Die Rechtsseiten stehen bewusst mit drin:
+# Impressum und Datenschutz gehoeren zu einer auffindbaren Seite dazu.
+User-agent: *
+Allow: /
+Disallow: /404.html
+Disallow: /werkzeug/
+
+Sitemap: https://www.allindrive.de/sitemap.xml
