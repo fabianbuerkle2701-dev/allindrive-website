@@ -2764,8 +2764,10 @@ main,
   display: none;
 }
 
+/* Aus. Das mitwandernde Gerät ist zugunsten des stehenden Flugs
+   zurückgestellt; das Bauteil bleibt erhalten, falls es zurück soll. */
 .js .reise {
-  display: block;
+  display: none;
 }
 
 .reise__phone {
@@ -2833,95 +2835,6 @@ main,
   color: var(--muted);
   opacity: var(--ropa, 1);
   transition: opacity 420ms var(--ease-out);
-}
-
-/* Die Abschnitte lassen dem Gerät eine ganze Spalte frei. Nicht einzelne
-   Kinder beschneiden, sondern den Inhalt als Block auf die andere Seite
-   stellen: sonst rutscht immer irgendein Element doch unter das Gerät.
-
-   52 Prozent, nicht die Hälfte: Das Gerät braucht Luft um sich herum,
-   sonst wirkt die Seite geteilt statt gesetzt. */
-@media (min-width: 900px) {
-  .js [data-phone="rechts"] .shell > *,
-  .js [data-phone="links"] .shell > * {
-    max-width: 50%;
-  }
-
-  /* Zusätzlicher Abstand auf der Seite, auf der das Gerät steht. Ohne ihn
-     endet der Text genau an der Kante des Geräts, und schon eine lange
-     Zeile oder ein breiter Knopf ragt darunter. */
-  .js [data-phone="rechts"] .shell {
-    padding-right: max(var(--rand), 42%);
-  }
-
-  .js [data-phone="links"] .shell {
-    padding-left: max(var(--rand), 42%);
-  }
-
-  .js [data-phone="rechts"] .shell > *,
-  .js [data-phone="links"] .shell > * {
-    max-width: none;
-  }
-
-  .js [data-phone="links"] .shell > * {
-    margin-left: auto;
-    margin-right: 0;
-  }
-
-  /* Innerhalb der Spalte wieder volle Breite: eine zweispaltige Liste
-     hätte in 52 Prozent keine zwei lesbaren Spalten mehr. */
-  .js [data-phone="rechts"] .liste--zwei,
-  .js [data-phone="links"] .liste--zwei {
-    grid-template-columns: minmax(0, 1fr);
-    border-top: 1px solid var(--line);
-  }
-
-  .js [data-phone="rechts"] .liste--zwei > li:nth-child(2),
-  .js [data-phone="links"] .liste--zwei > li:nth-child(2) {
-    border-top: 0;
-  }
-
-  .js [data-phone="rechts"] .schritte,
-  .js [data-phone="links"] .schritte {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
-  }
-
-  /* Der Auftakt hatte ein eigenes Zweispaltenraster für sein Gerät. Das
-     Gerät wandert jetzt frei, also bleibt eine Spalte: sonst teilt sich
-     die schon halbierte Breite noch einmal und die Überschrift bricht
-     nach jedem zweiten Wort. */
-  .js [data-phone] .auftakt__raster {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* Die Text-Bild-Blöcke haben ihr eigenes Bild. Zusammen mit dem
-     wandernden Gerät wären das zwei Geräte nebeneinander, also bleibt
-     hier nur der Text. */
-  .js [data-phone="rechts"] .zug,
-  .js [data-phone="links"] .zug {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .js [data-phone="rechts"] .zug__bild,
-  .js [data-phone="links"] .zug__bild {
-    display: none;
-  }
-
-  /* Ein Abschnitt mit Gerät braucht Höhe, sonst hat das Gerät keine Zeit,
-     sich zu setzen, bevor der nächste es schon wieder wegzieht. */
-  .js [data-phone="rechts"],
-  .js [data-phone="links"],
-  .js [data-phone="mitte"] {
-    min-height: 78vh;
-    display: grid;
-    align-content: center;
-  }
-
-  /* Ohne Gerät darf der Abschnitt die ganze Breite nutzen. */
-  .js [data-phone="weg"] .shell > * {
-    max-width: none;
-  }
 }
 
 /* Unter 900 px gibt es keine freie Spalte. Ein Gerät, das dort in der
