@@ -19,6 +19,7 @@ Ersetzt wird:
     <!--FOOTER-->        die Fusszeile
     <!--GALERIE-->       die Galerie der iPhone-Aufnahmen
     <!--FLUG-->          der scrollgesteuerte Flug durch die App
+    <!--REISE-->         das mitwandernde Geraet, das die ganze Seite begleitet
 
 Jeder eingesetzte Baustein bleibt in seine Marken eingefasst
 (<!--SPRITE-->...<!--/SPRITE-->). Deshalb laesst sich das Werkzeug beliebig
@@ -89,6 +90,7 @@ def galerie():
             )
         teile.append(
             '<figure class="phone auf">'
+            '<span class="phone__insel"></span>'
             f'<span class="phone__glas">{inhalt}</span>'
             f'<figcaption class="phone__titel">{titel}'
             f'<span class="phone__unter">{unter}</span></figcaption>'
@@ -150,6 +152,48 @@ def flug():
     )
 
 
+def reise():
+    """Das eine Geraet, das die ganze Seite begleitet. Enthaelt alle
+    Ansichten uebereinander; welche zu sehen ist, entscheidet js/main.js
+    aus dem Abschnitt, der gerade im Bild steht."""
+    bilder, fehlend = [], []
+    for i, (name, titel, unter) in enumerate(GALERIE):
+        rel = f"images/iphone/{name}.webp"
+        if os.path.exists(os.path.join(WURZEL, rel)):
+            an = " ist-an" if i == 0 else ""
+            faul = "" if i == 0 else 'loading="lazy" '
+            bilder.append(
+                f'<img class="reise__bild{an}" data-ansicht="{name}" src="{rel}" '
+                f'width="780" height="1601" {faul}'
+                f'alt="Allindrive auf dem iPhone: {titel}. {unter}.">'
+            )
+        else:
+            fehlend.append(name)
+            bilder.append(
+                f'<span class="reise__bild phone__leer{" ist-an" if i == 0 else ""}" '
+                f'data-ansicht="{name}">Aufnahme folgt<br>{name}.webp</span>'
+            )
+    if fehlend:
+        print(f"  ! Reise: {len(fehlend)} Aufnahmen fehlen noch "
+              f"({', '.join(fehlend[:4])}{' ...' if len(fehlend) > 4 else ''})")
+
+    return (
+        '<div class="reise" data-reise aria-hidden="true">\n'
+        '<span class="reise__schein"></span>\n'
+        '<figure class="phone reise__phone">\n'
+        '<span class="phone__insel"></span>\n'
+        '<span class="phone__glas">\n' + "\n".join(bilder) + "\n</span>\n"
+        '<span class="phone__rueck">'
+        '<span class="phone__kamera"></span>'
+        '<span class="phone__blitz"></span>'
+        '<svg class="ad" viewBox="0 0 100 68.2" aria-hidden="true" focusable="false">'
+        '<use href="#ad"></use></svg>'
+        "</span>\n"
+        '<figcaption class="reise__schild"></figcaption>\n'
+        "</figure>\n</div>"
+    )
+
+
 def einsetzen(html, marke, inhalt):
     """Setzt einen Baustein ein - beim ersten Lauf und bei jedem weiteren."""
     auf, zu = f"<!--{marke}-->", f"<!--/{marke}-->"
@@ -181,6 +225,8 @@ def main():
             html = einsetzen(html, "GALERIE", galerie())
         if "<!--FLUG-->" in html:
             html = einsetzen(html, "FLUG", flug())
+        if "<!--REISE-->" in html:
+            html = einsetzen(html, "REISE", reise())
 
         if html != vorher:
             with open(pfad, "w", encoding="utf-8") as f:

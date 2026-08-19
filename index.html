@@ -27,7 +27,7 @@
 <link rel="manifest" href="site.webmanifest">
 
 <link rel="preload" href="fonts/karla.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="images/app/allindrive-startseite.webp" as="image" fetchpriority="high">
+<link rel="preload" href="images/iphone/schuelerliste.webp" as="image" fetchpriority="high">
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
 
@@ -35,6 +35,9 @@
   // Beides muss vor dem ersten Anzeigen feststehen, sonst blitzt das falsche
   // Farbschema auf und die Abschnitte springen sichtbar.
   document.documentElement.classList.add("js");
+  // Beim Neuladen oben anfangen: mitten in einer Seite mit mitwanderndem
+  // Geraet und Einblendungen aufzuwachen sieht aus wie ein Fehler.
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   try {
     var t = localStorage.getItem("allindrive-farbschema");
     if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
@@ -108,6 +111,32 @@
 <a class="skip" href="#inhalt">Zum Inhalt springen</a>
 <div class="fortschritt" aria-hidden="true"></div>
 <div class="koernung" aria-hidden="true"></div>
+<div class="blob" aria-hidden="true"></div>
+
+<!--REISE-->
+<div class="reise" data-reise aria-hidden="true">
+<span class="reise__schein"></span>
+<figure class="phone reise__phone">
+<span class="phone__insel"></span>
+<span class="phone__glas">
+<img class="reise__bild ist-an" data-ansicht="schuelerliste" src="images/iphone/schuelerliste.webp" width="780" height="1601" alt="Allindrive auf dem iPhone: Alle Fahrschüler. Wer wie weit ist, auf einen Blick.">
+<span class="reise__bild phone__leer" data-ansicht="startseite">Aufnahme folgt<br>startseite.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="adk">Aufnahme folgt<br>adk.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="adk-uebungen">Aufnahme folgt<br>adk-uebungen.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="kalender-woche">Aufnahme folgt<br>kalender-woche.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="kalender-tag">Aufnahme folgt<br>kalender-tag.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="fahrstunde-karte">Aufnahme folgt<br>fahrstunde-karte.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="pruefungssimulation">Aufnahme folgt<br>pruefungssimulation.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="fahrzeuge">Aufnahme folgt<br>fahrzeuge.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="tagesabschluss">Aufnahme folgt<br>tagesabschluss.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="schueler-app">Aufnahme folgt<br>schueler-app.webp</span>
+<span class="reise__bild phone__leer" data-ansicht="buchung">Aufnahme folgt<br>buchung.webp</span>
+</span>
+<span class="phone__rueck"><span class="phone__kamera"></span><span class="phone__blitz"></span><svg class="ad" viewBox="0 0 100 68.2" aria-hidden="true" focusable="false"><use href="#ad"></use></svg></span>
+<figcaption class="reise__schild"></figcaption>
+</figure>
+</div>
+<!--/REISE-->
 
 <!--SPRITE-->
 <!-- Zeichenvorrat der Seite: die Bildmarke und alle Piktogramme, einmal je
@@ -212,9 +241,15 @@
 </header>
 
 <main id="inhalt">
+<svg class="fahrbahn" data-fahrbahn viewBox="0 0 44 4000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <path class="fahrbahn__weg" d="M22 0 C 4 420, 40 780, 22 1200 C 4 1620, 40 1980, 22 2400 C 4 2820, 40 3180, 22 3600 C 10 3800, 30 3900, 22 4000"/>
+  <path class="fahrbahn__fahrt" d="M22 0 C 4 420, 40 780, 22 1200 C 4 1620, 40 1980, 22 2400 C 4 2820, 40 3180, 22 3600 C 10 3800, 30 3900, 22 4000"/>
+  <circle class="fahrbahn__wagen" cx="22" cy="0" r="4"/>
+</svg>
+
 
   <!-- ============================================================ Auftakt -->
-  <section class="auftakt">
+  <section class="auftakt" data-ansicht="schuelerliste" data-phone="rechts" data-phone-zoom="1.15" data-phone-titel="Alle Fahrschüler">
     <div class="shell shell--weit">
       <div class="auftakt__raster">
         <div>
@@ -236,15 +271,6 @@
           </p>
         </div>
 
-        <div class="buehne">
-          <figure class="phone">
-            
-            <span class="phone__glas">
-              <img src="images/iphone/schuelerliste.webp" width="780" height="1601"
-                   alt="Allindrive auf dem iPhone: die Liste aller Fahrschüler mit Namen, Führerscheinklasse, nächstem Termin und einem Ring, der den Ausbildungsstand in Prozent zeigt">
-            </span>
-          </figure>
-        </div>
       </div>
     </div>
   </section>
@@ -277,9 +303,9 @@
   </div>
 
   <!-- ==================================================== Fachlich gedacht -->
-  <section class="band band--soft">
+  <section class="band band--soft" data-ansicht="adk" data-phone="links" data-phone-zoom="1" data-phone-titel="Digitale ADK">
     <div class="shell">
-      <div class="kopf auf">
+      <div class="kopf auf unscharf">
         <h2 data-worte>Fachlich zu Ende gedacht.</h2>
         <p class="lede">
           Nicht eine Karteikarte in digital, sondern die Ausbildung so
@@ -288,27 +314,27 @@
       </div>
 
       <ul class="liste liste--zwei">
-        <li class="auf kegel">
+        <li class="auf kegel von-links">
           <h3>Eigene Übungen für dein Prüfgebiet</h3>
           <p>Ergänze die Stellen, an denen es bei euch klemmt: der unübersichtliche Kreisverkehr, die enge Ausfahrt. Die Übungen stehen danach in den Vorlagen deiner Führerscheinklassen.</p>
         </li>
-        <li class="auf kegel">
+        <li class="auf kegel zoomt">
           <h3>Sonderfahrten zählen sich mit</h3>
           <p>Überlandfahrt, Autobahnfahrt und Fahrt bei Dunkelheit werden gegen das eingestellte Soll gerechnet. Je Klasse legst du fest, wie viele Unterrichtseinheiten gefordert sind.</p>
         </li>
-        <li class="auf kegel">
+        <li class="auf kegel von-rechts">
           <h3>Prüfungssimulation durchführen</h3>
           <p>Fahraufgaben und Kompetenzbereiche bewerten wie in der Prüfung, mit laufender Zeit. Fehler, die über mehrere Simulationen wiederkehren, werden eigens ausgewiesen.</p>
         </li>
-        <li class="auf kegel">
+        <li class="auf kegel unscharf">
           <h3>Nachweise erstellen und unterschreiben</h3>
           <p>Fahrlehrer und Fahrschüler unterschreiben auf dem Gerät. Der Ausbildungsnachweis entsteht als PDF, das Fahrtenbuch lässt sich als CSV ausgeben.</p>
         </li>
-        <li class="auf kegel">
+        <li class="auf kegel von-links">
           <h3>Termine einmal planen, überall sehen</h3>
           <p>Fahrstunden zentral planen und schreibgeschützt in Apple Kalender, Google Kalender oder Outlook abonnieren.</p>
         </li>
-        <li class="auf kegel">
+        <li class="auf kegel von-unten">
           <h3>Fahrschüler buchen selbst</h3>
           <p>Du gibst Zeiten frei und legst Grenzen fest. Deine Fahrschüler wählen in ihrer App einen passenden Termin, bestätigt wird von dir.</p>
         </li>
@@ -316,78 +342,10 @@
     </div>
   </section>
 
-  <!-- ============================================ Der Flug durch die App -->
-  <section class="band band--eng">
-    <div class="shell">
-      <div class="kopf auf" style="max-width:720px">
-        <h2 data-worte>Allindrive in der Praxis.</h2>
-        <p class="lede">
-          Zwölf Ansichten aus der laufenden App. Scrolle, und der Bildschirm
-          wandert mit. Die Namen darin sind erfunden, die Oberfläche ist es
-          nicht.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!--FLUG-->
-<section class="flug" data-flug aria-label="Allindrive auf dem iPhone">
-<div class="flug__buehne">
-<span class="flug__schein" aria-hidden="true"></span>
-<div class="flug__innen">
-<div class="flug__text">
-<div class="flug__station ist-an"><p class="flug__nummer">01 / 12</p><h3>Alle Fahrschüler</h3><p>Wer wie weit ist, auf einen Blick.</p></div>
-<div class="flug__station"><p class="flug__nummer">02 / 12</p><h3>Der Morgen</h3><p>Termine, Hinweise und offene Anfragen.</p></div>
-<div class="flug__station"><p class="flug__nummer">03 / 12</p><h3>Digitale ADK</h3><p>Alle Abschnitte mit Fortschritt.</p></div>
-<div class="flug__station"><p class="flug__nummer">04 / 12</p><h3>Übung für Übung</h3><p>Abhaken, bewerten, Notiz dazu.</p></div>
-<div class="flug__station"><p class="flug__nummer">05 / 12</p><h3>Die Woche</h3><p>Sechs Tagesspalten, Konflikte markiert.</p></div>
-<div class="flug__station"><p class="flug__nummer">06 / 12</p><h3>Der Tag</h3><p>Fahrlehrer, Fahrschüler und Fahrzeug.</p></div>
-<div class="flug__station"><p class="flug__nummer">07 / 12</p><h3>Gefahrene Strecke</h3><p>Per GPS mitgeschrieben.</p></div>
-<div class="flug__station"><p class="flug__nummer">08 / 12</p><h3>Prüfungssimulation</h3><p>Fahraufgaben und Kompetenzbereiche.</p></div>
-<div class="flug__station"><p class="flug__nummer">09 / 12</p><h3>Fuhrpark</h3><p>Kilometerstand und HU-Countdown.</p></div>
-<div class="flug__station"><p class="flug__nummer">10 / 12</p><h3>Tagesabschluss</h3><p>Was heute lief, was morgen ansteht.</p></div>
-<div class="flug__station"><p class="flug__nummer">11 / 12</p><h3>Fahrschüler-App</h3><p>Fortschritt und nächster Termin.</p></div>
-<div class="flug__station"><p class="flug__nummer">12 / 12</p><h3>Selbst buchen</h3><p>Freie Zeiten, ohne Anruf.</p></div>
-</div>
-<div class="flug__geraet">
-<figure class="phone"><span class="phone__glas">
-<img class="flug__bild ist-an" src="images/iphone/schuelerliste.webp" width="780" height="1601" loading="lazy" alt="Allindrive auf dem iPhone: Alle Fahrschüler. Wer wie weit ist, auf einen Blick.">
-<span class="flug__bild phone__leer">Aufnahme folgt<br>startseite.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>adk.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>adk-uebungen.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>kalender-woche.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>kalender-tag.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>fahrstunde-karte.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>pruefungssimulation.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>fahrzeuge.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>tagesabschluss.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>schueler-app.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>buchung.webp</span>
-</span></figure>
-</div>
-</div>
-<div class="flug__leiste" role="group" aria-label="Stationen">
-<button class="flug__punkt ist-an" type="button" aria-label="Zu Station 1: Alle Fahrschüler"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 2: Der Morgen"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 3: Digitale ADK"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 4: Übung für Übung"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 5: Die Woche"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 6: Der Tag"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 7: Gefahrene Strecke"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 8: Prüfungssimulation"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 9: Fuhrpark"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 10: Tagesabschluss"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 11: Fahrschüler-App"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 12: Selbst buchen"></button>
-</div>
-</div>
-</section>
-<!--/FLUG-->
-
   <!-- ==================================================== Buchung in drei -->
-  <section class="band band--soft">
+  <section class="band band--soft" data-ansicht="buchung" data-phone="rechts" data-phone-zoom="1" data-phone-titel="Selbst buchen">
     <div class="shell">
-      <div class="kopf auf">
+      <div class="kopf auf von-unten">
         <h2 data-worte>Freie Zeiten einstellen. Fahrschüler buchen selbst.</h2>
         <p class="lede">
           Jeder Fahrlehrer gibt seine Zeiten frei. Allindrive zeigt dem
@@ -397,15 +355,15 @@
       </div>
 
       <ol class="schritte">
-        <li class="auf kegel">
+        <li class="auf kegel unscharf">
           <h3>Zeiten freigeben</h3>
           <p>Wiederkehrend als Terminserie oder nur an einzelnen Tagen. Urlaub und sonstige Tätigkeiten blocken automatisch.</p>
         </li>
-        <li class="auf kegel">
+        <li class="auf kegel unscharf">
           <h3>Passende Termine anzeigen</h3>
           <p>Nur wenn Fahrlehrer, Fahrschüler und Fahrzeug frei sind und das Tageslimit es zulässt.</p>
         </li>
-        <li class="auf kegel">
+        <li class="auf kegel von-rechts">
           <h3>Bestätigen oder gegenvorschlagen</h3>
           <p>Du bestätigst mit einem Tipp, lehnst ab oder schickst einen anderen Termin zurück.</p>
         </li>
@@ -418,9 +376,9 @@
   </section>
 
   <!-- =========================================================== Kalender -->
-  <section class="band">
+  <section class="band" data-ansicht="kalender-woche" data-phone="links" data-phone-zoom="1" data-phone-titel="Die Woche">
     <div class="shell shell--weit">
-      <div class="kopf auf" style="max-width:680px">
+      <div class="kopf auf dreht" style="max-width:680px">
         <h2 data-worte>Alle Fahrlehrer und Termine in einem Kalender.</h2>
         <p class="lede">
           Startzeit, Dauer, Fahrschüler und Fahrzeug stehen am Termin.
@@ -445,10 +403,10 @@
   </section>
 
   <!-- ====================================================== Sonderfahrten -->
-  <section class="band band--soft">
+  <section class="band band--soft" data-ansicht="adk-uebungen" data-phone="rechts" data-phone-zoom="1" data-phone-dreh="360" data-phone-titel="Übung für Übung">
     <div class="shell">
       <div class="zug">
-        <div class="stapel-gross auf">
+        <div class="stapel-gross auf von-rechts">
           <h2 data-worte>Sonderfahrten werden mitgerechnet.</h2>
           <p>
             Allindrive zählt die dokumentierten Fahrten je Art zusammen und
@@ -462,7 +420,7 @@
           </a>
         </div>
 
-        <div class="zug__bild auf">
+        <div class="zug__bild auf von-unten">
           <div class="hinweis" style="padding:28px 26px">
             <ul class="soll">
               <li>
@@ -498,50 +456,67 @@
   </section>
 
   <!-- ================================================ Nachweis und Prüfung -->
-  <section class="band">
+  <section class="band band--eng">
     <div class="shell">
-      <div class="kopf auf">
+      <div class="kopf auf von-links">
         <h2 data-worte>Bis zur Prüfung nachvollziehbar.</h2>
+        <p class="lede">
+          Sechs Stellen, an denen Allindrive mitschreibt, während du fährst.
+        </p>
       </div>
+    </div>
+  </section>
 
-      <ul class="liste liste--zwei">
-        <li class="auf kegel">
-          <h3>Ausbildungsnachweis direkt unterschreiben</h3>
+  <section class="schwenk" data-schwenk data-ansicht="pruefungssimulation" data-phone="weg" data-phone-titel="" aria-label="Von der Fahrstunde bis zur Prüfung">
+    <div class="schwenk__halt">
+      <div class="schwenk__spur">
+        <article class="schwenk__karte kegel">
+          <p class="schwenk__nr">01 / 06</p>
+          <h3>Ausbildungsnachweis unterschreiben</h3>
           <p>Der Fahrschüler unterschreibt auf dem Gerät. Eine nachträgliche Korrektur aktualisiert den vorhandenen Nachweis, die Unterschrift bleibt erhalten.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Prüfungsreife als Rechnung, nicht als Gefühl</h3>
+        </article>
+        <article class="schwenk__karte kegel">
+          <p class="schwenk__nr">02 / 06</p>
+          <h3>Prüfungsreife als Rechnung</h3>
           <p>Pflichtstunden, Sonderfahrten und Bewertungen ergeben zusammen die Ampel. Was noch fehlt, steht daneben.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Wiederkehrende Fehler sichtbar machen</h3>
+        </article>
+        <article class="schwenk__karte kegel">
+          <p class="schwenk__nr">03 / 06</p>
+          <h3>Wiederkehrende Fehler</h3>
           <p>Über mehrere Prüfungssimulationen hinweg zeigt Allindrive, welche Fahraufgabe immer wieder auffällt.</p>
-        </li>
-        <li class="auf kegel">
+        </article>
+        <article class="schwenk__karte kegel">
+          <p class="schwenk__nr">04 / 06</p>
           <h3>Schaltkompetenz nach B197</h3>
           <p>Die Testfahrt wird eigens erfasst und als PDF ausgegeben, getrennt vom übrigen Ausbildungsnachweis.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Erfolgsquoten nach Klasse und Zeitraum</h3>
+        </article>
+        <article class="schwenk__karte kegel">
+          <p class="schwenk__nr">05 / 06</p>
+          <h3>Erfolgsquoten je Klasse</h3>
           <p>Der Quotenpilot rechnet aus, was dokumentiert wurde: bestandene und nicht bestandene Versuche, nach Klasse, Zeitraum und Fahrlehrer.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Strecken statt Straßennamen im Notizbuch</h3>
+        </article>
+        <article class="schwenk__karte kegel">
+          <p class="schwenk__nr">06 / 06</p>
+          <h3>Strecken statt Notizbuch</h3>
           <p>Die gefahrene Strecke wird per GPS mitgeschrieben, schwierige Stellen bekommen einen Pin auf der Karte.</p>
-        </li>
-      </ul>
+        </article>
+      </div>
+    </div>
+  </section>
 
-      <div class="btn-reihe auf" style="margin-top:40px">
+  <section class="band band--eng">
+    <div class="shell">
+      <div class="btn-reihe auf zoomt">
         <a class="btn btn--linie" href="pruefungssimulation.html">Prüfungssimulation ansehen</a>
       </div>
     </div>
   </section>
 
   <!-- ==================================================== Fahrschüler-App -->
-  <section class="band band--soft">
+  <section class="band band--soft" data-ansicht="schueler-app" data-phone="links" data-phone-zoom="1" data-phone-titel="Fahrschüler-App">
     <div class="shell shell--weit">
       <div class="zug zug--gedreht">
-        <div class="zug__bild auf">
+        <div class="zug__bild auf dreht">
           <figure class="schirm wisch kippt heranziehen">
             <picture>
               <source media="(max-width: 700px)" srcset="images/app/allindrive-schueler-mobil.webp">
@@ -552,7 +527,7 @@
           <p class="bildtext">Derselbe Stand auf jedem Gerät. Vertretungen sehen, wo zuletzt aufgehört wurde.</p>
         </div>
 
-        <div class="stapel-gross auf">
+        <div class="stapel-gross auf unscharf">
           <h2 data-worte>Deine Fahrschüler haben eine eigene App.</h2>
           <p>
             Fortschritt, Sonderfahrten, nächste Termine, die aufgezeichneten
@@ -560,15 +535,15 @@
             BF17. Das meiste, wofür sonst angerufen wird, steht dort.
           </p>
           <ul class="haken">
-            <li>
+            <li class="auf von-rechts">
               <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
               <span>Native App für iPhone und Android, dazu der Zugang im Browser ohne Installation</span>
             </li>
-            <li>
+            <li class="auf von-unten">
               <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
               <span>Deutsch, Englisch, Türkisch und Russisch, umschaltbar vom Fahrschüler selbst</span>
             </li>
-            <li>
+            <li class="auf von-links">
               <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
               <span>Eigener Zugang für Eltern und Kostenträger, getrennt vom Zugang des Fahrschülers</span>
             </li>
@@ -583,9 +558,9 @@
   </section>
 
   <!-- ======================================================= Frühwarnung -->
-  <section class="band">
+  <section class="band" data-ansicht="tagesabschluss" data-phone="rechts" data-phone-zoom="1" data-phone-titel="Tagesabschluss">
     <div class="shell shell--weit">
-      <div class="kopf auf" style="max-width:680px">
+      <div class="kopf auf steigt" style="max-width:680px">
         <h2 data-worte>Was untergeht, meldet sich von selbst.</h2>
         <p class="lede">
           Der Fahrlehrer sieht morgens, was ansteht, und abends, was liegen
@@ -602,19 +577,19 @@
       </figure>
 
       <ul class="liste liste--zwei auf" style="margin-top:44px">
-        <li class="kegel">
+        <li class="kegel auf von-unten">
           <h3>Lange nicht gefahren</h3>
           <p>Wer seit Wochen keinen Termin hatte, steht oben. Ein Tipp, und die Nachricht ist geschrieben.</p>
         </li>
-        <li class="kegel">
+        <li class="kegel auf zoomt">
           <h3>Fristen-Radar</h3>
           <p>Hauptuntersuchung, Aufbewahrungsfristen nach § 31 FahrlG und fällige Unterlagen, solange noch Zeit ist.</p>
         </li>
-        <li class="kegel">
+        <li class="kegel auf von-rechts">
           <h3>Abbruch-Risiko</h3>
           <p>Wenn ein Fahrschüler stehen bleibt, fällt das auf, bevor er ganz weg ist.</p>
         </li>
-        <li class="kegel">
+        <li class="kegel auf von-links">
           <h3>Tagesabschluss</h3>
           <p>Am Abend in einer Ansicht: was dokumentiert wurde, was fehlt, was morgen ansteht.</p>
         </li>
@@ -623,9 +598,9 @@
   </section>
 
   <!-- ================================================== Was es nicht kann -->
-  <section class="band band--soft">
+  <section class="band band--soft" data-ansicht="fahrzeuge" data-phone="weg" data-phone-zoom="1" data-phone-titel="">
     <div class="shell shell--schmal">
-      <div class="kopf auf">
+      <div class="kopf auf zoomt-raus">
         <h2 data-worte>Wofür Allindrive nicht gemacht ist.</h2>
         <p class="lede">
           Damit du nicht erst nach zwei Wochen merkst, dass etwas fehlt.
@@ -633,19 +608,19 @@
       </div>
 
       <ul class="liste auf">
-        <li class="kegel">
+        <li class="kegel auf unscharf">
           <h3>Buchhaltung</h3>
           <p>Allindrive führt die Ausbildung und den Betrieb, nicht die Bücher. Wer vor allem eine Abrechnungslösung sucht, ist hier falsch.</p>
         </li>
-        <li class="kegel">
+        <li class="kegel auf von-links">
           <h3>Theorieunterricht</h3>
           <p>Für das Lernen der Theoriefragen gibt es eigene Anbieter mit Lizenz am amtlichen Fragenkatalog. Allindrive ersetzt sie nicht.</p>
         </li>
-        <li class="kegel">
+        <li class="kegel auf zoomt">
           <h3>Ein fertiges Produkt</h3>
           <p>Allindrive ist im Beta-Betrieb. Es kommen Funktionen dazu, und es treten Fehler auf. Wer ein abgeschlossenes Programm erwartet, sollte noch warten.</p>
         </li>
-        <li class="kegel">
+        <li class="kegel auf von-rechts">
           <h3>Große Fahrschulen mit eigener IT</h3>
           <p>Es gibt keine Schnittstelle zu Fremdsystemen und keinen Betrieb auf eigenen Servern.</p>
         </li>
@@ -654,9 +629,9 @@
   </section>
 
   <!-- ============================================================= Preise -->
-  <section class="band">
+  <section class="band" data-ansicht="startseite" data-phone="rechts" data-phone-zoom="1" data-phone-titel="Der Morgen">
     <div class="shell shell--schmal">
-      <div class="kopf auf">
+      <div class="kopf auf von-links">
         <h2 data-worte>Was es kostet.</h2>
         <p class="lede">
           Es gibt noch keine Preisliste, und das hat einen Grund: Allindrive
@@ -664,7 +639,7 @@
         </p>
       </div>
 
-      <div class="stapel-gross auf">
+      <div class="stapel-gross auf klappt">
         <p>
           Wir vergeben die Zugänge einzeln und besprechen den Preis im
           Gespräch. So wissen wir, mit welchen Führerscheinklassen und wie
@@ -673,15 +648,15 @@
           enthalten.
         </p>
         <ul class="haken">
-          <li>
+          <li class="auf von-links">
             <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
             <span>Bemessen wird später nach Anzahl der Fahrlehrer, Führerscheinklassen und Standorten</span>
           </li>
-          <li>
+          <li class="auf zoomt">
             <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
             <span>Deine Daten kannst du jederzeit als Sicherung herunterladen</span>
           </li>
-          <li>
+          <li class="auf von-rechts">
             <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
             <span>Was noch nicht fertig ist, sagen wir vorher, nicht hinterher</span>
           </li>
@@ -694,14 +669,14 @@
   </section>
 
   <!-- ============================================================ Fragen -->
-  <section class="band band--soft">
+  <section class="band band--soft" data-ansicht="kalender-tag" data-phone="weg" data-phone-zoom="1" data-phone-titel="">
     <div class="shell shell--schmal">
-      <div class="kopf auf" style="margin-bottom:24px">
+      <div class="kopf auf zoomt" style="margin-bottom:24px">
         <h2 data-worte>Häufige Fragen.</h2>
       </div>
 
       <div class="fragen auf">
-        <details>
+        <details class="auf unscharf">
           <summary>Läuft Allindrive auch ohne Installation?
             <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
           </summary>
@@ -714,7 +689,7 @@
             </p>
           </div>
         </details>
-        <details>
+        <details class="auf von-rechts">
           <summary>Können mehrere Fahrlehrer gleichzeitig arbeiten?
             <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
           </summary>
@@ -727,7 +702,7 @@
             </p>
           </div>
         </details>
-        <details>
+        <details class="auf von-unten">
           <summary>Was passiert mit meinen Papier-ADKs?
             <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
           </summary>
@@ -739,7 +714,7 @@
             </p>
           </div>
         </details>
-        <details>
+        <details class="auf von-unten">
           <summary>Zählt Allindrive die Sonderfahrten automatisch mit?
             <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
           </summary>
@@ -752,7 +727,7 @@
             </p>
           </div>
         </details>
-        <details>
+        <details class="auf von-links">
           <summary>Was kostet Allindrive?
             <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
           </summary>
@@ -774,7 +749,7 @@
   </section>
 
   <!-- =========================================================== Schluss -->
-  <section class="band band--eng band--linie">
+  <section class="band band--eng band--linie" data-ansicht="fahrstunde-karte" data-phone="rechts" data-phone-zoom="1.2" data-phone-dreh="360" data-phone-titel="Gefahrene Strecke">
     <div class="shell">
       <div class="auf" style="max-width:640px">
         <h2 data-worte>Führ deine nächste ADK digital.</h2>

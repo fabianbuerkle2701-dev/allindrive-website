@@ -42,16 +42,59 @@
     });
   }
 
+  function schemaSetzen(neu) {
+    root.setAttribute("data-theme", neu);
+    try {
+      localStorage.setItem(SPEICHER, neu);
+    } catch (e) {
+      /* Privater Modus: dann gilt die Wahl nur fuer diese Seite. */
+    }
+    beschriften();
+  }
+
   document.querySelectorAll("[data-schalter='farbschema']").forEach(function (b) {
-    b.addEventListener("click", function () {
+    b.addEventListener("click", function (e) {
       var neu = aktuell() === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", neu);
-      try {
-        localStorage.setItem(SPEICHER, neu);
-      } catch (e) {
-        /* Privater Modus: dann gilt die Wahl nur fuer diese Seite. */
+
+      // Ohne View Transitions oder bei reduzierter Bewegung schlicht
+      // umschalten. Die Wahl ist das Wichtige, die Welle die Zugabe.
+      if (!document.startViewTransition || ruhig.matches) {
+        schemaSetzen(neu);
+        return;
       }
-      beschriften();
+
+      // Die Welle geht vom Schalter aus. Der Radius muss bis in die
+      // entfernteste Ecke reichen, sonst bleibt ein Zipfel im alten
+      // Schema stehen.
+      var k = b.getBoundingClientRect();
+      var x = k.left + k.width / 2;
+      var y = k.top + k.height / 2;
+      var r = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      var wechsel = document.startViewTransition(function () {
+        schemaSetzen(neu);
+      });
+
+      wechsel.ready.then(function () {
+        root.animate(
+          {
+            clipPath: [
+              "circle(0px at " + x + "px " + y + "px)",
+              "circle(" + r + "px at " + x + "px " + y + "px)"
+            ]
+          },
+          {
+            duration: 620,
+            easing: "cubic-bezier(0.23, 1, 0.32, 1)",
+            pseudoElement: "::view-transition-new(root)"
+          }
+        );
+      }).catch(function () {
+        /* Bricht der Wechsel ab, ist das Schema trotzdem gesetzt. */
+      });
     });
   });
 
@@ -105,13 +148,15 @@
           e.target.classList.add("ist-da");
           e.target.querySelectorAll("[data-zaehler]").forEach(zaehlenLassen);
           if (e.target.hasAttribute("data-zaehler")) zaehlenLassen(e.target);
+          e.target.querySelectorAll("[data-rolle]").forEach(rolleDrehen);
+          if (e.target.hasAttribute("data-rolle")) rolleDrehen(e.target);
           beobachter.unobserve(e.target);
         });
       },
       { rootMargin: "0px 0px -48px 0px", threshold: 0 }
     );
 
-    document.querySelectorAll(".wisch, [data-worte], [data-zaehler]").forEach(function (el) {
+    document.querySelectorAll(".wisch, [data-worte], [data-zaehler], [data-rolle]").forEach(function (el) {
       if (!el.classList.contains("auf")) beobachter.observe(el);
     });
 
@@ -377,6 +422,287 @@
     }
   }
 
+
+  /* ------------------------------------------------------- Schwere Effekte
+
+     Zeigerblob, Fahrbahn, horizontaler Schwenk, Kartenstapel und der
+     wandernde Grund. Alle rechnen aus derselben Scrollposition und laufen
+     in derselben Schleife.
+
+     Bei reduzierter Bewegung wird hier gar nichts aufgebaut; das
+     Stylesheet blendet die Bauteile dann ohnehin aus. */
+
+  var blob = document.querySelector(".blob");
+  var blobX = window.innerWidth / 2, blobY = window.innerHeight / 2;
+  var blobZielX = blobX, blobZielY = blobY;
+
+  if (blob && feinerZeiger && !ruhig.matches) {
+    window.addEventListener("mousemove", function (e) {
+      blobZielX = e.clientX;
+      blobZielY = e.clientY;
+      if (!blob.classList.contains("ist-da")) blob.classList.add("ist-da");
+      beiBewegung();
+    }, { passive: true });
+  }
+
+  /* Die Fahrbahn. Der Weg wird beim Aufbau einmal ausgemessen, danach
+     bewegt sich nur noch der Versatz. */
+
+  var bahn = document.querySelector("[data-fahrbahn]");
+  var bahnWeg = bahn && bahn.querySelector(".fahrbahn__fahrt");
+  var bahnWagen = bahn && bahn.querySelector(".fahrbahn__wagen");
+  var bahnLaenge = 0;
+
+  if (bahnWeg && !ruhig.matches) {
+    bahnLaenge = bahnWeg.getTotalLength();
+    bahn.style.setProperty("--weg-laenge", bahnLaenge.toFixed(0));
+  }
+
+  /* Horizontaler Schwenk: Die Hoehe des Abschnitts folgt der Breite der
+     Spur, damit der Schwenk genau dann endet, wenn die Spur durch ist. */
+
+  var schwenke = ruhig.matches
+    ? []
+    : [].slice.call(document.querySelectorAll("[data-schwenk]"));
+
+  function schwenkMessen(s) {
+    var spur = s.querySelector(".schwenk__spur");
+    if (!spur) return;
+    var weg = Math.max(spur.scrollWidth - window.innerWidth, 0);
+    // Ein Bildschirm Zugabe, damit die letzte Karte einen Moment steht.
+    s.style.height = window.innerHeight + weg + window.innerHeight * 0.35 + "px";
+    s.dataset.weg = weg;
+  }
+
+  schwenke.forEach(schwenkMessen);
+
+  /* Kartenstapel: je tiefer eine Karte im Stapel liegt, desto weiter
+     weicht sie zurueck. */
+
+  var stapel = ruhig.matches
+    ? []
+    : [].slice.call(document.querySelectorAll(".stapelkarte"));
+
+  function schwerZeichnen() {
+    var h = window.innerHeight;
+
+    if (blob) {
+      // Gedaempft folgen. Ein Fleck, der exakt am Zeiger klebt, wirkt
+      // wie ein Fehler; ein nachziehender wirkt wie Licht.
+      blobX += (blobZielX - blobX) * 0.08;
+      blobY += (blobZielY - blobY) * 0.08;
+      blob.style.setProperty("--bx", blobX.toFixed(1) + "px");
+      blob.style.setProperty("--by", blobY.toFixed(1) + "px");
+    }
+
+    if (bahnWeg && bahnLaenge) {
+      var gesamt = document.documentElement.scrollHeight - h;
+      var p = gesamt > 0 ? Math.min(Math.max(window.scrollY / gesamt, 0), 1) : 0;
+      bahn.style.setProperty("--weg-p", p.toFixed(4));
+      if (bahnWagen) {
+        var punkt = bahnWeg.getPointAtLength(bahnLaenge * p);
+        bahnWagen.setAttribute("cx", punkt.x.toFixed(1));
+        bahnWagen.setAttribute("cy", punkt.y.toFixed(1));
+      }
+    }
+
+    for (var i = 0; i < schwenke.length; i++) {
+      var s = schwenke[i];
+      var k = s.getBoundingClientRect();
+      if (k.bottom < 0 || k.top > h) continue;
+      var weg = parseFloat(s.dataset.weg || "0");
+      var laenge = s.offsetHeight - h;
+      var sp = laenge > 0 ? Math.min(Math.max(-k.top / laenge, 0), 1) : 0;
+      var spur = s.querySelector(".schwenk__spur");
+      if (spur) spur.style.setProperty("--schwenk", (-weg * sp).toFixed(1) + "px");
+    }
+
+    for (var c = 0; c < stapel.length; c++) {
+      var karte = stapel[c];
+      var kr = karte.getBoundingClientRect();
+      if (kr.bottom < -200 || kr.top > h + 200) continue;
+      // Wie viele Karten liegen schon darueber? Daraus folgt, wie weit
+      // diese zurueckweicht.
+      var oben = parseFloat(getComputedStyle(karte).top) || 0;
+      var ueber = Math.min(Math.max((oben - kr.top) / (h * 0.6), 0), 1);
+      karte.style.setProperty("--stapel-s", (1 - ueber * 0.07).toFixed(4));
+      karte.style.setProperty("--stapel-y", (ueber * -14).toFixed(1) + "px");
+    }
+
+    // Der Grund wandert: die Stelle des Scheins folgt dem Fortschritt.
+    var gp = document.documentElement.scrollHeight - h;
+    var g = gp > 0 ? window.scrollY / gp : 0;
+    root.style.setProperty("--grund-x", (25 + Math.sin(g * Math.PI * 2.2) * 40 + 25).toFixed(1) + "%");
+    root.style.setProperty("--grund-y", (18 + g * 55).toFixed(1) + "%");
+  }
+
+  /* Ziffernrollen: jede Stelle bekommt ein Band mit den Ziffern 0 bis 9
+     und wird an die richtige Stelle geschoben. */
+
+  function rolleBauen(el) {
+    if (el.dataset.gebaut) return;
+    el.dataset.gebaut = "1";
+    var wert = String(parseInt(el.dataset.rolle, 10) || 0);
+    el.textContent = "";
+    el.classList.add("rolle");
+    for (var i = 0; i < wert.length; i++) {
+      var stelle = document.createElement("span");
+      stelle.className = "rolle__stelle";
+      var band = document.createElement("span");
+      band.className = "rolle__band";
+      band.style.setProperty("--s", i);
+      for (var z = 0; z <= 9; z++) {
+        var s = document.createElement("span");
+        s.textContent = z;
+        band.appendChild(s);
+      }
+      stelle.appendChild(band);
+      el.appendChild(stelle);
+      band.dataset.ziel = wert[i];
+    }
+  }
+
+  function rolleDrehen(el) {
+    if (el.dataset.gedreht) return;
+    el.dataset.gedreht = "1";
+    el.querySelectorAll(".rolle__band").forEach(function (b) {
+      b.style.setProperty("--z", b.dataset.ziel);
+    });
+  }
+
+  document.querySelectorAll("[data-rolle]").forEach(rolleBauen);
+
+
+  /* -------------------------------------------------------------- Die Reise
+
+     Ein Geraet begleitet die ganze Seite. Welcher Abschnitt gerade im Bild
+     steht, bestimmt drei Dinge: welche Ansicht der Bildschirm zeigt, auf
+     welcher Seite das Geraet steht, und wie gross es ist.
+
+     Zwei Bewegungen liegen uebereinander. Die grobe folgt dem Abschnitt und
+     wird gedaempft angefahren, damit das Geraet gleitet statt zu springen.
+     Die feine folgt dem Fortschritt innerhalb des Abschnitts: waehrend man
+     durch einen Abschnitt scrollt, schwingt das Geraet seitlich aus, kippt
+     und dreht sich weiter. Ohne die zweite Bewegung staende es zwischen
+     den Abschnitten still. */
+
+  var reise = document.querySelector("[data-reise]");
+  var reisePhone = reise && reise.querySelector(".reise__phone");
+  var reiseSchein = reise && reise.querySelector(".reise__schein");
+  var reiseSchild = reise && reise.querySelector(".reise__schild");
+  var reiseBilder = reise ? [].slice.call(reise.querySelectorAll(".reise__bild")) : [];
+  var stationen = [].slice.call(document.querySelectorAll("[data-ansicht][data-phone]"));
+
+  // Ist-Werte und Ziel-Werte. Angefahren wird immer nur der Unterschied.
+  var rIst = { x: 0.76, y: 0, zoom: 1, dreh: -15, neig: 5, opa: 1 };
+  var rZiel = { x: 0.76, y: 0, zoom: 1, dreh: -15, neig: 5, opa: 1 };
+  var rAnsicht = "";
+
+  var SEITEN = {
+    rechts: { x: 0.76, dreh: -15 },
+    links: { x: 0.24, dreh: 15 },
+    mitte: { x: 0.5, dreh: 0 },
+    weg: { x: 1.28, dreh: -26 }
+  };
+
+  var reiseZuletzt = 0;
+
+  function reiseZeichnen() {
+    if (!reisePhone || ruhig.matches || !stationen.length) return;
+
+    // Zeitbasiert daempfen statt bildbasiert. Der Faktor beschreibt, wie
+    // viel des Rests je 16,7 ms aufgeholt wird; bei einem groesseren
+    // Zeitschritt entsprechend mehr.
+    var jetztMs = performance.now();
+    var dt = reiseZuletzt ? Math.min(jetztMs - reiseZuletzt, 120) : 16.7;
+    reiseZuletzt = jetztMs;
+    var k = 1 - Math.pow(1 - 0.09, dt / 16.7);
+    var kSchnell = 1 - Math.pow(1 - 0.3, dt / 16.7);
+
+    var h = window.innerHeight;
+    var mitte = h / 2;
+
+    // Der Abschnitt, dessen Mitte der Bildschirmmitte am naechsten ist.
+    var beste = null, besteWeite = Infinity, besteP = 0;
+    for (var i = 0; i < stationen.length; i++) {
+      var kk = stationen[i].getBoundingClientRect();
+      // Abschnitte ohne Hoehe kommen vor, solange das Layout noch laeuft.
+      // Ohne diesen Ausschluss wird die Rechnung 0 durch 0 und alles
+      // danach NaN: das Geraet verschwindet dann komplett.
+      if (kk.height < 1) continue;
+      var weite = Math.abs(kk.top + kk.height / 2 - mitte);
+      if (weite < besteWeite) {
+        besteWeite = weite;
+        beste = stationen[i];
+        // Fortschritt durch diesen Abschnitt, 0 beim Eintreten, 1 beim Verlassen
+        besteP = Math.min(Math.max((mitte - kk.top) / kk.height, 0), 1);
+      }
+    }
+    if (!beste) return;
+    if (!isFinite(besteP)) besteP = 0.5;
+
+    var seite = SEITEN[beste.dataset.phone] || SEITEN.rechts;
+    var gross = parseFloat(beste.dataset.phoneZoom || "1");
+
+    // Feine Bewegung: seitliches Ausschwingen und Weiterdrehen waehrend
+    // man durch den Abschnitt scrollt.
+    var schwung = Math.sin(besteP * Math.PI);
+    var richtung = beste.dataset.phone === "links" ? 1 : -1;
+
+    rZiel.x = seite.x + richtung * schwung * 0.045;
+    rZiel.dreh = seite.dreh + richtung * schwung * 13 + (besteP - 0.5) * 9;
+    rZiel.neig = 5 - schwung * 9;
+    rZiel.y = (besteP - 0.5) * 46 - schwung * 16;
+    rZiel.zoom = gross * (0.94 + schwung * 0.1);
+    rZiel.opa = beste.dataset.phone === "weg" ? 0 : 1;
+
+    // Gedaempft anfahren. 0.09 ist der Punkt, an dem es gleitet, ohne
+    // hinterherzuhinken.
+    rIst.x += (rZiel.x - rIst.x) * k;
+    rIst.y += (rZiel.y - rIst.y) * k;
+    rIst.zoom += (rZiel.zoom - rIst.zoom) * k;
+    rIst.dreh += (rZiel.dreh - rIst.dreh) * k;
+    rIst.neig += (rZiel.neig - rIst.neig) * k;
+    rIst.opa += (rZiel.opa - rIst.opa) * Math.min(kSchnell, 1);
+
+    if (!isFinite(rIst.x) || !isFinite(rIst.zoom) || !isFinite(rIst.dreh)) {
+      rIst.x = rZiel.x; rIst.y = rZiel.y; rIst.zoom = rZiel.zoom;
+      rIst.dreh = rZiel.dreh; rIst.neig = rZiel.neig; rIst.opa = rZiel.opa;
+    }
+
+    var breite = window.innerWidth;
+    reisePhone.style.setProperty("--rx", (rIst.x * breite).toFixed(1) + "px");
+    reisePhone.style.setProperty("--ry", rIst.y.toFixed(1) + "px");
+    reisePhone.style.setProperty("--rzoom", rIst.zoom.toFixed(3));
+    // Die Umdrehung kommt erst beim Zeichnen dazu. Sie folgt unmittelbar
+    // dem Fortschritt, wird also nie angefahren und sammelt sich nicht an:
+    // beim Verlassen der Station steht sie auf 360 Grad, was dasselbe ist
+    // wie null.
+    var umdrehung = beste.dataset.phoneDreh
+      ? besteP * parseFloat(beste.dataset.phoneDreh)
+      : 0;
+    reisePhone.style.setProperty("--rdreh", (rIst.dreh + umdrehung).toFixed(2) + "deg");
+    reisePhone.style.setProperty("--rneig", rIst.neig.toFixed(2) + "deg");
+    reisePhone.style.setProperty("--ropa", rIst.opa.toFixed(3));
+    reisePhone.style.setProperty("--rzoom-klein", (0.92 + schwung * 0.08).toFixed(3));
+
+    if (reiseSchein) {
+      reiseSchein.style.setProperty("--rx", (rIst.x * breite).toFixed(1) + "px");
+      reiseSchein.style.setProperty("--ry", rIst.y.toFixed(1) + "px");
+      reiseSchein.style.setProperty("--ropa", (rIst.opa * 0.85).toFixed(3));
+    }
+
+    // Der Bildschirm wechselt auf die Ansicht des Abschnitts.
+    var ansicht = beste.dataset.ansicht;
+    if (ansicht && ansicht !== rAnsicht) {
+      rAnsicht = ansicht;
+      for (var b = 0; b < reiseBilder.length; b++) {
+        reiseBilder[b].classList.toggle("ist-an", reiseBilder[b].dataset.ansicht === ansicht);
+      }
+      if (reiseSchild) reiseSchild.textContent = beste.dataset.phoneTitel || "";
+    }
+  }
+
   /* ------------------------------------------------------------------ Flug
 
      Der festgehaltene Abschnitt, in dem das Geraet stehen bleibt und der
@@ -483,6 +809,8 @@
       zeigerZeichnen();
       zieherZeichnen();
       kopfzeileFuehren(jetzt);
+      schwerZeichnen();
+      reiseZeichnen();
     }
 
     if (marken.length && !ruhig.matches) {
@@ -496,19 +824,32 @@
     letzte = jetzt;
   }
 
+  // Solange sich noch etwas anfaehrt, laeuft die Schleife weiter. Ohne
+  // das bliebe das Geraet nach dem letzten Scrollereignis auf halbem Weg
+  // stehen, weil das Daempfen mehrere Bilder braucht.
+  var nachlauf = 0;
+
   function beiBewegung() {
+    nachlauf = 42;
     if (geplant) return;
     geplant = true;
     // Alles Scroll-Abhaengige in einer Schleife, die nur rechnet, wenn sich
     // wirklich etwas bewegt. Ein eigener Zuhoerer je Effekt ruckelt.
-    requestAnimationFrame(function () {
-      geplant = false;
+    requestAnimationFrame(function weiter() {
       messen();
+      if (nachlauf-- > 0) {
+        requestAnimationFrame(weiter);
+      } else {
+        geplant = false;
+      }
     });
   }
 
   window.addEventListener("scroll", beiBewegung, { passive: true });
-  window.addEventListener("resize", beiBewegung, { passive: true });
+  window.addEventListener("resize", function () {
+    schwenke.forEach(schwenkMessen);
+    beiBewegung();
+  }, { passive: true });
   messen();
 
   /* ---------------------------------------------------------------- Formular

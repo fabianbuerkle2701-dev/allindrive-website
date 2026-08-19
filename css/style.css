@@ -270,6 +270,12 @@ li:last-child {
 
 .band {
   padding-block: clamp(72px, 9vw, 132px);
+  /* Die Einblend-Varianten stehen vor dem Erscheinen seitlich versetzt.
+     Auf einem schmalen Bildschirm ragt dieser Versatz aus dem Bild und
+     erzeugt eine waagerechte Bildlaufleiste, die niemand haben will.
+     clip statt hidden: das schafft keinen Scrollbereich und lässt
+     position: sticky in Ruhe. */
+  overflow-x: clip;
 }
 
 .band--eng {
@@ -1221,35 +1227,119 @@ li:last-child {
 /* -------------------------------------------------------------------------
    17 · Gerätehülle
 
-   Die Bildschirmfotos kommen unbeschnitten vom iPhone. Das Gehäuse steckt
-   hier in CSS statt im Bild: So bleibt jede Aufnahme austauschbar, die
-   Huelle bei jeder Aufloesung scharf, und die Dateien bleiben klein.
+   Nachgebaut nach der Bauform des iPhone 16: Titanrahmen mit umlaufender
+   Kante, senkrechte Kamerapille oben links, Blitz daneben, Tasten an
+   beiden Seiten, Dynamic Island über dem Bildschirm. Auf der Rückseite
+   steht die Allindrive-Marke, nicht die eines Herstellers.
 
-   Massverhaeltnisse nach iPhone 15/16: Seitenverhaeltnis 19.5:9, Rahmen
-   rundum, Eckenradius etwa ein Achtel der Breite. Die Insel oben ist die
-   Dynamic Island, ohne sie wirkt die Huelle wie ein Tablet.
+   Alles in CSS statt im Bild: So bleibt jede Aufnahme austauschbar, die
+   Hülle bei jeder Auflösung scharf, und die Dateien bleiben klein. Und die
+   Rückseite gibt es überhaupt nur, weil sich das Gerät beim Scrollen um
+   die eigene Achse dreht.
    ------------------------------------------------------------------------- */
 
 .phone {
   --phone-breite: 260px;
+  --rahmen: calc(var(--phone-breite) * 0.033);
+  --radius: calc(var(--phone-breite) * 0.155);
   width: var(--phone-breite);
   flex: none;
   position: relative;
   margin: 0;
-  padding: calc(var(--phone-breite) * 0.032);
-  border-radius: calc(var(--phone-breite) * 0.145);
-  background: linear-gradient(155deg, #3a3a42 0%, #17171c 28%, #0d0d11 60%, #2c2c34 100%);
+  padding: var(--rahmen);
+  border-radius: var(--radius);
+  background: var(--gehaeuse,
+    linear-gradient(118deg, #55555f 0%, #2a2a31 14%, #1a1a20 34%, #33333b 52%,
+                            #1c1c22 72%, #45454f 88%, #26262d 100%));
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
-    0 30px 70px -30px rgba(0, 0, 0, 0.9);
+    var(--gehaeuse-kante, inset 0 0 0 1px rgba(255, 255, 255, 0.22)),
+    0 30px 70px -30px rgba(0, 0, 0, 0.75);
+  transform-style: preserve-3d;
+}
+
+/* Helles Gehäuse im hellen Farbschema. Ein schwarzer Block auf weissem
+   Grund wirkt wie ein Loch in der Seite. */
+:root[data-theme="light"] .phone {
+  --gehaeuse: linear-gradient(118deg, #fbfaf8 0%, #ddd9d3 14%, #cbc6bf 34%,
+                              #f1efec 52%, #cfcac3 72%, #f6f4f1 88%, #d8d4ce 100%);
+  --gehaeuse-kante: inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .phone {
+    --gehaeuse: linear-gradient(118deg, #fbfaf8 0%, #ddd9d3 14%, #cbc6bf 34%,
+                                #f1efec 52%, #cfcac3 72%, #f6f4f1 88%, #d8d4ce 100%);
+    --gehaeuse-kante: inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Die Tasten sitzen auf der Kante: Lautstärke und Aktionstaste links,
+   Standby rechts. Sie ragen ein Stück heraus, sonst sieht man sie nicht. */
+.phone::before,
+.phone::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--phone-breite) * 0.011);
+  background: var(--taste, linear-gradient(180deg, #3a3a42, #17171c));
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+.phone::before {
+  left: calc(var(--phone-breite) * -0.009);
+  top: 21%;
+  height: 20%;
+  box-shadow:
+    0 calc(var(--phone-breite) * 0.115) 0 0 var(--taste, #2b2b32),
+    0 calc(var(--phone-breite) * -0.105) 0 0 var(--taste, #2b2b32);
+}
+
+.phone::after {
+  right: calc(var(--phone-breite) * -0.009);
+  top: 27%;
+  height: 13%;
+}
+
+:root[data-theme="light"] .phone {
+  --taste: linear-gradient(180deg, #e6e2dc, #c9c4bd);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .phone {
+    --taste: linear-gradient(180deg, #e6e2dc, #c9c4bd);
+  }
+}
+
+/* Die Dynamic Island. Sie sitzt über dem Bild, weil ein echtes
+   iPhone-Bildschirmfoto an dieser Stelle die Statusleiste zeigt und dort
+   ohnehin nichts steht. Ohne sie sieht die Hülle aus wie ein Tablet. */
+.phone__insel {
+  position: absolute;
+  top: calc(var(--phone-breite) * 0.055);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--phone-breite) * 0.3);
+  height: calc(var(--phone-breite) * 0.084);
+  border-radius: var(--r-rund);
+  background: #08080b;
+  z-index: 3;
+  pointer-events: none;
+  /* Die Linse sitzt rechts in der Insel. */
+  box-shadow:
+    inset calc(var(--phone-breite) * -0.052) 0 0 calc(var(--phone-breite) * -0.03)
+      rgba(64, 76, 108, 0.6);
+}
+
+.phone__glas,
+.phone__rueck {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .phone__glas {
-  /* Ohne display:block bleibt das <span> inline, dann greifen weder
-     aspect-ratio noch overflow und die Huelle bleibt leer. */
   display: block;
   position: relative;
-  border-radius: calc(var(--phone-breite) * 0.115);
+  border-radius: calc(var(--radius) - var(--rahmen));
   overflow: hidden;
   background: #fdf7ec;
   aspect-ratio: 9 / 19.5;
@@ -1257,12 +1347,125 @@ li:last-child {
 
 .phone__glas img {
   width: 100%;
+  height: 100%;
   display: block;
-  /* Oben ausgerichtet: Der Kopf der Ansicht traegt die Aussage, unten
-     laeuft die Liste ohnehin weiter. */
   object-fit: cover;
   object-position: top center;
-  height: 100%;
+}
+
+/* --------------------------------------------------------- Die Rückseite */
+
+.phone__rueck {
+  position: absolute;
+  inset: var(--rahmen);
+  border-radius: calc(var(--radius) - var(--rahmen));
+  transform: rotateY(180deg) translateZ(1px);
+  background: var(--rueckseite,
+    linear-gradient(155deg, #2b2b33 0%, #1b1b21 42%, #131318 72%, #292930 100%));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+:root[data-theme="light"] .phone__rueck {
+  --rueckseite: linear-gradient(155deg, #f4f2ef 0%, #e2dfd9 42%, #d3cfc8 72%, #efedea 100%);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .phone__rueck {
+    --rueckseite: linear-gradient(155deg, #f4f2ef 0%, #e2dfd9 42%, #d3cfc8 72%, #efedea 100%);
+  }
+}
+
+/* Die Kamerapille oben links: zwei Linsen senkrecht übereinander in einer
+   erhabenen Fassung, der Blitz daneben. Das ist die Bauform, an der man
+   das Gerät auf den ersten Blick erkennt. */
+.phone__kamera {
+  position: absolute;
+  top: 4.5%;
+  left: 6.5%;
+  width: 26%;
+  height: 25%;
+  border-radius: calc(var(--phone-breite) * 0.075);
+  background: color-mix(in srgb, currentColor 9%, transparent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, currentColor 15%, transparent),
+    0 2px 6px -2px rgba(0, 0, 0, 0.5);
+  color: var(--ink);
+}
+
+.phone__kamera::before,
+.phone__kamera::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 62%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, #4c5570 0%, #14161d 46%, #05060a 100%);
+  box-shadow:
+    inset 0 0 0 2px color-mix(in srgb, currentColor 22%, transparent),
+    0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.phone__kamera::before {
+  top: 7%;
+}
+
+.phone__kamera::after {
+  bottom: 7%;
+}
+
+/* Der Blitz rechts neben der Pille. */
+.phone__blitz {
+  position: absolute;
+  top: 7%;
+  left: 35%;
+  width: 7%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff6dc, #e8b96a 60%, #9b7734);
+  box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 14%, transparent);
+  color: var(--ink);
+}
+
+/* Die Marke mittig auf der Rückseite, wie beim Vorbild das Herstellerlogo. */
+.phone__rueck .ad {
+  width: 30%;
+  opacity: 0.32;
+  --mark-a: currentColor;
+  color: var(--ink);
+}
+
+/* Ausschnitt: zeigt nur den oberen Teil eines langen Bildes, ohne es zu
+   stauchen. */
+@media (min-width: 701px) {
+  .schirm--kappe img {
+    object-fit: cover;
+    object-position: top center;
+    max-height: 540px;
+  }
+}
+
+/* Fehlt eine Aufnahme noch, steht statt des Bildes ein deutlicher
+   Platzhalter. Besser als ein leerer Rahmen, den niemand bemerkt. */
+.phone__leer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  padding: 12px;
+  text-align: center;
+  font-size: clamp(0.5rem, 2.6cqw, 0.8125rem);
+  overflow-wrap: anywhere;
+  container-type: inline-size;
+  background: repeating-linear-gradient(-45deg, #fff6dc 0 12px, #ffeec2 12px 24px);
+  color: #4a3100;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
 .phone__titel {
@@ -1290,8 +1493,11 @@ li:last-child {
   display: grid;
   place-content: center;
   gap: 6px;
-  padding: 20px;
+  padding: 12px;
   text-align: center;
+  font-size: clamp(0.5rem, 2.6cqw, 0.8125rem);
+  overflow-wrap: anywhere;
+  container-type: inline-size;
   background: repeating-linear-gradient(-45deg, #fff6dc 0 12px, #ffeec2 12px 24px);
   color: #4a3100;
   font-size: 0.8125rem;
@@ -2123,5 +2329,654 @@ html:not(.js) .flug__bild {
   }
   .top {
     transform: none;
+  }
+}
+
+/* =========================================================================
+   25 · Schwere Effekte
+
+   Ab hier wird es aufwendig. Drei Dinge halten das zusammen:
+
+   1. Alles läuft über transform und opacity. Nichts hier fasst Breite,
+      Höhe, top oder left an, also muss der Browser nie neu ausmessen.
+   2. Alles hängt an derselben rAF-Schleife wie der Rest.
+   3. Alles verschwindet bei prefers-reduced-motion. Eine Seite mit
+      Scroll-Übernahme und wanderndem Licht ist für manche Menschen
+      unbenutzbar, und das ist keine Geschmacksfrage.
+   ========================================================================= */
+
+/* ------------------------------------------------------------ Zeigerblob --
+   Ein großer weicher Schein, der dem Zeiger nachläuft. Er folgt gedämpft,
+   nicht sofort: Ein Fleck, der exakt am Cursor klebt, wirkt wie ein
+   Fehler im Bild. Liegt ganz hinten und fängt keine Klicks ab. */
+
+.blob {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 46vmax;
+  height: 46vmax;
+  margin: -23vmax 0 0 -23vmax;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transform: translate3d(var(--bx, 50vw), var(--by, 50vh), 0);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 13%, transparent) 0%,
+    transparent 62%
+  );
+  filter: blur(40px);
+  transition: opacity 700ms var(--ease-out);
+  will-change: transform;
+}
+
+.js .blob.ist-da {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------- Die Fahrbahn --
+   Eine Linie, die sich beim Scrollen durch die ganze Seite zeichnet. Sie
+   kommt aus der Bildmarke: dort läuft dieselbe gestrichelte Fahrbahn durch
+   das A. Hier ist sie das Rückgrat der Seite.
+
+   Gezeichnet wird über stroke-dashoffset, das ist die einzige Eigenschaft,
+   die eine Linie wirklich wachsen lässt statt sie einzublenden. */
+
+.fahrbahn {
+  position: absolute;
+  top: 0;
+  left: clamp(8px, 2.2vw, 34px);
+  width: 44px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+/* Auf schmalen Bildschirmen ist links kein Platz neben dem Text. */
+@media (max-width: 760px) {
+  .fahrbahn {
+    display: none;
+  }
+}
+
+.fahrbahn__weg {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 14 20;
+  /* Der Anteil kommt aus js/main.js und wächst mit dem Scrollen. */
+  stroke-dashoffset: 0;
+}
+
+.fahrbahn__fahrt {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: var(--weg-laenge, 4000);
+  stroke-dashoffset: calc(var(--weg-laenge, 4000) * (1 - var(--weg-p, 0)));
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+/* Der Wagen auf der Fahrbahn: ein Punkt, der die Linie entlangfährt. */
+.fahrbahn__wagen {
+  fill: var(--accent);
+  r: 5;
+  filter: drop-shadow(0 0 10px var(--accent));
+}
+
+/* -------------------------------------------------- Horizontaler Schwenk --
+   Ein Abschnitt, der festgehalten wird, während der Inhalt seitwärts
+   durchs Bild zieht. Vertikales Scrollen wird zu horizontaler Fahrt.
+
+   Die Höhe des Abschnitts bestimmt, wie lange der Schwenk dauert; sie
+   wird aus der Breite der Spur gerechnet, damit nie ein Rest übrig
+   bleibt oder die Spur zu früh endet. */
+
+.schwenk {
+  position: relative;
+}
+
+.schwenk__halt {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  align-content: center;
+  overflow: hidden;
+}
+
+.schwenk__spur {
+  display: flex;
+  gap: clamp(20px, 3vw, 44px);
+  padding-inline: var(--rand);
+  width: max-content;
+  transform: translate3d(var(--schwenk, 0px), 0, 0);
+  will-change: transform;
+}
+
+.schwenk__karte {
+  width: clamp(260px, 34vw, 380px);
+  flex: none;
+  padding: 30px 28px;
+  border-radius: var(--r-gross);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 260px;
+}
+
+.schwenk__nr {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-ink);
+}
+
+.schwenk__karte h3 {
+  font-size: 1.3rem;
+}
+
+.schwenk__karte p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.9688rem;
+  line-height: 1.6;
+}
+
+/* Ohne Skript liegt die Spur einfach als seitwärts scrollbare Reihe da. */
+html:not(.js) .schwenk,
+html:not(.js) .schwenk__halt {
+  height: auto;
+  position: static;
+}
+
+html:not(.js) .schwenk__spur {
+  overflow-x: auto;
+  transform: none;
+  max-width: 100%;
+}
+
+/* -------------------------------------------------------- Kartenstapel --
+   Abschnitte, die beim Scrollen aufeinander liegen bleiben. Jede Karte
+   schiebt sich über die vorige, die dabei zurückweicht und dunkler wird.
+   Erzeugt Tiefe, ohne dass etwas verschwindet. */
+
+.stapelfeld {
+  display: grid;
+  gap: 0;
+}
+
+.stapelkarte {
+  position: sticky;
+  top: clamp(80px, 12vh, 130px);
+  border-radius: var(--r-gross);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  padding: clamp(28px, 4vw, 52px);
+  margin-bottom: 26px;
+  transform: scale(var(--stapel-s, 1)) translate3d(0, var(--stapel-y, 0px), 0);
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+.stapelkarte__kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.stapelkarte__nr {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-ink);
+}
+
+@media (min-width: 900px) {
+  .stapelkarte {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+  }
+  .stapelkarte__kopf {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+}
+
+html:not(.js) .stapelkarte {
+  position: static;
+  transform: none;
+}
+
+/* ------------------------------------------------------- Ziffernrollen --
+   Zahlen, die wie ein mechanisches Zählwerk hochlaufen. Jede Stelle ist
+   eine eigene Rolle; bewegt wird die Rolle, nicht der Text. */
+
+.rolle {
+  display: inline-flex;
+  gap: 1px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.rolle__stelle {
+  position: relative;
+  display: block;
+  width: 0.62em;
+  height: 1em;
+  overflow: hidden;
+}
+
+.rolle__band {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  transform: translateY(calc(var(--z, 0) * -1em));
+  transition: transform 1200ms var(--ease-out);
+  transition-delay: calc(var(--s, 0) * 70ms);
+}
+
+.rolle__band span {
+  display: block;
+  height: 1em;
+  text-align: center;
+}
+
+/* --------------------------------------------- Hintergrund wandert mit --
+   Der Grund wechselt beim Scrollen minimal den Ton. Nicht als Farbverlauf
+   über die Seite, sondern als leiser Schein, der von Abschnitt zu
+   Abschnitt seine Stelle ändert. */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    70% 55% at var(--grund-x, 50%) var(--grund-y, 30%),
+    color-mix(in srgb, var(--accent) 7%, transparent),
+    transparent 70%
+  );
+  transition: background 900ms var(--ease-out);
+}
+
+main,
+.top,
+.fuss {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob,
+  .fahrbahn {
+    display: none;
+  }
+  body::before {
+    display: none;
+  }
+  .schwenk,
+  .schwenk__halt {
+    height: auto;
+    position: static;
+  }
+  .schwenk__spur {
+    transform: none;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .stapelkarte {
+    position: static;
+    transform: none;
+  }
+  .rolle__band {
+    transition: none;
+  }
+}
+
+/* =========================================================================
+   26 · Einblend-Varianten
+
+   Jeder Inhaltsblock kommt anders herein. Alle hängen an derselben
+   Mechanik wie .auf, nur die Ausgangslage unterscheidet sich: eine Klasse
+   dazu, ein Beobachter, kein zweiter Apparat.
+
+   Die Varianten werden reihum verteilt, damit nie zwei benachbarte Blöcke
+   dieselbe Bewegung machen. Genau das wäre sonst die Falle: viele Effekte,
+   die alle gleich aussehen, wirken ärmer als ein einziger guter.
+   ========================================================================= */
+
+.js .auf.von-links {
+  transform: translate3d(clamp(-28px, -4vw, -14px), 0, 0);
+}
+
+.js .auf.von-rechts {
+  transform: translate3d(clamp(14px, 4vw, 28px), 0, 0);
+}
+
+.js .auf.von-unten {
+  transform: translate3d(0, 34px, 0);
+}
+
+.js .auf.zoomt {
+  transform: scale(0.9);
+}
+
+.js .auf.zoomt-raus {
+  transform: scale(1.08);
+}
+
+.js .auf.unscharf {
+  filter: blur(9px);
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 620ms var(--ease-out),
+    transform 620ms var(--ease-out),
+    filter 620ms var(--ease-out);
+}
+
+.js .auf.dreht {
+  transform: rotate(-2.4deg) translate3d(0, 20px, 0);
+}
+
+.js .auf.klappt {
+  transform: perspective(900px) rotateX(-26deg);
+  transform-origin: 50% 100%;
+}
+
+.js .auf.kippt-rein {
+  transform: perspective(1000px) rotateY(13deg) translate3d(26px, 0, 0);
+  transform-origin: 100% 50%;
+}
+
+.js .auf.steigt {
+  transform: translate3d(0, 60px, 0) scale(0.96);
+}
+
+/* Der Zielzustand ist für alle derselbe: an Ort und Stelle, scharf. */
+.js .auf.ist-da {
+  transform: none;
+  filter: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .auf,
+  .js .auf.von-links,
+  .js .auf.von-rechts,
+  .js .auf.von-unten,
+  .js .auf.zoomt,
+  .js .auf.zoomt-raus,
+  .js .auf.unscharf,
+  .js .auf.dreht,
+  .js .auf.klappt,
+  .js .auf.kippt-rein,
+  .js .auf.steigt {
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* =========================================================================
+   27 · Die Reise
+
+   Ein einziges Gerät begleitet die ganze Seite. Es steht fest im Bild,
+   wandert beim Scrollen von Seite zu Seite, wächst und schrumpft, und
+   sein Bildschirm wechselt auf die Ansicht, die zum Abschnitt gehört.
+
+   Das ersetzt zwölf einzelne Bilder durch einen durchgehenden Faden. Der
+   Besucher sieht nicht Aufnahme für Aufnahme, sondern ein Gerät, das durch
+   den Arbeitstag geführt wird.
+
+   Ab hier reservieren die Abschnitte eine Spalte für das Gerät, sonst
+   läuft es über den Text. Unter 900 px gibt es keine zweite Spalte, dort
+   bleibt das Gerät stehen und wird klein am Rand geparkt.
+   ========================================================================= */
+
+.reise {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  display: none;
+}
+
+.js .reise {
+  display: block;
+}
+
+.reise__phone {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  --phone-breite: 300px;
+  margin: 0;
+  transform:
+    translate3d(calc(var(--rx, 60vw) - 50%), calc(-50% + var(--ry, 0px)), 0)
+    perspective(1500px)
+    rotateY(var(--rdreh, -14deg))
+    rotateX(var(--rneig, 5deg))
+    scale(var(--rzoom, 1));
+  transform-style: preserve-3d;
+  opacity: var(--ropa, 1);
+  transition: opacity 420ms var(--ease-out);
+  will-change: transform;
+}
+
+/* Der Schein wandert mit dem Gerät. */
+.reise__schein {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 640px;
+  height: 640px;
+  margin: -320px 0 0 -320px;
+  border-radius: 50%;
+  transform: translate3d(calc(var(--rx, 60vw) + 150px), var(--ry, 0px), 0);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 17%, transparent),
+    transparent 64%
+  );
+  filter: blur(46px);
+  opacity: var(--ropa, 1);
+  will-change: transform;
+}
+
+.reise__bild {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0;
+  transition: opacity 450ms var(--ease-out);
+}
+
+.reise__bild.ist-an {
+  opacity: 1;
+}
+
+/* Die Beschriftung hängt am Gerät und sagt, was gerade zu sehen ist. */
+.reise__schild {
+  position: absolute;
+  left: 50%;
+  bottom: -46px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--muted);
+  opacity: var(--ropa, 1);
+  transition: opacity 420ms var(--ease-out);
+}
+
+/* Die Abschnitte lassen dem Gerät eine ganze Spalte frei. Nicht einzelne
+   Kinder beschneiden, sondern den Inhalt als Block auf die andere Seite
+   stellen: sonst rutscht immer irgendein Element doch unter das Gerät.
+
+   52 Prozent, nicht die Hälfte: Das Gerät braucht Luft um sich herum,
+   sonst wirkt die Seite geteilt statt gesetzt. */
+@media (min-width: 900px) {
+  .js [data-phone="rechts"] .shell > *,
+  .js [data-phone="links"] .shell > * {
+    max-width: 50%;
+  }
+
+  /* Zusätzlicher Abstand auf der Seite, auf der das Gerät steht. Ohne ihn
+     endet der Text genau an der Kante des Geräts, und schon eine lange
+     Zeile oder ein breiter Knopf ragt darunter. */
+  .js [data-phone="rechts"] .shell {
+    padding-right: max(var(--rand), 50%);
+  }
+
+  .js [data-phone="links"] .shell {
+    padding-left: max(var(--rand), 50%);
+  }
+
+  .js [data-phone="rechts"] .shell > *,
+  .js [data-phone="links"] .shell > * {
+    max-width: none;
+  }
+
+  .js [data-phone="links"] .shell > * {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  /* Innerhalb der Spalte wieder volle Breite: eine zweispaltige Liste
+     hätte in 52 Prozent keine zwei lesbaren Spalten mehr. */
+  .js [data-phone="rechts"] .liste--zwei,
+  .js [data-phone="links"] .liste--zwei {
+    grid-template-columns: minmax(0, 1fr);
+    border-top: 1px solid var(--line);
+  }
+
+  .js [data-phone="rechts"] .liste--zwei > li:nth-child(2),
+  .js [data-phone="links"] .liste--zwei > li:nth-child(2) {
+    border-top: 0;
+  }
+
+  .js [data-phone="rechts"] .schritte,
+  .js [data-phone="links"] .schritte {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  /* Der Auftakt hatte ein eigenes Zweispaltenraster für sein Gerät. Das
+     Gerät wandert jetzt frei, also bleibt eine Spalte: sonst teilt sich
+     die schon halbierte Breite noch einmal und die Überschrift bricht
+     nach jedem zweiten Wort. */
+  .js [data-phone] .auftakt__raster {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Die Text-Bild-Blöcke haben ihr eigenes Bild. Zusammen mit dem
+     wandernden Gerät wären das zwei Geräte nebeneinander, also bleibt
+     hier nur der Text. */
+  .js [data-phone="rechts"] .zug,
+  .js [data-phone="links"] .zug {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .js [data-phone="rechts"] .zug__bild,
+  .js [data-phone="links"] .zug__bild {
+    display: none;
+  }
+
+  /* Ein Abschnitt mit Gerät braucht Höhe, sonst hat das Gerät keine Zeit,
+     sich zu setzen, bevor der nächste es schon wieder wegzieht. */
+  .js [data-phone="rechts"],
+  .js [data-phone="links"],
+  .js [data-phone="mitte"] {
+    min-height: 92vh;
+    display: grid;
+    align-content: center;
+  }
+
+  /* Ohne Gerät darf der Abschnitt die ganze Breite nutzen. */
+  .js [data-phone="weg"] .shell > * {
+    max-width: none;
+  }
+}
+
+/* Unter 900 px gibt es keine freie Spalte. Ein Gerät, das dort in der
+   Ecke parkt, verdeckt zwangsläufig Text oder einen Knopf, und ein
+   halbverdeckter Knopf ist schlimmer als gar kein Effekt. Also fährt das
+   Gerät auf schmalen Bildschirmen nicht mit; die Abschnitte zeigen dort
+   ihre eigenen Bilder. */
+@media (max-width: 899px) {
+  .reise {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reise {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================================
+   28 · Umschalten zwischen hell und dunkel
+
+   Kein Umspringen und kein Überblenden, sondern eine Welle: Das neue
+   Farbschema breitet sich als Kreis vom Schalter aus über die Seite aus.
+
+   Umgesetzt über die View-Transitions-Schnittstelle. Wo der Browser sie
+   nicht kennt, schaltet die Seite schlicht um; die Wahl selbst funktioniert
+   überall gleich, nur der Weg dorthin unterscheidet sich.
+   ========================================================================= */
+
+@view-transition {
+  navigation: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  /* Die eingebaute Überblendung raus: sie würde die Welle zu Matsch
+     verwaschen. Beide Zustände stehen voll da, geschnitten wird per
+     clip-path aus dem Skript. */
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* Der Schalter dreht sich beim Umlegen einmal durch. */
+.schalter[data-schalter="farbschema"] svg {
+  transition: transform 520ms var(--ease-out);
+}
+
+.schalter[data-schalter="farbschema"]:active svg {
+  transform: rotate(180deg) scale(0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
   }
 }
