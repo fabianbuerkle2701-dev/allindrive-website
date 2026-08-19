@@ -594,15 +594,15 @@
   var stationen = [].slice.call(document.querySelectorAll("[data-ansicht][data-phone]"));
 
   // Ist-Werte und Ziel-Werte. Angefahren wird immer nur der Unterschied.
-  var rIst = { x: 0.76, y: 0, zoom: 1, dreh: -15, neig: 5, opa: 1 };
-  var rZiel = { x: 0.76, y: 0, zoom: 1, dreh: -15, neig: 5, opa: 1 };
+  var rIst = { x: 0.745, y: 0, zoom: 1, dreh: -9, neig: 3, opa: 1 };
+  var rZiel = { x: 0.745, y: 0, zoom: 1, dreh: -9, neig: 3, opa: 1 };
   var rAnsicht = "";
 
   var SEITEN = {
-    rechts: { x: 0.76, dreh: -15 },
-    links: { x: 0.24, dreh: 15 },
+    rechts: { x: 0.745, dreh: -9 },
+    links: { x: 0.255, dreh: 9 },
     mitte: { x: 0.5, dreh: 0 },
-    weg: { x: 1.28, dreh: -26 }
+    weg: { x: 1.3, dreh: -18 }
   };
 
   var reiseZuletzt = 0;
@@ -650,8 +650,8 @@
     var richtung = beste.dataset.phone === "links" ? 1 : -1;
 
     rZiel.x = seite.x + richtung * schwung * 0.045;
-    rZiel.dreh = seite.dreh + richtung * schwung * 13 + (besteP - 0.5) * 9;
-    rZiel.neig = 5 - schwung * 9;
+    rZiel.dreh = seite.dreh + richtung * schwung * 7 + (besteP - 0.5) * 5;
+    rZiel.neig = 3 - schwung * 5;
     rZiel.y = (besteP - 0.5) * 46 - schwung * 16;
     rZiel.zoom = gross * (0.94 + schwung * 0.1);
     rZiel.opa = beste.dataset.phone === "weg" ? 0 : 1;

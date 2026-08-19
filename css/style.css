@@ -1240,8 +1240,8 @@ li:last-child {
 
 .phone {
   --phone-breite: 260px;
-  --rahmen: calc(var(--phone-breite) * 0.033);
-  --radius: calc(var(--phone-breite) * 0.155);
+  --rahmen: calc(var(--phone-breite) * 0.036);
+  --radius: calc(var(--phone-breite) * 0.125);
   width: var(--phone-breite);
   flex: none;
   position: relative;
@@ -1253,6 +1253,7 @@ li:last-child {
                             #1c1c22 72%, #45454f 88%, #26262d 100%));
   box-shadow:
     var(--gehaeuse-kante, inset 0 0 0 1px rgba(255, 255, 255, 0.22)),
+    0 0 0 1px var(--gehaeuse-saum, rgba(0, 0, 0, 0.5)),
     0 30px 70px -30px rgba(0, 0, 0, 0.75);
   transform-style: preserve-3d;
 }
@@ -1263,10 +1264,12 @@ li:last-child {
   --gehaeuse: linear-gradient(118deg, #fbfaf8 0%, #ddd9d3 14%, #cbc6bf 34%,
                               #f1efec 52%, #cfcac3 72%, #f6f4f1 88%, #d8d4ce 100%);
   --gehaeuse-kante: inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+  --gehaeuse-saum: rgba(120, 112, 100, 0.55);
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) .phone {
+    --gehaeuse-saum: rgba(120, 112, 100, 0.55);
     --gehaeuse: linear-gradient(118deg, #fbfaf8 0%, #ddd9d3 14%, #cbc6bf 34%,
                                 #f1efec 52%, #cfcac3 72%, #f6f4f1 88%, #d8d4ce 100%);
     --gehaeuse-kante: inset 0 0 0 1px rgba(255, 255, 255, 0.95);
@@ -1315,19 +1318,19 @@ li:last-child {
    ohnehin nichts steht. Ohne sie sieht die Hülle aus wie ein Tablet. */
 .phone__insel {
   position: absolute;
-  top: calc(var(--phone-breite) * 0.055);
+  top: calc(var(--phone-breite) * 0.046);
   left: 50%;
   transform: translateX(-50%);
   width: calc(var(--phone-breite) * 0.3);
-  height: calc(var(--phone-breite) * 0.084);
+  height: calc(var(--phone-breite) * 0.07);
   border-radius: var(--r-rund);
   background: #08080b;
   z-index: 3;
   pointer-events: none;
   /* Die Linse sitzt rechts in der Insel. */
   box-shadow:
-    inset calc(var(--phone-breite) * -0.052) 0 0 calc(var(--phone-breite) * -0.03)
-      rgba(64, 76, 108, 0.6);
+    inset calc(var(--phone-breite) * -0.05) 0 0 calc(var(--phone-breite) * -0.024)
+      rgba(64, 76, 108, 0.55);
 }
 
 .phone__glas,
@@ -1343,6 +1346,12 @@ li:last-child {
   overflow: hidden;
   background: #fdf7ec;
   aspect-ratio: 9 / 19.5;
+  /* Die schwarze Blende zwischen Rahmen und Bildschirm. Sie ist der
+     eigentliche Wiedererkennungswert: ohne sie fliesst ein heller
+     Bildschirm ohne Kante in ein helles Gehäuse. */
+  box-shadow:
+    0 0 0 calc(var(--phone-breite) * 0.009) #0b0b0e,
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .phone__glas img {
@@ -2842,11 +2851,11 @@ main,
      endet der Text genau an der Kante des Geräts, und schon eine lange
      Zeile oder ein breiter Knopf ragt darunter. */
   .js [data-phone="rechts"] .shell {
-    padding-right: max(var(--rand), 50%);
+    padding-right: max(var(--rand), 42%);
   }
 
   .js [data-phone="links"] .shell {
-    padding-left: max(var(--rand), 50%);
+    padding-left: max(var(--rand), 42%);
   }
 
   .js [data-phone="rechts"] .shell > *,
@@ -2904,7 +2913,7 @@ main,
   .js [data-phone="rechts"],
   .js [data-phone="links"],
   .js [data-phone="mitte"] {
-    min-height: 92vh;
+    min-height: 78vh;
     display: grid;
     align-content: center;
   }
