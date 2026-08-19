@@ -17,7 +17,8 @@ werkzeug/bausteine/ und laesst das Werkzeug noch einmal laufen.
 Ersetzt wird:
     <!--SPRITE-->        Bildmarke und alle Piktogramme
     <!--FOOTER-->        die Fusszeile
-    <!--DIAL:name-->     ein Rundinstrument aus instrumente.json
+    <!--GALERIE-->       die Galerie der iPhone-Aufnahmen
+    <!--FLUG-->          der scrollgesteuerte Flug durch die App
 
 Jeder eingesetzte Baustein bleibt in seine Marken eingefasst
 (<!--SPRITE-->...<!--/SPRITE-->). Deshalb laesst sich das Werkzeug beliebig
@@ -25,7 +26,6 @@ oft laufen: Es tauscht beim zweiten Lauf den Inhalt zwischen den Marken aus,
 statt ein zweites Mal einzufuegen.
 """
 
-import json
 import os
 import re
 import sys
@@ -35,7 +35,6 @@ WURZEL = os.path.dirname(HIER)
 BAUSTEINE = os.path.join(HIER, "bausteine")
 
 sys.path.insert(0, HIER)
-from instrumente import dial  # noqa: E402
 
 
 def lade(name):
@@ -50,17 +49,105 @@ def sprite():
     return s.replace("<!--LOGO-->", logo)
 
 
-def instrumente_fuer(seite, specs):
-    """Alle Rundinstrumente einer Seite, nach Platzhalternamen."""
-    aus = {}
-    for name, spec in specs.get(seite, {}).items():
-        spec = dict(spec)
-        aus[name] = dial(
-            spec.pop("size_class", ""),
-            spec.pop("aria", name),
-            **spec,
+# Die Galerie der Geraeteaufnahmen. Reihenfolge und Beschriftung stehen
+# hier; ob eine Aufnahme schon existiert, entscheidet der Dateibestand.
+# Fehlt eine, steht ein deutlich sichtbarer Platzhalter an ihrer Stelle,
+# damit die Luecke niemandem entgeht.
+GALERIE = [
+    ("schuelerliste", "Alle Fahrschüler", "Wer wie weit ist, auf einen Blick"),
+    ("startseite", "Der Morgen", "Termine, Hinweise und offene Anfragen"),
+    ("adk", "Digitale ADK", "Alle Abschnitte mit Fortschritt"),
+    ("adk-uebungen", "Übung für Übung", "Abhaken, bewerten, Notiz dazu"),
+    ("kalender-woche", "Die Woche", "Sechs Tagesspalten, Konflikte markiert"),
+    ("kalender-tag", "Der Tag", "Fahrlehrer, Fahrschüler und Fahrzeug"),
+    ("fahrstunde-karte", "Gefahrene Strecke", "Per GPS mitgeschrieben"),
+    ("pruefungssimulation", "Prüfungssimulation", "Fahraufgaben und Kompetenzbereiche"),
+    ("fahrzeuge", "Fuhrpark", "Kilometerstand und HU-Countdown"),
+    ("tagesabschluss", "Tagesabschluss", "Was heute lief, was morgen ansteht"),
+    ("schueler-app", "Fahrschüler-App", "Fortschritt und nächster Termin"),
+    ("buchung", "Selbst buchen", "Freie Zeiten, ohne Anruf"),
+]
+
+
+def galerie():
+    """Die Geraetereihe, aus dem Bestand in images/iphone/ gebaut."""
+    ordner = os.path.join(WURZEL, "images", "iphone")
+    teile = []
+    fehlend = []
+    for name, titel, unter in GALERIE:
+        rel = f"images/iphone/{name}.webp"
+        if os.path.exists(os.path.join(WURZEL, rel)):
+            inhalt = (
+                f'<img src="{rel}" width="780" height="1601" loading="lazy" '
+                f'alt="Allindrive auf dem iPhone: {titel}. {unter}.">'
+            )
+        else:
+            fehlend.append(name)
+            inhalt = (
+                '<span class="phone__leer">Aufnahme folgt'
+                f'<br>{name}.webp</span>'
+            )
+        teile.append(
+            '<figure class="phone auf">'
+            f'<span class="phone__glas">{inhalt}</span>'
+            f'<figcaption class="phone__titel">{titel}'
+            f'<span class="phone__unter">{unter}</span></figcaption>'
+            "</figure>"
         )
-    return aus
+    if fehlend:
+        print(f"  ! Galerie: {len(fehlend)} Aufnahmen fehlen noch "
+              f"({', '.join(fehlend[:4])}{' ...' if len(fehlend) > 4 else ''})")
+    return ('<div class="galerie__reihe">\n' + "\n".join(teile) + "\n</div>")
+
+
+def flug():
+    """Der scrollgesteuerte Flug: ein Geraet, zwoelf Ansichten, ein Text je
+    Station. Aufgebaut aus demselben Bestand wie die Galerie, damit beide
+    dieselben Aufnahmen zeigen."""
+    bilder, texte, punkte = [], [], []
+    fehlend = []
+    for i, (name, titel, unter) in enumerate(GALERIE):
+        rel = f"images/iphone/{name}.webp"
+        if os.path.exists(os.path.join(WURZEL, rel)):
+            bilder.append(
+                f'<img class="flug__bild{" ist-an" if i == 0 else ""}" src="{rel}" '
+                f'width="780" height="1601" loading="lazy" '
+                f'alt="Allindrive auf dem iPhone: {titel}. {unter}.">'
+            )
+        else:
+            fehlend.append(name)
+            bilder.append(
+                f'<span class="flug__bild phone__leer{" ist-an" if i == 0 else ""}">'
+                f'Aufnahme folgt<br>{name}.webp</span>'
+            )
+        texte.append(
+            f'<div class="flug__station{" ist-an" if i == 0 else ""}">'
+            f'<p class="flug__nummer">{i + 1:02d} / {len(GALERIE):02d}</p>'
+            f"<h3>{titel}</h3><p>{unter}.</p></div>"
+        )
+        punkte.append(
+            f'<button class="flug__punkt{" ist-an" if i == 0 else ""}" type="button" '
+            f'aria-label="Zu Station {i + 1}: {titel}"></button>'
+        )
+
+    if fehlend:
+        print(f"  ! Flug: {len(fehlend)} Aufnahmen fehlen noch "
+              f"({', '.join(fehlend[:4])}{' ...' if len(fehlend) > 4 else ''})")
+
+    return (
+        '<section class="flug" data-flug aria-label="Allindrive auf dem iPhone">\n'
+        '<div class="flug__buehne">\n'
+        '<span class="flug__schein" aria-hidden="true"></span>\n'
+        '<div class="flug__innen">\n'
+        '<div class="flug__text">\n' + "\n".join(texte) + "\n</div>\n"
+        '<div class="flug__geraet">\n'
+        '<figure class="phone"><span class="phone__glas">\n'
+        + "\n".join(bilder) +
+        "\n</span></figure>\n</div>\n</div>\n"
+        '<div class="flug__leiste" role="group" aria-label="Stationen">\n'
+        + "\n".join(punkte) +
+        "\n</div>\n</div>\n</section>"
+    )
 
 
 def einsetzen(html, marke, inhalt):
@@ -74,9 +161,6 @@ def einsetzen(html, marke, inhalt):
 
 
 def main():
-    with open(os.path.join(BAUSTEINE, "instrumente.json"), encoding="utf-8") as f:
-        specs = json.load(f)
-
     sp = sprite()
     ft = lade("footer.html")
 
@@ -93,13 +177,10 @@ def main():
 
         html = einsetzen(html, "SPRITE", sp)
         html = einsetzen(html, "FOOTER", ft)
-
-        dials = instrumente_fuer(seite, specs)
-        for name in set(re.findall(r"<!--DIAL:([a-z0-9_-]+)(?:-->|\s)", html)):
-            if name not in dials:
-                print(f"  ! {seite}: kein Instrument '{name}' in instrumente.json")
-                continue
-            html = einsetzen(html, "DIAL:" + name, dials[name])
+        if "<!--GALERIE-->" in html:
+            html = einsetzen(html, "GALERIE", galerie())
+        if "<!--FLUG-->" in html:
+            html = einsetzen(html, "FLUG", flug())
 
         if html != vorher:
             with open(pfad, "w", encoding="utf-8") as f:

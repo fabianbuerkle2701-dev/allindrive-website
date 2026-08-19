@@ -27,34 +27,33 @@
    ------------------------------------------------------------------------- */
 
 :root {
-  color-scheme: light dark;
+  color-scheme: dark light;
 
-  /* Hell ist der Ausgangszustand: Fahrlehrer arbeiten bei Tageslicht,
-     und die App selbst ist hell. */
-  --bg: #ffffff;
-  --bg-soft: #fbf9f6;
-  --bg-sunk: #f4f1ea;
-  --ink: #16130e;
-  --ink-2: #4e4840;
-  --muted: #857e73;
-  --line: #e9e5de;
-  --line-2: #d7d1c6;
+  /* Dunkel ist der Ausgangszustand: Die App-Aufnahmen sind hell und
+     stehen gegen einen dunklen Grund am staerksten. */
+  --bg: #0b0a0d;
+  --bg-soft: #121116;
+  --bg-sunk: #17161c;
+  --ink: #f6f4f2;
+  --ink-2: #b7b2b0;
+  --muted: #8a8482;
+  --line: #23222a;
+  --line-2: #33313c;
 
   --accent: #ff9300;
   --accent-deep: #e07c00;
-  --accent-ink: #96520a; /* Orange als Text, erreicht AA auf Weiss */
-  --accent-soft: #fff4e3;
+  --accent-ink: #ffab3d;
+  --accent-soft: #241a0c;
 
-  --gruen-ink: #1c6b40;
-  --gruen-soft: #e6f4ec;
+  --gruen-ink: #5fca8f;
+  --gruen-soft: #14281d;
 
-  --auf-akzent: #1c1206; /* Text auf orangem Grund */
+  --auf-akzent: #1c1206;
 
-  --schatten-1: 0 1px 2px rgba(22, 19, 14, 0.05);
-  --schatten-2: 0 4px 16px -6px rgba(22, 19, 14, 0.12);
-  --schatten-3: 0 24px 60px -28px rgba(22, 19, 14, 0.35);
+  --schatten-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --schatten-2: 0 8px 30px -12px rgba(0, 0, 0, 0.7);
+  --schatten-3: 0 40px 90px -40px rgba(0, 0, 0, 0.9);
 
-  /* Ein Radiensystem, konsequent durchgehalten */
   --r-klein: 8px;
   --r-mittel: 12px;
   --r-gross: 18px;
@@ -65,46 +64,45 @@
   --breite: 1120px;
   --rand: clamp(20px, 5vw, 48px);
 
-  /* Die eingebauten CSS-Kurven sind zu weich, um gewollt zu wirken. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-:root[data-theme="dark"] {
-  --bg: #100e0b;
-  --bg-soft: #17140f;
-  --bg-sunk: #1c1813;
-  --ink: #f7f3ec;
-  --ink-2: #c4bcae;
-  --muted: #8d8578;
-  --line: #262220;
-  --line-2: #37312b;
-  --accent-ink: #ffab3d;
-  --accent-soft: #2a1e0d;
-  --gruen-ink: #5fca8f;
-  --gruen-soft: #16281d;
-  --schatten-1: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --schatten-2: 0 4px 18px -6px rgba(0, 0, 0, 0.6);
-  --schatten-3: 0 28px 70px -30px rgba(0, 0, 0, 0.85);
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-soft: #fbf9f6;
+  --bg-sunk: #f4f1ea;
+  --ink: #16130e;
+  --ink-2: #4e4840;
+  --muted: #857e73;
+  --line: #e9e5de;
+  --line-2: #d7d1c6;
+  --accent-ink: #96520a;
+  --accent-soft: #fff4e3;
+  --gruen-ink: #1c6b40;
+  --gruen-soft: #e6f4ec;
+  --schatten-1: 0 1px 2px rgba(22, 19, 14, 0.05);
+  --schatten-2: 0 4px 16px -6px rgba(22, 19, 14, 0.12);
+  --schatten-3: 0 24px 60px -28px rgba(22, 19, 14, 0.35);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #100e0b;
-    --bg-soft: #17140f;
-    --bg-sunk: #1c1813;
-    --ink: #f7f3ec;
-    --ink-2: #c4bcae;
-    --muted: #8d8578;
-    --line: #262220;
-    --line-2: #37312b;
-    --accent-ink: #ffab3d;
-    --accent-soft: #2a1e0d;
-    --gruen-ink: #5fca8f;
-    --gruen-soft: #16281d;
-    --schatten-1: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --schatten-2: 0 4px 18px -6px rgba(0, 0, 0, 0.6);
-    --schatten-3: 0 28px 70px -30px rgba(0, 0, 0, 0.85);
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+  --bg: #ffffff;
+  --bg-soft: #fbf9f6;
+  --bg-sunk: #f4f1ea;
+  --ink: #16130e;
+  --ink-2: #4e4840;
+  --muted: #857e73;
+  --line: #e9e5de;
+  --line-2: #d7d1c6;
+  --accent-ink: #96520a;
+  --accent-soft: #fff4e3;
+  --gruen-ink: #1c6b40;
+  --gruen-soft: #e6f4ec;
+  --schatten-1: 0 1px 2px rgba(22, 19, 14, 0.05);
+  --schatten-2: 0 4px 16px -6px rgba(22, 19, 14, 0.12);
+  --schatten-3: 0 24px 60px -28px rgba(22, 19, 14, 0.35);
   }
 }
 
@@ -525,23 +523,23 @@ li:last-child {
   height: 18px;
 }
 
-.ic-sonne {
+.ic-mond {
   display: none;
 }
 
-:root[data-theme="dark"] .ic-sonne {
+:root[data-theme="light"] .ic-mond {
   display: block;
 }
 
-:root[data-theme="dark"] .ic-mond {
+:root[data-theme="light"] .ic-sonne {
   display: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .ic-sonne {
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .ic-mond {
     display: block;
   }
-  :root:not([data-theme="light"]) .ic-mond {
+  :root:not([data-theme="dark"]) .ic-sonne {
     display: none;
   }
 }
@@ -607,6 +605,10 @@ li:last-child {
 
 .auftakt {
   padding-block: clamp(48px, 7vw, 92px) clamp(56px, 7vw, 96px);
+  /* Der Lichtschein hinter dem Geraet ragt absichtlich ueber die Buehne
+     hinaus. clip statt hidden: das erzeugt keinen Scrollbereich und
+     verhindert trotzdem, dass die Seite seitlich wandert. */
+  overflow-x: clip;
 }
 
 .auftakt__raster {
@@ -1213,5 +1215,913 @@ li:last-child {
     content: " (" attr(href) ")";
     font-size: 0.85em;
     color: #555;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   17 · Gerätehülle
+
+   Die Bildschirmfotos kommen unbeschnitten vom iPhone. Das Gehäuse steckt
+   hier in CSS statt im Bild: So bleibt jede Aufnahme austauschbar, die
+   Huelle bei jeder Aufloesung scharf, und die Dateien bleiben klein.
+
+   Massverhaeltnisse nach iPhone 15/16: Seitenverhaeltnis 19.5:9, Rahmen
+   rundum, Eckenradius etwa ein Achtel der Breite. Die Insel oben ist die
+   Dynamic Island, ohne sie wirkt die Huelle wie ein Tablet.
+   ------------------------------------------------------------------------- */
+
+.phone {
+  --phone-breite: 260px;
+  width: var(--phone-breite);
+  flex: none;
+  position: relative;
+  margin: 0;
+  padding: calc(var(--phone-breite) * 0.032);
+  border-radius: calc(var(--phone-breite) * 0.145);
+  background: linear-gradient(155deg, #3a3a42 0%, #17171c 28%, #0d0d11 60%, #2c2c34 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 30px 70px -30px rgba(0, 0, 0, 0.9);
+}
+
+.phone__glas {
+  /* Ohne display:block bleibt das <span> inline, dann greifen weder
+     aspect-ratio noch overflow und die Huelle bleibt leer. */
+  display: block;
+  position: relative;
+  border-radius: calc(var(--phone-breite) * 0.115);
+  overflow: hidden;
+  background: #fdf7ec;
+  aspect-ratio: 9 / 19.5;
+}
+
+.phone__glas img {
+  width: 100%;
+  display: block;
+  /* Oben ausgerichtet: Der Kopf der Ansicht traegt die Aussage, unten
+     laeuft die Liste ohnehin weiter. */
+  object-fit: cover;
+  object-position: top center;
+  height: 100%;
+}
+
+.phone__titel {
+  margin-top: 16px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+}
+
+.phone__unter {
+  display: block;
+  margin: 3px 0 0;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-align: center;
+  max-width: var(--phone-breite);
+}
+
+/* Fehlt eine Aufnahme noch, steht statt des Bildes ein deutlicher
+   Platzhalter. Besser als ein leerer Rahmen, den niemand bemerkt. */
+.phone__leer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  padding: 20px;
+  text-align: center;
+  background: repeating-linear-gradient(-45deg, #fff6dc 0 12px, #ffeec2 12px 24px);
+  color: #4a3100;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* -------------------------------------------------------------------------
+   18 · Galerie der Geräte
+
+   Eine Reihe, die sich seitlich schieben laesst. Auf dem Handy ist das die
+   natuerliche Geste, am Rechner faengt die Reihe den Blick ohne dass die
+   Seite ellenlang wird. Kein Selbstlauf: Eine endlos wandernde Reihe ist
+   schwer zu lesen und laesst sich nicht anhalten.
+   ------------------------------------------------------------------------- */
+
+.galerie {
+  position: relative;
+}
+
+.galerie__reihe {
+  display: flex;
+  gap: clamp(20px, 3vw, 36px);
+  align-items: flex-start;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--rand);
+  padding-inline: var(--rand);
+  padding-bottom: 20px;
+  /* Die Reihe darf ueber die Innenbreite hinauslaufen, sonst wirkt sie
+     abgeschnitten statt fortgesetzt. */
+  margin-inline: calc(-1 * var(--rand));
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
+}
+
+.galerie__reihe > * {
+  scroll-snap-align: center;
+}
+
+.galerie__reihe::-webkit-scrollbar {
+  height: 8px;
+}
+
+.galerie__reihe::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+  border-radius: var(--r-rund);
+}
+
+.galerie__hinweis {
+  margin-top: 14px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* -------------------------------------------------------------------------
+   19 · Auftakt mit Gerät
+
+   Ein einzelnes, leicht gekipptes Geraet als Blickfang. Die Neigung kommt
+   aus einer 3D-Drehung, nicht aus einem Bild: So bleibt sie scharf und
+   laesst sich bei schmalen Bildschirmen einfach abschalten.
+   ------------------------------------------------------------------------- */
+
+.buehne {
+  position: relative;
+  display: grid;
+  place-items: center;
+  perspective: 1400px;
+}
+
+.buehne .phone {
+  --phone-breite: clamp(230px, 30vw, 300px);
+  /* Die Werte kommen aus js/main.js und folgen der Scrollposition: Der
+     Blick faehrt beim Scrollen um das Geraet herum, statt dass es sich
+     von allein dreht. Eine Endlosdrehung waere Zappeln. */
+  transform:
+    translate3d(0, var(--auf-heb, 0px), 0)
+    rotateY(var(--auf-dreh, -16deg))
+    rotateX(var(--auf-neig, 6deg))
+    rotateZ(-2deg)
+    scale(var(--auf-zoom, 1));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Die Einfahrt beim Laden. Einmal, aus der Tiefe, mit dem Ausschwingen
+   einer Kamera die sich setzt. Danach uebernimmt das Scrollen. */
+.js .buehne .phone {
+  animation: geraet-ein 1100ms var(--ease-out) both;
+}
+
+@keyframes geraet-ein {
+  from {
+    opacity: 0;
+    transform:
+      translate3d(0, 46px, 0)
+      rotateY(-34deg)
+      rotateX(14deg)
+      rotateZ(-4deg)
+      scale(0.9);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Ein sehr leises Schweben, damit das Geraet nicht wie eingefroren wirkt,
+   wenn niemand scrollt. Drei Pixel, sechs Sekunden: bemerkt man nicht,
+   vermisst man aber, wenn es fehlt. */
+.js .buehne .phone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.js .buehne {
+  animation: schweben 6.5s ease-in-out infinite;
+}
+
+@keyframes schweben {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0);
+  }
+}
+
+@media (max-width: 700px) {
+  .buehne .phone {
+    transform:
+      translate3d(0, var(--auf-heb, 0px), 0)
+      scale(var(--auf-zoom, 1));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .buehne,
+  .js .buehne .phone {
+    animation: none;
+  }
+  .buehne .phone {
+    transform: rotateY(-12deg) rotateX(4deg);
+  }
+}
+
+/* Der Lichtschein hinter dem Geraet. Nur im dunklen Zustand sichtbar,
+   im hellen waere er ein grauer Fleck. */
+.buehne::before {
+  content: "";
+  position: absolute;
+  width: min(120%, 620px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 22%, transparent) 0%,
+    transparent 66%
+  );
+  filter: blur(30px);
+  z-index: -1;
+}
+
+:root[data-theme="light"] .buehne::before {
+  opacity: 0.35;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .buehne::before {
+    opacity: 0.35;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   20 · Nummerierte Schrittfolge
+   ------------------------------------------------------------------------- */
+
+.schritte {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 28px;
+  counter-reset: schritt;
+}
+
+@media (min-width: 820px) {
+  .schritte {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(24px, 4vw, 48px);
+  }
+}
+
+.schritte li {
+  margin: 0;
+  counter-increment: schritt;
+  padding-top: 18px;
+  border-top: 2px solid var(--line-2);
+}
+
+.schritte li::before {
+  content: counter(schritt, decimal-leading-zero);
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-ink);
+}
+
+.schritte h3 {
+  margin-bottom: 6px;
+}
+
+.schritte p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.9688rem;
+  line-height: 1.6;
+}
+
+/* -------------------------------------------------------------------------
+   21 · Soll-Anzeige
+
+   Zeigt Erfülltes gegen Vorgeschriebenes, etwa bei den Sonderfahrten.
+   Bewusst ohne gefüllten Hintergrundbalken: Ein dünner Strich reicht, um
+   ein Verhältnis zu zeigen, ein dicker Kasten macht daraus ein Diagramm.
+   ------------------------------------------------------------------------- */
+
+.soll {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 20px;
+}
+
+.soll li {
+  margin: 0;
+}
+
+.soll__kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.soll__name {
+  font-weight: 700;
+  font-size: 0.9688rem;
+}
+
+.soll__wert {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9688rem;
+  color: var(--ink-2);
+}
+
+.soll__wert b {
+  color: var(--accent-ink);
+}
+
+.soll__band {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.soll__band i {
+  display: block;
+  height: 100%;
+  width: var(--anteil, 0%);
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.soll__band i.ist-voll {
+  background: var(--gruen-ink);
+}
+
+.soll__fuss {
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+/* Ein hervorgehobenes Wort in der Ueberschrift. Farbe statt Verlauf:
+   Verlaufsschrift wirkt auf grossem Schnitt schnell billig und bricht bei
+   hohem Kontrastbedarf zusammen. */
+.accent {
+  color: var(--accent-ink);
+}
+
+/* -------------------------------------------------------------------------
+   22 · Der Flug durch die App
+
+   Ein festgehaltener Abschnitt: Das Gerät bleibt stehen, während die Seite
+   darunter weiterläuft, und der Bildschirm wechselt mit der Scrollposition
+   durch die Ansichten der App. Der Blick fährt dabei um das Gerät herum und
+   am Ende hinein, bis die Oberfläche das Bild füllt.
+
+   Kein Video, keine Bildfolge aus hunderten Einzelbildern: zwölf echte
+   Aufnahmen, überblendet. Das lädt in Kilobyte statt Megabyte, bleibt bei
+   jeder Auflösung scharf und funktioniert rückwärts genauso.
+
+   Die Fahrt selbst ist Zierde. Deshalb hängt sie vollständig hinter
+   prefers-reduced-motion und hinter der Klasse js: ohne beides steht
+   dieselbe Galerie einfach untereinander.
+   ------------------------------------------------------------------------- */
+
+.flug {
+  position: relative;
+  /* Scrollweg: je Station eine Bildschirmhöhe, damit jede Ansicht Zeit
+     bekommt. Wird von JS aus der Anzahl der Stationen gesetzt. */
+  height: calc(var(--flug-stationen, 12) * 82vh);
+}
+
+.flug__buehne {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* Der Lichtschein wandert mit der Station und färbt sich um. */
+.flug__schein {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60% 50% at var(--flug-x, 50%) 45%,
+      color-mix(in srgb, var(--accent) 16%, transparent),
+      transparent 70%
+    );
+  transition: background 600ms var(--ease-out);
+}
+
+.flug__innen {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  width: 100%;
+  max-width: var(--breite);
+  padding-inline: var(--rand);
+}
+
+@media (min-width: 900px) {
+  .flug__innen {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+/* Das Gerät. Die Drehung kommt aus dem Fortschritt, nicht aus einer
+   Endlosschleife: Wer nicht scrollt, sieht ein ruhiges Bild. */
+.flug__geraet {
+  perspective: 1500px;
+  justify-self: center;
+  order: -1;
+}
+
+@media (min-width: 900px) {
+  .flug__geraet {
+    order: 0;
+  }
+}
+
+.flug__geraet .phone {
+  --phone-breite: clamp(190px, 26vw, 290px);
+  transform:
+    rotateY(var(--flug-dreh, 0deg))
+    rotateX(var(--flug-neig, 0deg))
+    scale(var(--flug-zoom, 1));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Die Aufnahmen liegen übereinander und werden überblendet. */
+.flug__bild {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out);
+}
+
+.flug__bild.ist-an {
+  opacity: 1;
+}
+
+/* Der Text wechselt mit der Station. */
+.flug__text {
+  min-height: 190px;
+  display: grid;
+  align-content: center;
+}
+
+.flug__station {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 420ms var(--ease-out),
+    transform 420ms var(--ease-out);
+  pointer-events: none;
+}
+
+.flug__station.ist-an {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.flug__nummer {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-ink);
+  margin-bottom: 10px;
+}
+
+.flug__station h3 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.flug__station p {
+  color: var(--ink-2);
+  max-width: 42ch;
+  margin: 0;
+}
+
+/* Die Leiste zeigt, wo im Flug man ist, und lässt springen. */
+.flug__leiste {
+  position: absolute;
+  right: clamp(12px, 2vw, 28px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 9px;
+  z-index: 2;
+}
+
+.flug__punkt {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--line-2);
+  cursor: pointer;
+  transition:
+    background-color 240ms var(--ease-out),
+    transform 240ms var(--ease-out);
+}
+
+.flug__punkt.ist-an {
+  background: var(--accent);
+  transform: scale(1.6);
+}
+
+@media (max-width: 640px) {
+  .flug__leiste {
+    display: none;
+  }
+}
+
+/* Ohne Skript oder bei reduzierter Bewegung: kein Festhalten, keine Fahrt.
+   Die Stationen stehen dann schlicht untereinander. */
+html:not(.js) .flug,
+html:not(.js) .flug__buehne {
+  height: auto;
+  position: static;
+}
+
+html:not(.js) .flug__station,
+html:not(.js) .flug__bild {
+  opacity: 1;
+  transform: none;
+  position: static;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flug {
+    height: auto;
+  }
+  .flug__buehne {
+    position: static;
+    height: auto;
+    padding-block: 64px;
+  }
+  .flug__geraet .phone {
+    transform: none;
+  }
+  .flug__station {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =========================================================================
+   23 · Scroll-Apparat
+
+   Alles hier hängt hinter der Klasse js am <html> und hinter
+   prefers-reduced-motion. Ohne beides steht die Seite fertig da, ohne einen
+   einzigen Effekt. Das ist keine Höflichkeit, sondern die Bedingung dafür,
+   dass eine Seite mit so viel Bewegung überhaupt benutzbar bleibt.
+
+   Wo der Browser scrollgesteuerte Animationen kann, laufen sie über
+   animation-timeline und damit außerhalb des Hauptstrangs. Der Rest hängt
+   an einer einzigen rAF-Schleife in js/main.js.
+   ========================================================================= */
+
+/* ---------------------------------------------------------- Fortschritt --
+   Ein Strich am oberen Rand, der mitwächst. Sagt auf einer langen Seite,
+   wie viel noch kommt. */
+
+.fortschritt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--seite-p, 0));
+  background: var(--accent);
+  z-index: 120;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .fortschritt {
+    transform: scaleX(0);
+    animation: fortschritt linear;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes fortschritt {
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
+
+/* ------------------------------------------------------- Wortenthüllung --
+   Überschriften kommen wortweise herein statt als Block. Der Versatz ist
+   klein gehalten: 40 ms je Wort, sonst wartet man beim Lesen. */
+
+.js .wort {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em) rotate(1.5deg);
+  transition:
+    opacity 520ms var(--ease-out),
+    transform 520ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 40ms);
+}
+
+.js .ist-da .wort,
+.js .wort.ist-da {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------ Parallaxe --
+   Bilder laufen etwas langsamer als die Seite. Sehr wenig: mehr als ein
+   paar Prozent, und es wirkt wie ein Fehler statt wie Tiefe. */
+
+.js .parallaxe {
+  will-change: transform;
+  transform: translate3d(0, var(--par, 0px), 0);
+}
+
+/* ------------------------------------------------------------- Aufwischen --
+   Statt nur einzublenden werden Bilder von unten aufgedeckt. clip-path ist
+   dafür das richtige Werkzeug: keine zweite Ebene, keine Maske, und es
+   läuft auf der Grafikkarte. */
+
+.js .wisch {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 900ms var(--ease-out);
+}
+
+.js .wisch.ist-da {
+  clip-path: inset(0 0 0 0);
+}
+
+@supports (animation-timeline: view()) {
+  .js .wisch {
+    clip-path: inset(0 0 100% 0);
+    animation: wischen linear both;
+    animation-timeline: view();
+    animation-range: entry 8% cover 34%;
+  }
+  @keyframes wischen {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}
+
+/* --------------------------------------------------------------- Laufband --
+   Eine Zeile, die seitwärts läuft. Die Richtung folgt der Scrollrichtung,
+   das Tempo der Scrollgeschwindigkeit: Wer stehen bleibt, sieht sie fast
+   still stehen. Ein Band, das ewig von allein läuft, ist Zappeln.
+   Nur ein einziges auf der ganzen Seite. */
+
+.laufband {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding-block: 18px;
+  user-select: none;
+}
+
+.laufband__spur {
+  display: flex;
+  gap: 44px;
+  width: max-content;
+  transform: translate3d(var(--band, 0px), 0, 0);
+  will-change: transform;
+}
+
+.laufband__spur > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 44px;
+  font-size: clamp(1.1rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.laufband__spur > span::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+/* --------------------------------------------------------- Zahl zählt hoch */
+
+.zaehler {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------- Kopfzeile schrumpft --
+   Beim Scrollen wird die Kopfzeile flacher und rückt zusammen. Gibt beim
+   Lesen Platz zurück, ohne dass die Navigation verschwindet. */
+
+.top__in {
+  transition:
+    min-height 260ms var(--ease-out),
+    padding 260ms var(--ease-out);
+}
+
+.top.ist-gescrollt .top__in {
+  min-height: 56px;
+}
+
+/* --------------------------------------------------------- Karte kippt --
+   Listeneinträge neigen sich minimal zum Zeiger. Nur mit Maus, nie auf
+   Touch: dort bliebe der Zustand nach der Berührung kleben. */
+
+@media (hover: hover) and (pointer: fine) {
+  .js .liste > li {
+    transition: transform 260ms var(--ease-out);
+  }
+  .js .liste > li:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fortschritt {
+    display: none;
+  }
+  .js .wort,
+  .js .wisch {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    animation: none;
+  }
+  .js .parallaxe {
+    transform: none;
+  }
+  .laufband__spur {
+    transform: none;
+  }
+}
+
+/* =========================================================================
+   24 · Mehr Apparat
+
+   Zeigerabhängige Effekte. Alle stehen in @media (hover: hover) and
+   (pointer: fine): auf einem Touchgerät gibt es keinen Zeiger, und ein
+   Hover-Zustand, der nach der Berührung kleben bleibt, ist schlimmer als
+   gar kein Effekt.
+   ========================================================================= */
+
+/* --------------------------------------------------------------- Körnung --
+   Eine feine Körnung über allem. Nimmt großen dunklen Flächen das
+   Digitale und kaschiert Farbverläufe, die sonst in Streifen brechen.
+   Liegt fest, nicht im Scrollfluss: sonst rechnet die Grafikkarte sie bei
+   jedem Bild neu. */
+
+.koernung {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:root[data-theme="light"] .koernung {
+  opacity: 0.02;
+  mix-blend-mode: multiply;
+}
+
+/* ------------------------------------------------------------ Magnetisch --
+   Der Hauptknopf zieht leicht zum Zeiger. Der Versatz ist gedeckelt, damit
+   der Knopf nie unter dem Zeiger wegläuft: Er soll sich lebendig anfühlen,
+   nicht ausweichen. */
+
+@media (hover: hover) and (pointer: fine) {
+  .js .magnet {
+    transform: translate3d(var(--mx, 0px), var(--my, 0px), 0) scale(var(--ms, 1));
+    transition: transform 240ms var(--ease-out);
+  }
+  .js .magnet:active {
+    transform: translate3d(var(--mx, 0px), var(--my, 0px), 0) scale(0.97);
+    transition-duration: 120ms;
+  }
+}
+
+/* ------------------------------------------------------------- Lichtkegel --
+   Unter dem Zeiger leuchtet die Fläche auf. Zeigt, dass ein Block
+   anfassbar ist, ohne dass er sich verfärben muss. */
+
+.js .kegel {
+  position: relative;
+  isolation: isolate;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .js .kegel::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 260ms var(--ease-out);
+    background: radial-gradient(
+      220px circle at var(--kx, 50%) var(--ky, 50%),
+      color-mix(in srgb, var(--accent) 13%, transparent),
+      transparent 65%
+    );
+  }
+  .js .kegel:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------ Kippen --
+   Bildschirmfotos neigen sich zum Zeiger. Sehr wenig Winkel, sonst wirkt
+   es wie ein Spielzeug statt wie Tiefe. */
+
+@media (hover: hover) and (pointer: fine) {
+  .js .kippt {
+    transform:
+      perspective(1100px)
+      rotateX(var(--kipp-x, 0deg))
+      rotateY(var(--kipp-y, 0deg))
+      scale(var(--kipp-z, 1));
+    transition: transform 400ms var(--ease-out);
+    will-change: transform;
+  }
+}
+
+/* --------------------------------------------------- Kopfzeile weicht aus --
+   Beim Herunterscrollen fährt die Kopfzeile weg, beim Hochscrollen kommt
+   sie sofort zurück. Auf einer sehr langen Seite gibt das Bild frei, ohne
+   dass die Navigation je weiter als eine Geste entfernt ist. */
+
+.top {
+  transform: translate3d(0, var(--top-y, 0px), 0);
+  transition:
+    transform 320ms var(--ease-out),
+    border-color 200ms var(--ease-out);
+}
+
+/* ---------------------------------------------------- Bild zieht heran --
+   Bildschirmfotos wachsen minimal, während sie durchs Bild laufen. Das ist
+   die Kamerafahrt, die ein Standbild sonst nicht hat. */
+
+.js .heranziehen {
+  transform: scale(var(--zieh, 1));
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .koernung {
+    display: none;
+  }
+  .js .magnet,
+  .js .kippt,
+  .js .heranziehen {
+    transform: none;
+  }
+  .top {
+    transform: none;
   }
 }
