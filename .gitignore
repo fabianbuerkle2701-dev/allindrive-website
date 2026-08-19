@@ -8,3 +8,4 @@ node_modules/
 # Zwischenstaende
 _*.html
 .impeccable/
+skills-lock.json
