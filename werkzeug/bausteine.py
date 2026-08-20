@@ -16,6 +16,7 @@ werkzeug/bausteine/ und laesst das Werkzeug noch einmal laufen.
 
 Ersetzt wird:
     <!--SPRITE-->        Bildmarke und alle Piktogramme
+    <!--KOPF-->          Kopfzeile und Klappmenue
     <!--FOOTER-->        die Fusszeile
     <!--GALERIE-->       die Galerie der iPhone-Aufnahmen
     <!--FLUG-->          der scrollgesteuerte Flug durch die App
@@ -220,6 +221,8 @@ def main():
         vorher = html
 
         html = einsetzen(html, "SPRITE", sp)
+        if "<!--KOPF-->" in html:
+            html = einsetzen(html, "KOPF", lade("kopf.html"))
         html = einsetzen(html, "FOOTER", ft)
         if "<!--GALERIE-->" in html:
             html = einsetzen(html, "GALERIE", galerie())

@@ -8,8 +8,7 @@
 <meta name="description" content="Fahrschulsoftware für die komplette Verwaltung: digitale ADK, Fahrstundenplanung, Prüfungssimulation und eigene Apps für Fahrlehrer und Fahrschüler.">
 <link rel="canonical" href="https://www.allindrive.de/">
 
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#100e0b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0a0a0a">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Allindrive">
@@ -17,8 +16,8 @@
 <meta property="og:title" content="Fahrschulsoftware für die komplette Fahrschulverwaltung">
 <meta property="og:description" content="Digitale ADK, Fahrstundenplanung, Prüfungssimulation und eigene Apps für Fahrlehrer und Fahrschüler, in einem System.">
 <meta property="og:url" content="https://www.allindrive.de/">
-<meta property="og:image" content="https://www.allindrive.de/images/app/allindrive-startseite.webp">
-<meta property="og:image:alt" content="Die Startseite von Allindrive mit Kennzahlen, Terminen und offenen Anfragen">
+<meta property="og:image" content="https://www.allindrive.de/images/iphone/schuelerliste.webp">
+<meta property="og:image:alt" content="Allindrive auf dem iPhone: die Schülerliste mit Fortschrittsringen">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
@@ -26,19 +25,16 @@
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 
-<link rel="preload" href="fonts/karla.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="images/app/allindrive-startseite.webp" as="image" fetchpriority="high">
+<link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
 
 <script>
-  // Beides muss vor dem ersten Anzeigen feststehen, sonst blitzt das falsche
-  // Farbschema auf und die Abschnitte springen sichtbar.
+  // Muss vor dem ersten Anzeigen feststehen, sonst blitzen die Abschnitte
+  // kurz auf, bevor sie sich verstecken.
   document.documentElement.classList.add("js");
-  try {
-    var t = localStorage.getItem("allindrive-farbschema");
-    if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
-  } catch (e) {}
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 </script>
 
 <script type="application/ld+json">
@@ -73,7 +69,7 @@
       "description": "Fahrschulsoftware für die komplette Verwaltung: digitale ADK, Fahrstundenplanung, Prüfungssimulation und eigene Apps für Fahrlehrer und Fahrschüler.",
       "isPartOf": { "@id": "https://www.allindrive.de/#website" },
       "about": { "@id": "https://www.allindrive.de/#organization" },
-      "primaryImageOfPage": "https://www.allindrive.de/images/app/allindrive-startseite.webp",
+      "primaryImageOfPage": "https://www.allindrive.de/images/iphone/schuelerliste.webp",
       "inLanguage": "de-DE"
     },
     {
@@ -85,7 +81,7 @@
       "operatingSystem": "Web, iOS, Android",
       "inLanguage": "de-DE",
       "url": "https://www.allindrive.de/",
-      "screenshot": "https://www.allindrive.de/images/app/allindrive-startseite.webp",
+      "screenshot": "https://www.allindrive.de/images/iphone/schuelerliste.webp",
       "description": "Fahrschulverwaltung mit digitaler Ausbildungsdiagrammkarte, Fahrstundenplanung, Online-Terminbuchung, Prüfungssimulation, Fuhrpark und eigenen Apps für Fahrlehrer und Fahrschüler.",
       "publisher": { "@id": "https://www.allindrive.de/#organization" },
       "featureList": [
@@ -106,8 +102,6 @@
 
 <body>
 <a class="skip" href="#inhalt">Zum Inhalt springen</a>
-<div class="fortschritt" aria-hidden="true"></div>
-<div class="koernung" aria-hidden="true"></div>
 
 <!--SPRITE-->
 <!-- Zeichenvorrat der Seite: die Bildmarke und alle Piktogramme, einmal je
@@ -132,6 +126,7 @@
 </symbol>
 
 <symbol id="i-pfeil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></symbol>
+<symbol id="i-pfeil-schraeg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
 <symbol id="i-haken" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-11"/></symbol>
 <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
 <symbol id="i-menue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
@@ -165,296 +160,315 @@
 </svg>
 <!--/SPRITE-->
 
+<!-- ============================================================ Ladebildschirm
+     Zählt von 000 auf 100 und verschwindet dann. Ohne ihn sieht man den
+     Aufbau der Startseite stückweise passieren, weil Film und Aufnahmen
+     nacheinander eintreffen. Ohne JavaScript wird er nie eingeblendet. -->
+<div class="laden" data-laden aria-hidden="true">
+  <p class="laden__marke">Allindrive</p>
+
+  <div class="laden__mitte">
+    <div class="laden__worte">
+      <span class="laden__wort ist-an">Dokumentieren</span>
+      <span class="laden__wort">Planen</span>
+      <span class="laden__wort">Fahren</span>
+    </div>
+  </div>
+
+  <div class="laden__fuss">
+    <p class="laden__zahl" data-laden-zahl>000</p>
+    <div class="laden__balken"><i data-laden-balken></i></div>
+  </div>
+</div>
+
+<!--KOPF-->
 <header class="top" data-top>
-  <div class="shell top__in">
+  <div class="top__in">
     <a class="marke" href="index.html" aria-label="Allindrive, zur Startseite">
-      <svg class="ad ad--faehrt" viewBox="0 0 100 68.2" width="30" height="21" aria-hidden="true" focusable="false"><use href="#ad"></use></svg>
+      <span class="marke__ring">
+        <span class="marke__innen">
+          <svg class="ad" viewBox="0 0 100 68.2" aria-hidden="true" focusable="false"><use href="#ad"></use></svg>
+        </span>
+      </span>
       <span class="marke__wort">Allindrive</span>
     </a>
 
+    <span class="top__strich" aria-hidden="true"></span>
+
     <nav class="nav" aria-label="Hauptnavigation">
+      <a href="index.html">Start</a>
       <a href="funktionen.html">Funktionen</a>
       <a href="digitale-adk.html">Digitale ADK</a>
-      <a href="fahrschueler-app.html">Fahrschüler-App</a>
       <a href="preise.html">Preise</a>
       <a href="faq.html">Fragen</a>
     </nav>
 
+    <span class="top__strich" aria-hidden="true"></span>
+
     <div class="top__aktionen">
-      <button class="schalter" type="button" data-schalter="farbschema" aria-label="Zum dunklen Farbschema wechseln">
-        <svg class="ic-mond" aria-hidden="true" focusable="false"><use href="#i-mond"></use></svg>
-        <svg class="ic-sonne" aria-hidden="true" focusable="false"><use href="#i-sonne"></use></svg>
-      </button>
-      <a class="btn btn--klein" href="https://allindrive.netlify.app" rel="noopener">App öffnen</a>
-      <button class="schalter burger" type="button" data-schalter="menue" aria-controls="menue" aria-expanded="false" aria-label="Menü öffnen">
+      <a class="top__cta" href="https://allindrive.netlify.app" rel="noopener">
+        App öffnen
+        <svg width="12" height="12" aria-hidden="true" focusable="false"><use href="#i-pfeil-schraeg"></use></svg>
+      </a>
+      <button class="burger" type="button" data-schalter="menue" aria-controls="menue" aria-expanded="false" aria-label="Menü öffnen">
         <svg class="ic-menue" aria-hidden="true" focusable="false"><use href="#i-menue"></use></svg>
         <svg class="ic-schliessen" aria-hidden="true" focusable="false"><use href="#i-schliessen"></use></svg>
       </button>
     </div>
   </div>
-
-  <div class="schublade" id="menue">
-    <nav aria-label="Hauptnavigation, mobil">
-      <a href="funktionen.html">Funktionen</a>
-      <a href="digitale-adk.html">Digitale ADK</a>
-      <a href="fahrstundenplanung.html">Fahrstundenplanung</a>
-      <a href="fahrschueler-app.html">Fahrschüler-App</a>
-      <a href="pruefungssimulation.html">Prüfungssimulation</a>
-      <a href="ki-assistenz.html">KI-Assistenz</a>
-      <a href="sicherheit.html">Datenschutz</a>
-      <a href="vergleich.html">Vergleich</a>
-      <a href="preise.html">Preise</a>
-      <a href="faq.html">Häufige Fragen</a>
-      <a href="kontakt.html">Kontakt</a>
-    </nav>
-    <a class="btn magnet" href="https://allindrive.netlify.app" rel="noopener">App öffnen</a>
-  </div>
 </header>
+
+<div class="schublade" id="menue">
+  <nav aria-label="Hauptnavigation, mobil">
+    <a href="index.html">Start</a>
+    <a href="funktionen.html">Funktionen</a>
+    <a href="digitale-adk.html">Digitale ADK</a>
+    <a href="fahrstundenplanung.html">Fahrstundenplanung</a>
+    <a href="fahrschueler-app.html">Fahrschüler-App</a>
+    <a href="pruefungssimulation.html">Prüfungssimulation</a>
+    <a href="ki-assistenz.html">KI-Assistenz</a>
+    <a href="sicherheit.html">Datenschutz</a>
+    <a href="vergleich.html">Vergleich</a>
+    <a href="preise.html">Preise</a>
+    <a href="faq.html">Häufige Fragen</a>
+    <a href="kontakt.html">Kontakt</a>
+  </nav>
+  <a class="btn" href="https://allindrive.netlify.app" rel="noopener">App öffnen</a>
+</div>
+<!--/KOPF-->
 
 <main id="inhalt">
 
-  <!-- ============================================================ Auftakt -->
+  <!-- ============================================================== Auftakt -->
   <section class="auftakt">
-    <div class="shell shell--weit">
-      <div class="auftakt__raster">
-        <div>
-          <h1>Die Fahrschule läuft <span class="accent">auf dem Handy</span>.</h1>
-          <p class="lede">
-            Ausbildungsstand, Sonderfahrten und Termine immer aktuell. Erfasst
-            wird direkt nach der Fahrstunde, nicht abends am Schreibtisch.
-          </p>
-          <div class="btn-reihe">
-            <a class="btn magnet" href="https://allindrive.netlify.app" rel="noopener">
-              App öffnen
-              <svg width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
-            </a>
-            <a class="btn btn--linie" href="funktionen.html">Funktionen ansehen</a>
-          </div>
-          <p class="notiz">
-            <svg width="15" height="15" style="display:inline;vertical-align:-2px;color:var(--accent-ink)" aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
-            Im Beta-Betrieb. Zugänge vergeben wir persönlich.
-          </p>
-        </div>
-
-        <div class="buehne">
-          <figure class="phone">
-            
-            <span class="phone__glas">
-              <img src="images/iphone/schuelerliste.webp" width="780" height="1601"
-                   alt="Allindrive auf dem iPhone: die Liste aller Fahrschüler mit Namen, Führerscheinklasse, nächstem Termin und einem Ring, der den Ausbildungsstand in Prozent zeigt">
-            </span>
-          </figure>
-        </div>
-      </div>
+    <div class="auftakt__film">
+      <!-- Der Film liegt als HLS-Strom vor und wird von js/main.js
+           eingehängt. Läuft er nicht, trägt der wandernde Verlauf
+           darunter die Fläche allein. -->
+      <video data-film="https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8"
+             autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
     </div>
+    <div class="auftakt__schleier" aria-hidden="true"></div>
+    <div class="auftakt__saum" aria-hidden="true"></div>
+
+    <div class="auftakt__in">
+      <p class="augbraue">Fahrschulverwaltung 2026</p>
+
+      <h1>Die Fahrschule läuft <em>auf dem Handy</em>.</h1>
+
+      <p class="rolle">
+        Für <span data-rollen="Fahrlehrer|Fahrschulinhaber|Vertretungen|Prüfungsvorbereiter"><span class="rolle__wort">Fahrlehrer</span></span>, die unterwegs arbeiten.
+      </p>
+
+      <p class="auftakt__text">
+        Ausbildungsstand, Sonderfahrten und Termine immer aktuell. Erfasst
+        wird direkt nach der Fahrstunde, nicht abends am Schreibtisch.
+      </p>
+
+      <div class="btn-reihe">
+        <a class="btn" href="https://allindrive.netlify.app" rel="noopener">
+          App öffnen
+          <svg width="14" height="14" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+        </a>
+        <a class="btn btn--linie" href="funktionen.html">Funktionen ansehen</a>
+      </div>
+
+      <p class="auftakt__hinweis">Im Beta-Betrieb. Zugänge vergeben wir persönlich.</p>
+    </div>
+
+    <p class="runter" aria-hidden="true">
+      Scroll
+      <span class="runter__linie"></span>
+    </p>
   </section>
 
-
-  <!-- ========================================================== Laufband -->
+  <!-- ============================================================ Laufband -->
   <div class="laufband" aria-hidden="true">
-    <div class="laufband__spur">
-      <span>Digitale ADK</span>
-      <span>Sonderfahrten</span>
-      <span>Prüfungssimulation</span>
-      <span>Fahrstundenplanung</span>
-      <span>Online-Buchung</span>
-      <span>Fahrschüler-App</span>
-      <span>GPS-Strecken</span>
-      <span>Fuhrpark</span>
-      <span>Fristen-Radar</span>
-      <span>Tagesabschluss</span>
-      <span>Digitale ADK</span>
-      <span>Sonderfahrten</span>
-      <span>Prüfungssimulation</span>
-      <span>Fahrstundenplanung</span>
-      <span>Online-Buchung</span>
-      <span>Fahrschüler-App</span>
-      <span>GPS-Strecken</span>
-      <span>Fuhrpark</span>
-      <span>Fristen-Radar</span>
-      <span>Tagesabschluss</span>
+    <div class="laufband__spur" data-laufband>
+      <span>Digitale ADK</span><i></i>
+      <span>Sonderfahrten</span><i></i>
+      <span>Prüfungssimulation</span><i></i>
+      <span>Fahrstundenplanung</span><i></i>
+      <span>Fahrschüler-App</span><i></i>
+      <span>Fristen-Radar</span><i></i>
+      <span>Fuhrpark</span><i></i>
     </div>
   </div>
 
-  <!-- ==================================================== Fachlich gedacht -->
-  <section class="band band--soft">
+  <!-- ====================================================== Was Zeit kostet -->
+  <section class="band">
     <div class="shell">
       <div class="kopf auf">
-        <h2 data-worte>Fachlich zu Ende gedacht.</h2>
-        <p class="lede">
-          Nicht eine Karteikarte in digital, sondern die Ausbildung so
-          abgebildet, wie sie abläuft.
+        <p class="augbraue">Der Alltag</p>
+        <h2>Sechs Kleinigkeiten, die zusammen den <em>Feierabend</em> kosten.</h2>
+        <p>
+          Keine davon ist ein Drama. Daneben steht, welcher Teil von
+          Allindrive sie erledigt.
         </p>
       </div>
 
       <ul class="liste liste--zwei">
-        <li class="auf kegel">
-          <h3>Eigene Übungen für dein Prüfgebiet</h3>
-          <p>Ergänze die Stellen, an denen es bei euch klemmt: der unübersichtliche Kreisverkehr, die enge Ausfahrt. Die Übungen stehen danach in den Vorlagen deiner Führerscheinklassen.</p>
+        <li class="auf">
+          <h3>Die ADK liegt im Handschuhfach des Kollegen</h3>
+          <p>Digitale Ausbildungsdiagrammkarte: Jeder Fahrlehrer sieht denselben Stand, sofort nach der Fahrstunde.</p>
         </li>
-        <li class="auf kegel">
-          <h3>Sonderfahrten zählen sich mit</h3>
-          <p>Überlandfahrt, Autobahnfahrt und Fahrt bei Dunkelheit werden gegen das eingestellte Soll gerechnet. Je Klasse legst du fest, wie viele Unterrichtseinheiten gefordert sind.</p>
+        <li class="auf">
+          <h3>„Wo haben wir letztes Mal aufgehört?“</h3>
+          <p>Übungsverlauf, Strecken und Bewertung stehen am Schüler. Vor dem Einsteigen gelesen, nicht im Kopf behalten.</p>
         </li>
-        <li class="auf kegel">
-          <h3>Prüfungssimulation durchführen</h3>
-          <p>Fahraufgaben und Kompetenzbereiche bewerten wie in der Prüfung, mit laufender Zeit. Fehler, die über mehrere Simulationen wiederkehren, werden eigens ausgewiesen.</p>
+        <li class="auf">
+          <h3>Das Telefon klingelt während der Fahrstunde</h3>
+          <p>Fahrschüler sehen Fortschritt und Termine in der eigenen App und buchen ihre Stunden selbst.</p>
         </li>
-        <li class="auf kegel">
-          <h3>Nachweise erstellen und unterschreiben</h3>
-          <p>Fahrlehrer und Fahrschüler unterschreiben auf dem Gerät. Der Ausbildungsnachweis entsteht als PDF, das Fahrtenbuch lässt sich als CSV ausgeben.</p>
+        <li class="auf">
+          <h3>Zwei Schüler, ein Fahrzeug, dieselbe Uhrzeit</h3>
+          <p>Der Kalender prüft Fahrlehrer, Fahrschüler und Fahrzeug und warnt, bevor der Termin steht.</p>
         </li>
-        <li class="auf kegel">
-          <h3>Termine einmal planen, überall sehen</h3>
-          <p>Fahrstunden zentral planen und schreibgeschützt in Apple Kalender, Google Kalender oder Outlook abonnieren.</p>
+        <li class="auf">
+          <h3>Eine Frist ist durchgerutscht</h3>
+          <p>Das Fristen-Radar zeigt HU-Termine, Aufbewahrungsfristen und fällige Unterlagen, solange noch Zeit ist.</p>
         </li>
-        <li class="auf kegel">
-          <h3>Fahrschüler buchen selbst</h3>
-          <p>Du gibst Zeiten frei und legst Grenzen fest. Deine Fahrschüler wählen in ihrer App einen passenden Termin, bestätigt wird von dir.</p>
+        <li class="auf">
+          <h3>Abends wird abgetippt, was tagsüber notiert wurde</h3>
+          <p>Die Fahrstunde wird im Auto erfasst. Papier-ADKs und Screenshots liest die KI aus dem Foto ein.</p>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- ============================================ Der Flug durch die App -->
-  <section class="band band--eng">
-    <div class="shell">
-      <div class="kopf auf" style="max-width:720px">
-        <h2 data-worte>Allindrive in der Praxis.</h2>
-        <p class="lede">
-          Zwölf Ansichten aus der laufenden App. Scrolle, und der Bildschirm
-          wandert mit. Die Namen darin sind erfunden, die Oberfläche ist es
-          nicht.
-        </p>
+  <!-- ======================================================= Bento-Raster -->
+  <section class="band band--soft">
+    <div class="shell shell--weit">
+      <div class="kopf-reihe auf">
+        <div class="kopf">
+          <p class="augbraue">Im Betrieb</p>
+          <h2>Vier Bereiche, ein <em>System</em>.</h2>
+          <p>
+            Aufnahmen aus der laufenden App. Die Namen darin sind erfunden,
+            die Oberfläche ist es nicht.
+          </p>
+        </div>
+        <a class="btn btn--linie btn--klein" href="funktionen.html">
+          Alle Funktionen
+          <svg width="14" height="14" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+        </a>
+      </div>
+
+      <div class="bento">
+        <a class="bento__feld auf" href="digitale-adk.html">
+          <img src="images/iphone/schuelerliste.webp" width="780" height="1706"
+               alt="Schülerliste in Allindrive mit Fortschrittsringen je Fahrschüler">
+          <span class="bento__raster" aria-hidden="true"></span>
+          <span class="bento__schleier" aria-hidden="true"><span class="bento__marke">Ansehen — <em>Schülerliste</em></span></span>
+          <span class="bento__titel">Alle Fahrschüler auf einem Bildschirm<span>Wer wie weit ist, ohne einen Klick</span></span>
+        </a>
+
+        <a class="bento__feld auf" href="digitale-adk.html">
+          <span class="phone__leer" style="position:relative;aspect-ratio:16/11">Aufnahme folgt<br>adk.webp</span>
+          <span class="bento__raster" aria-hidden="true"></span>
+          <span class="bento__schleier" aria-hidden="true"><span class="bento__marke">Ansehen — <em>Digitale ADK</em></span></span>
+          <span class="bento__titel">Die Ausbildungsdiagrammkarte<span>Abschnitte, Übungen, Bewertung</span></span>
+        </a>
+
+        <a class="bento__feld auf" href="fahrstundenplanung.html">
+          <span class="phone__leer" style="position:relative;aspect-ratio:16/11">Aufnahme folgt<br>kalender-woche.webp</span>
+          <span class="bento__raster" aria-hidden="true"></span>
+          <span class="bento__schleier" aria-hidden="true"><span class="bento__marke">Ansehen — <em>Kalender</em></span></span>
+          <span class="bento__titel">Eine Woche, keine Doppelbuchung<span>Fahrlehrer, Schüler und Fahrzeug geprüft</span></span>
+        </a>
+
+        <a class="bento__feld auf" href="pruefungssimulation.html">
+          <span class="phone__leer" style="position:relative;aspect-ratio:16/11">Aufnahme folgt<br>pruefungssimulation.webp</span>
+          <span class="bento__raster" aria-hidden="true"></span>
+          <span class="bento__schleier" aria-hidden="true"><span class="bento__marke">Ansehen — <em>Prüfung</em></span></span>
+          <span class="bento__titel">Prüfungssimulation<span>Fahraufgaben und Kompetenzbereiche</span></span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!--FLUG-->
-<section class="flug" data-flug aria-label="Allindrive auf dem iPhone">
-<div class="flug__buehne">
-<span class="flug__schein" aria-hidden="true"></span>
-<div class="flug__innen">
-<div class="flug__text">
-<div class="flug__station ist-an"><p class="flug__nummer">01 / 12</p><h3>Alle Fahrschüler</h3><p>Wer wie weit ist, auf einen Blick.</p></div>
-<div class="flug__station"><p class="flug__nummer">02 / 12</p><h3>Der Morgen</h3><p>Termine, Hinweise und offene Anfragen.</p></div>
-<div class="flug__station"><p class="flug__nummer">03 / 12</p><h3>Digitale ADK</h3><p>Alle Abschnitte mit Fortschritt.</p></div>
-<div class="flug__station"><p class="flug__nummer">04 / 12</p><h3>Übung für Übung</h3><p>Abhaken, bewerten, Notiz dazu.</p></div>
-<div class="flug__station"><p class="flug__nummer">05 / 12</p><h3>Die Woche</h3><p>Sechs Tagesspalten, Konflikte markiert.</p></div>
-<div class="flug__station"><p class="flug__nummer">06 / 12</p><h3>Der Tag</h3><p>Fahrlehrer, Fahrschüler und Fahrzeug.</p></div>
-<div class="flug__station"><p class="flug__nummer">07 / 12</p><h3>Gefahrene Strecke</h3><p>Per GPS mitgeschrieben.</p></div>
-<div class="flug__station"><p class="flug__nummer">08 / 12</p><h3>Prüfungssimulation</h3><p>Fahraufgaben und Kompetenzbereiche.</p></div>
-<div class="flug__station"><p class="flug__nummer">09 / 12</p><h3>Fuhrpark</h3><p>Kilometerstand und HU-Countdown.</p></div>
-<div class="flug__station"><p class="flug__nummer">10 / 12</p><h3>Tagesabschluss</h3><p>Was heute lief, was morgen ansteht.</p></div>
-<div class="flug__station"><p class="flug__nummer">11 / 12</p><h3>Fahrschüler-App</h3><p>Fortschritt und nächster Termin.</p></div>
-<div class="flug__station"><p class="flug__nummer">12 / 12</p><h3>Selbst buchen</h3><p>Freie Zeiten, ohne Anruf.</p></div>
-</div>
-<div class="flug__geraet">
-<figure class="phone"><span class="phone__glas">
-<img class="flug__bild ist-an" src="images/iphone/schuelerliste.webp" width="780" height="1601" loading="lazy" alt="Allindrive auf dem iPhone: Alle Fahrschüler. Wer wie weit ist, auf einen Blick.">
-<span class="flug__bild phone__leer">Aufnahme folgt<br>startseite.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>adk.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>adk-uebungen.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>kalender-woche.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>kalender-tag.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>fahrstunde-karte.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>pruefungssimulation.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>fahrzeuge.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>tagesabschluss.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>schueler-app.webp</span>
-<span class="flug__bild phone__leer">Aufnahme folgt<br>buchung.webp</span>
-</span></figure>
-</div>
-</div>
-<div class="flug__leiste" role="group" aria-label="Stationen">
-<button class="flug__punkt ist-an" type="button" aria-label="Zu Station 1: Alle Fahrschüler"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 2: Der Morgen"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 3: Digitale ADK"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 4: Übung für Übung"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 5: Die Woche"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 6: Der Tag"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 7: Gefahrene Strecke"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 8: Prüfungssimulation"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 9: Fuhrpark"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 10: Tagesabschluss"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 11: Fahrschüler-App"></button>
-<button class="flug__punkt" type="button" aria-label="Zu Station 12: Selbst buchen"></button>
-</div>
-</div>
-</section>
-<!--/FLUG-->
-
   <!-- ==================================================== Buchung in drei -->
-  <section class="band band--soft">
+  <section class="band">
     <div class="shell">
       <div class="kopf auf">
-        <h2 data-worte>Freie Zeiten einstellen. Fahrschüler buchen selbst.</h2>
-        <p class="lede">
-          Jeder Fahrlehrer gibt seine Zeiten frei. Allindrive zeigt dem
-          Fahrschüler nur, was wirklich passt, und trägt die bestätigte
-          Buchung in den Kalender ein.
+        <p class="augbraue">Online-Buchung</p>
+        <h2>Freie Zeiten freigeben. Fahrschüler buchen <em>selbst</em>.</h2>
+        <p>
+          Du legst fest, wann gefahren werden kann. Allindrive zeigt dem
+          Fahrschüler nur, was zu Klasse, Fahrzeug und Tageslimit passt.
         </p>
       </div>
 
       <ol class="schritte">
-        <li class="auf kegel">
+        <li class="auf">
           <h3>Zeiten freigeben</h3>
-          <p>Wiederkehrend als Terminserie oder nur an einzelnen Tagen. Urlaub und sonstige Tätigkeiten blocken automatisch.</p>
+          <p>Wiederkehrend oder nur an einzelnen Tagen. Urlaub und sonstige Tätigkeiten blockieren automatisch.</p>
         </li>
-        <li class="auf kegel">
+        <li class="auf">
           <h3>Passende Termine anzeigen</h3>
-          <p>Nur wenn Fahrlehrer, Fahrschüler und Fahrzeug frei sind und das Tageslimit es zulässt.</p>
+          <p>Nur wenn Fahrlehrer, Fahrzeug und Ausbildungslimit zusammenpassen. Über einen Link oder QR-Code.</p>
         </li>
-        <li class="auf kegel">
-          <h3>Bestätigen oder gegenvorschlagen</h3>
-          <p>Du bestätigst mit einem Tipp, lehnst ab oder schickst einen anderen Termin zurück.</p>
+        <li class="auf">
+          <h3>Bestätigen und fahren</h3>
+          <p>Du bestätigst, lehnst ab oder schickst einen Gegenvorschlag. Der Termin steht sofort im Kalender.</p>
         </li>
       </ol>
-
-      <div class="btn-reihe auf" style="margin-top:40px">
-        <a class="btn btn--linie" href="fahrstundenplanung.html">Fahrstundenplanung ansehen</a>
-      </div>
     </div>
   </section>
 
-  <!-- =========================================================== Kalender -->
-  <section class="band">
-    <div class="shell shell--weit">
-      <div class="kopf auf" style="max-width:680px">
-        <h2 data-worte>Alle Fahrlehrer und Termine in einem Kalender.</h2>
-        <p class="lede">
-          Startzeit, Dauer, Fahrschüler und Fahrzeug stehen am Termin.
-          Allindrive erkennt Überschneidungen bei Fahrlehrern, Fahrschülern
-          und Fahrzeugen und meldet sie vor dem Speichern. Der Kalender lässt
-          sich zusätzlich abonnieren.
+  <!-- =============================================== Explorations-Galerie -->
+  <section class="schau" aria-label="Allindrive auf dem iPhone">
+    <div class="schau__mitte">
+      <div>
+        <p class="augbraue" style="justify-content:center">Auf dem Gerät</p>
+        <h2>Die App, wie sie im <em>Auto</em> aussieht.</h2>
+        <p class="lede" style="margin-inline:auto">
+          Kein nachgebautes Mockup. Aufnahmen aus der laufenden App, mit
+          erfundenen Namen darin.
         </p>
       </div>
+    </div>
 
-      <figure class="schirm auf wisch parallaxe kippt heranziehen" data-tiefe="26">
-        <picture>
-          <source media="(max-width: 700px)" srcset="images/app/allindrive-kalender-mobil.webp">
-          <img src="images/app/allindrive-kalender.webp" width="2200" height="1326" loading="lazy"
-               alt="Wochenkalender in Allindrive: eine Spalte je Tag mit Uhrzeiten und Fahrschülernamen, der aktuelle Tag ist orange hervorgehoben, darüber die Zahl offener Terminvorschläge">
-        </picture>
-      </figure>
-      <p class="bildtext auf">
-        Das Kalender-Abo für Apple Kalender, Google Kalender und Outlook ist
-        schreibgeschützt und jederzeit widerrufbar.
-      </p>
+    <div class="schau__saeulen" aria-hidden="true">
+      <div class="schau__saeule" data-tempo="-260">
+        <figure class="schau__karte" style="--kipp:-3deg">
+          <img src="images/iphone/schuelerliste.webp" width="780" height="1706" loading="lazy"
+               alt="Schülerliste mit Fortschrittsringen">
+        </figure>
+        <figure class="schau__karte" style="--kipp:2.5deg">
+          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>adk.webp</span>
+        </figure>
+        <figure class="schau__karte" style="--kipp:-1.5deg">
+          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>fahrstunde-karte.webp</span>
+        </figure>
+      </div>
+
+      <div class="schau__saeule" data-tempo="340">
+        <figure class="schau__karte" style="--kipp:3deg">
+          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>kalender-woche.webp</span>
+        </figure>
+        <figure class="schau__karte" style="--kipp:-2.5deg">
+          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>pruefungssimulation.webp</span>
+        </figure>
+        <figure class="schau__karte" style="--kipp:1.5deg">
+          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>schueler-app.webp</span>
+        </figure>
+      </div>
     </div>
   </section>
 
-  <!-- ====================================================== Sonderfahrten -->
+  <!-- ======================================================= Sonderfahrten -->
   <section class="band band--soft">
     <div class="shell">
       <div class="zug">
         <div class="stapel-gross auf">
-          <h2 data-worte>Sonderfahrten werden mitgerechnet.</h2>
+          <p class="augbraue">Sonderfahrten</p>
+          <h2>Zählen sich <em>mit</em>.</h2>
           <p>
-            Allindrive zählt die dokumentierten Fahrten je Art zusammen und
-            stellt sie dem Soll gegenüber, das du für die Führerscheinklasse
-            eingestellt hast. Am Fahrschüler steht damit jederzeit, was noch
-            aussteht, ohne dass jemand nachrechnet.
+            Überlandfahrt, Autobahnfahrt und Fahrt bei Dunkelheit werden
+            gegen das eingestellte Soll gerechnet. Je Führerscheinklasse
+            legst du selbst fest, wie viele Unterrichtseinheiten gefordert
+            sind.
           </p>
           <a class="pfeil-link" href="digitale-adk.html">
             Digitale ADK im Detail
@@ -463,241 +477,128 @@
         </div>
 
         <div class="zug__bild auf">
-          <div class="hinweis" style="padding:28px 26px">
-            <ul class="soll">
-              <li>
-                <div class="soll__kopf">
-                  <span class="soll__name">Überlandfahrten</span>
-                  <span class="soll__wert"><b>5</b> / 5 UE</span>
-                </div>
-                <div class="soll__band"><i class="ist-voll" style="--anteil:100%"></i></div>
-              </li>
-              <li>
-                <div class="soll__kopf">
-                  <span class="soll__name">Autobahnfahrten</span>
-                  <span class="soll__wert"><b>3</b> / 4 UE</span>
-                </div>
-                <div class="soll__band"><i style="--anteil:75%"></i></div>
-              </li>
-              <li>
-                <div class="soll__kopf">
-                  <span class="soll__name">Fahrten bei Dunkelheit</span>
-                  <span class="soll__wert"><b>1</b> / 3 UE</span>
-                </div>
-                <div class="soll__band"><i style="--anteil:33%"></i></div>
-              </li>
-            </ul>
-            <p class="soll__fuss">
-              Beispiel Klasse B. Eine Unterrichtseinheit sind 45 Minuten. Das
-              Soll je Klasse stellst du selbst ein.
-            </p>
+          <div class="soll">
+            <div data-soll="100%">
+              <div class="soll__kopf">
+                <span class="soll__name">Überlandfahrten</span>
+                <span class="soll__wert">5 / 5 UE</span>
+              </div>
+              <div class="soll__band"><i></i></div>
+            </div>
+            <div data-soll="75%">
+              <div class="soll__kopf">
+                <span class="soll__name">Autobahnfahrten</span>
+                <span class="soll__wert">3 / 4 UE</span>
+              </div>
+              <div class="soll__band"><i></i></div>
+            </div>
+            <div data-soll="33%">
+              <div class="soll__kopf">
+                <span class="soll__name">Fahrten bei Dunkelheit</span>
+                <span class="soll__wert">1 / 3 UE</span>
+              </div>
+              <div class="soll__band"><i></i></div>
+            </div>
+            <p class="soll__fuss">Beispiel Klasse B. Eine Unterrichtseinheit sind 45 Minuten.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================================================ Nachweis und Prüfung -->
+  <!-- ============================================================= Wissen -->
   <section class="band">
     <div class="shell">
-      <div class="kopf auf">
-        <h2 data-worte>Bis zur Prüfung nachvollziehbar.</h2>
+      <div class="kopf-reihe auf">
+        <div class="kopf">
+          <p class="augbraue">Zum Nachlesen</p>
+          <h2>Was Fahrlehrer <em>wissen wollen</em>.</h2>
+          <p>Vier Seiten, die eine Frage vollständig beantworten.</p>
+        </div>
+        <a class="btn btn--linie btn--klein" href="faq.html">
+          Alle Fragen
+          <svg width="14" height="14" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+        </a>
       </div>
 
-      <ul class="liste liste--zwei">
-        <li class="auf kegel">
-          <h3>Ausbildungsnachweis direkt unterschreiben</h3>
-          <p>Der Fahrschüler unterschreibt auf dem Gerät. Eine nachträgliche Korrektur aktualisiert den vorhandenen Nachweis, die Unterschrift bleibt erhalten.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Prüfungsreife als Rechnung, nicht als Gefühl</h3>
-          <p>Pflichtstunden, Sonderfahrten und Bewertungen ergeben zusammen die Ampel. Was noch fehlt, steht daneben.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Wiederkehrende Fehler sichtbar machen</h3>
-          <p>Über mehrere Prüfungssimulationen hinweg zeigt Allindrive, welche Fahraufgabe immer wieder auffällt.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Schaltkompetenz nach B197</h3>
-          <p>Die Testfahrt wird eigens erfasst und als PDF ausgegeben, getrennt vom übrigen Ausbildungsnachweis.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Erfolgsquoten nach Klasse und Zeitraum</h3>
-          <p>Der Quotenpilot rechnet aus, was dokumentiert wurde: bestandene und nicht bestandene Versuche, nach Klasse, Zeitraum und Fahrlehrer.</p>
-        </li>
-        <li class="auf kegel">
-          <h3>Strecken statt Straßennamen im Notizbuch</h3>
-          <p>Die gefahrene Strecke wird per GPS mitgeschrieben, schwierige Stellen bekommen einen Pin auf der Karte.</p>
-        </li>
-      </ul>
+      <div class="pillen">
+        <a class="pille-eintrag auf" href="digitale-adk.html">
+          <span class="pille-eintrag__bild"><svg aria-hidden="true" focusable="false"><use href="#i-karte"></use></svg></span>
+          <span class="pille-eintrag__text">
+            <h3>Die digitale ADK, von Grund auf erklärt</h3>
+            <p>Aufbau, Pflichtinhalte und was die FahrschAusbO an Aufzeichnung verlangt.</p>
+          </span>
+          <span class="pille-eintrag__meta">Detailseite</span>
+        </a>
 
-      <div class="btn-reihe auf" style="margin-top:40px">
-        <a class="btn btn--linie" href="pruefungssimulation.html">Prüfungssimulation ansehen</a>
+        <a class="pille-eintrag auf" href="pruefungssimulation.html">
+          <span class="pille-eintrag__bild"><svg aria-hidden="true" focusable="false"><use href="#i-diagramm"></use></svg></span>
+          <span class="pille-eintrag__text">
+            <h3>Prüfungsreife ist eine Rechnung, keine Ahnung</h3>
+            <p>Pflichtstunden, Sonderfahrten und Bewertungen ergeben zusammen die Ampel.</p>
+          </span>
+          <span class="pille-eintrag__meta">Detailseite</span>
+        </a>
+
+        <a class="pille-eintrag auf" href="sicherheit.html">
+          <span class="pille-eintrag__bild"><svg aria-hidden="true" focusable="false"><use href="#i-schild"></use></svg></span>
+          <span class="pille-eintrag__text">
+            <h3>Wo die Daten deiner Fahrschüler liegen</h3>
+            <p>Zeilenschutz, getrennte Zugänge und die Löschfristen nach § 31 FahrlG.</p>
+          </span>
+          <span class="pille-eintrag__meta">Detailseite</span>
+        </a>
+
+        <a class="pille-eintrag auf" href="vergleich.html">
+          <span class="pille-eintrag__bild"><svg aria-hidden="true" focusable="false"><use href="#i-frage"></use></svg></span>
+          <span class="pille-eintrag__text">
+            <h3>Wofür Allindrive nicht gemacht ist</h3>
+            <p>Auch das gehört dazu. Die Abrechnung ist bewusst nicht Teil des Produkts.</p>
+          </span>
+          <span class="pille-eintrag__meta">Detailseite</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ==================================================== Fahrschüler-App -->
+  <!-- ============================================================= Zahlen -->
   <section class="band band--soft">
-    <div class="shell shell--weit">
-      <div class="zug zug--gedreht">
-        <div class="zug__bild auf">
-          <figure class="schirm wisch kippt heranziehen">
-            <picture>
-              <source media="(max-width: 700px)" srcset="images/app/allindrive-schueler-mobil.webp">
-              <img src="images/app/allindrive-schueler.webp" width="2200" height="1267" loading="lazy"
-                   alt="Schülerliste in Allindrive: Kacheln je Fahrschüler mit Initialen, Name, Führerscheinklasse, nächstem Termin und einem Fortschrittsring in Prozent">
-            </picture>
-          </figure>
-          <p class="bildtext">Derselbe Stand auf jedem Gerät. Vertretungen sehen, wo zuletzt aufgehört wurde.</p>
-        </div>
+    <div class="shell">
+      <div class="kopf auf">
+        <p class="augbraue">Der Umfang</p>
+        <h2>Was im Beta-Zugang <em>drin</em> ist.</h2>
+      </div>
 
-        <div class="stapel-gross auf">
-          <h2 data-worte>Deine Fahrschüler haben eine eigene App.</h2>
-          <p>
-            Fortschritt, Sonderfahrten, nächste Termine, die aufgezeichneten
-            Strecken, Lernvideos deiner Fahrschule und die Begleitfahrten nach
-            BF17. Das meiste, wofür sonst angerufen wird, steht dort.
-          </p>
-          <ul class="haken">
-            <li>
-              <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
-              <span>Native App für iPhone und Android, dazu der Zugang im Browser ohne Installation</span>
-            </li>
-            <li>
-              <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
-              <span>Deutsch, Englisch, Türkisch und Russisch, umschaltbar vom Fahrschüler selbst</span>
-            </li>
-            <li>
-              <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
-              <span>Eigener Zugang für Eltern und Kostenträger, getrennt vom Zugang des Fahrschülers</span>
-            </li>
-          </ul>
-          <a class="pfeil-link" href="fahrschueler-app.html">
-            Die Fahrschüler-App ansehen
-            <svg aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
-          </a>
+      <div class="zahlen">
+        <div class="auf">
+          <b><span data-zaehler="22" data-zaehler-nach="">0</span></b>
+          <span>amtliche Terminarten im Kalender, jede mit eigenem Farbcode</span>
+        </div>
+        <div class="auf">
+          <b><span data-zaehler="4" data-zaehler-nach="">0</span></b>
+          <span>Sprachen in der Fahrschüler-App: Deutsch, Englisch, Türkisch, Russisch</span>
+        </div>
+        <div class="auf">
+          <b><span data-zaehler="3" data-zaehler-nach="">0</span></b>
+          <span>Wege in die App: Browser, iPhone und Android, jeweils für Fahrlehrer und Fahrschüler</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ======================================================= Frühwarnung -->
-  <section class="band">
-    <div class="shell shell--weit">
-      <div class="kopf auf" style="max-width:680px">
-        <h2 data-worte>Was untergeht, meldet sich von selbst.</h2>
-        <p class="lede">
-          Der Fahrlehrer sieht morgens, was ansteht, und abends, was liegen
-          geblieben ist. Dazwischen muss niemand nachsehen.
-        </p>
+      <div class="offen-block auf" style="margin-top:36px">
+        Hier stehen bewusst nur Zahlen, die sich nachzählen lassen.
+        Nutzerzahlen, Zeitersparnis und Erfolgsquoten fehlen, weil dafür
+        belastbare Werte nötig wären. Sobald es sie gibt, kommen sie
+        hierher.
       </div>
-
-      <figure class="schirm auf wisch parallaxe kippt heranziehen" data-tiefe="26">
-        <picture>
-          <source media="(max-width: 700px)" srcset="images/app/allindrive-startseite-mobil.webp">
-          <img src="images/app/allindrive-startseite.webp" width="2200" height="1267" loading="lazy"
-               alt="Startseite von Allindrive: Begrüßung, Hinweis auf einen Schüler ohne Termin seit 21 Tagen, vier Kennzahlen und die Termine des Tages">
-        </picture>
-      </figure>
-
-      <ul class="liste liste--zwei auf" style="margin-top:44px">
-        <li class="kegel">
-          <h3>Lange nicht gefahren</h3>
-          <p>Wer seit Wochen keinen Termin hatte, steht oben. Ein Tipp, und die Nachricht ist geschrieben.</p>
-        </li>
-        <li class="kegel">
-          <h3>Fristen-Radar</h3>
-          <p>Hauptuntersuchung, Aufbewahrungsfristen nach § 31 FahrlG und fällige Unterlagen, solange noch Zeit ist.</p>
-        </li>
-        <li class="kegel">
-          <h3>Abbruch-Risiko</h3>
-          <p>Wenn ein Fahrschüler stehen bleibt, fällt das auf, bevor er ganz weg ist.</p>
-        </li>
-        <li class="kegel">
-          <h3>Tagesabschluss</h3>
-          <p>Am Abend in einer Ansicht: was dokumentiert wurde, was fehlt, was morgen ansteht.</p>
-        </li>
-      </ul>
     </div>
   </section>
 
-  <!-- ================================================== Was es nicht kann -->
-  <section class="band band--soft">
-    <div class="shell shell--schmal">
-      <div class="kopf auf">
-        <h2 data-worte>Wofür Allindrive nicht gemacht ist.</h2>
-        <p class="lede">
-          Damit du nicht erst nach zwei Wochen merkst, dass etwas fehlt.
-        </p>
-      </div>
-
-      <ul class="liste auf">
-        <li class="kegel">
-          <h3>Buchhaltung</h3>
-          <p>Allindrive führt die Ausbildung und den Betrieb, nicht die Bücher. Wer vor allem eine Abrechnungslösung sucht, ist hier falsch.</p>
-        </li>
-        <li class="kegel">
-          <h3>Theorieunterricht</h3>
-          <p>Für das Lernen der Theoriefragen gibt es eigene Anbieter mit Lizenz am amtlichen Fragenkatalog. Allindrive ersetzt sie nicht.</p>
-        </li>
-        <li class="kegel">
-          <h3>Ein fertiges Produkt</h3>
-          <p>Allindrive ist im Beta-Betrieb. Es kommen Funktionen dazu, und es treten Fehler auf. Wer ein abgeschlossenes Programm erwartet, sollte noch warten.</p>
-        </li>
-        <li class="kegel">
-          <h3>Große Fahrschulen mit eigener IT</h3>
-          <p>Es gibt keine Schnittstelle zu Fremdsystemen und keinen Betrieb auf eigenen Servern.</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ============================================================= Preise -->
+  <!-- ============================================================= Fragen -->
   <section class="band">
     <div class="shell shell--schmal">
-      <div class="kopf auf">
-        <h2 data-worte>Was es kostet.</h2>
-        <p class="lede">
-          Es gibt noch keine Preisliste, und das hat einen Grund: Allindrive
-          ist im Beta-Betrieb.
-        </p>
-      </div>
-
-      <div class="stapel-gross auf">
-        <p>
-          Wir vergeben die Zugänge einzeln und besprechen den Preis im
-          Gespräch. So wissen wir, mit welchen Führerscheinklassen und wie
-          vielen Fahrlehrern du arbeitest, und du weißt, worauf du dich
-          einlässt. Im Beta-Zugang ist der komplette Funktionsumfang
-          enthalten.
-        </p>
-        <ul class="haken">
-          <li>
-            <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
-            <span>Bemessen wird später nach Anzahl der Fahrlehrer, Führerscheinklassen und Standorten</span>
-          </li>
-          <li>
-            <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
-            <span>Deine Daten kannst du jederzeit als Sicherung herunterladen</span>
-          </li>
-          <li>
-            <svg aria-hidden="true" focusable="false"><use href="#i-haken"></use></svg>
-            <span>Was noch nicht fertig ist, sagen wir vorher, nicht hinterher</span>
-          </li>
-        </ul>
-        <div class="btn-reihe">
-          <a class="btn btn--linie" href="preise.html">Zur Preisseite</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ Fragen -->
-  <section class="band band--soft">
-    <div class="shell shell--schmal">
-      <div class="kopf auf" style="margin-bottom:24px">
-        <h2 data-worte>Häufige Fragen.</h2>
+      <div class="kopf auf" style="margin-bottom:28px">
+        <p class="augbraue">Kurz gefragt</p>
+        <h2>Häufige <em>Fragen</em>.</h2>
       </div>
 
       <div class="fragen auf">
@@ -707,10 +608,10 @@
           </summary>
           <div class="fragen__text">
             <p>
-              Ja. Allindrive läuft im Browser auf Rechner, Tablet und Handy und
-              lässt sich als App auf den Startbildschirm legen. Zusätzlich gibt
-              es native Apps für iPhone und Android, je eine für Fahrlehrer und
-              für Fahrschüler.
+              Ja. Allindrive läuft im Browser auf Rechner, Tablet und Handy
+              und lässt sich als App auf den Startbildschirm legen.
+              Zusätzlich gibt es native Apps für iPhone und Android, je eine
+              für Fahrlehrer und für Fahrschüler.
             </p>
           </div>
         </details>
@@ -735,20 +636,8 @@
             <p>
               Du fotografierst sie. Die KI-Funktion liest die abgehakten
               Übungen aus dem Foto aus und überträgt sie auf die digitale
-              Karte. Was sie erkannt hat, wird dir vor dem Speichern angezeigt.
-            </p>
-          </div>
-        </details>
-        <details>
-          <summary>Zählt Allindrive die Sonderfahrten automatisch mit?
-            <span class="fragen__zeichen"><svg aria-hidden="true" focusable="false"><use href="#i-plus"></use></svg></span>
-          </summary>
-          <div class="fragen__text">
-            <p>
-              Ja. Die dokumentierten Fahrten werden je Art zusammengezählt und
-              gegen das Soll gestellt, das du für die Führerscheinklasse
-              eingestellt hast. Am Fahrschüler siehst du auf einen Blick, was
-              noch aussteht.
+              Karte. Was sie erkannt hat, wird dir vor dem Speichern
+              angezeigt.
             </p>
           </div>
         </details>
@@ -773,85 +662,95 @@
     </div>
   </section>
 
-  <!-- =========================================================== Schluss -->
-  <section class="band band--eng band--linie">
+  <!-- ============================================================ Schluss -->
+  <section class="schluss">
+    <div class="schluss__film">
+      <video data-film="https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8"
+             autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+    </div>
+    <div class="schluss__schleier" aria-hidden="true"></div>
+
     <div class="shell">
       <div class="auf" style="max-width:640px">
-        <h2 data-worte>Führ deine nächste ADK digital.</h2>
-        <p class="lede" style="margin-top:1.1rem">
+        <p class="augbraue">Loslegen</p>
+        <h2>Fahr eine <em>Woche</em> mit.</h2>
+        <p class="lede" style="margin-top:16px">
           Leg deine Fahrschule an, trag deine Fahrzeuge ein, dokumentiere die
           nächsten Fahrstunden darin. Danach weißt du, ob es zu deinem Alltag
           passt. Das lässt sich nicht auf einer Website entscheiden.
         </p>
-        <div class="btn-reihe" style="margin-top:28px">
-          <a class="btn magnet" href="https://allindrive.netlify.app" rel="noopener">
+        <div class="btn-reihe" style="margin-top:32px">
+          <a class="btn" href="https://allindrive.netlify.app" rel="noopener">
             App öffnen
-            <svg width="16" height="16" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
+            <svg width="14" height="14" aria-hidden="true" focusable="false"><use href="#i-pfeil"></use></svg>
           </a>
           <a class="btn btn--linie" href="kontakt.html">Kontakt aufnehmen</a>
         </div>
       </div>
+
+      <!--FOOTER-->
+<footer class="fuss">
+  <div class="fuss__raster">
+    <div>
+      <a class="marke" href="index.html" aria-label="Allindrive, zur Startseite">
+        <span class="marke__ring">
+          <span class="marke__innen">
+            <svg class="ad" viewBox="0 0 100 68.2" aria-hidden="true" focusable="false"><use href="#ad"></use></svg>
+          </span>
+        </span>
+        <span class="marke__wort">Allindrive</span>
+      </a>
+      <p style="margin-top:16px;color:var(--c-muted);font-size:.9375rem;max-width:30ch">
+        Fahrschulverwaltung für Fahrlehrer, die den größten Teil ihres
+        Arbeitstags nicht am Schreibtisch verbringen.
+      </p>
+    </div>
+
+    <div>
+      <h2>Produkt</h2>
+      <ul>
+        <li><a href="funktionen.html">Alle Funktionen</a></li>
+        <li><a href="digitale-adk.html">Digitale ADK</a></li>
+        <li><a href="fahrstundenplanung.html">Fahrstundenplanung</a></li>
+        <li><a href="pruefungssimulation.html">Prüfungssimulation</a></li>
+        <li><a href="fahrschueler-app.html">Fahrschüler-App</a></li>
+        <li><a href="ki-assistenz.html">KI-Assistenz</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Entscheiden</h2>
+      <ul>
+        <li><a href="preise.html">Preise</a></li>
+        <li><a href="vergleich.html">Vergleich</a></li>
+        <li><a href="sicherheit.html">Datenschutz &amp; Sicherheit</a></li>
+        <li><a href="faq.html">Häufige Fragen</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Rechtliches</h2>
+      <ul>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
+        <li><a href="agb.html">AGB</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fuss__leiste">
+    <p>© 2026 Allindrive</p>
+    <p class="punkt">Im Beta-Betrieb, Zugänge nach Absprache</p>
+  </div>
+</footer>
+<!--/FOOTER-->
     </div>
   </section>
 
 </main>
 
-<!--FOOTER-->
-<footer class="fuss">
-  <div class="shell">
-    <div class="fuss__raster">
-      <div>
-        <a class="marke" href="index.html" aria-label="Allindrive, zur Startseite">
-          <svg class="ad ad--faehrt" viewBox="0 0 100 68.2" width="30" height="21" aria-hidden="true" focusable="false"><use href="#ad"></use></svg>
-          <span class="marke__wort">Allindrive</span>
-        </a>
-        <p style="margin-top:14px;color:var(--muted);font-size:.9375rem;max-width:32ch">
-          Fahrschulverwaltung für Fahrlehrer, die den größten Teil ihres
-          Arbeitstags nicht am Schreibtisch verbringen.
-        </p>
-      </div>
-
-      <div>
-        <h2>Produkt</h2>
-        <ul>
-          <li><a href="funktionen.html">Alle Funktionen</a></li>
-          <li><a href="digitale-adk.html">Digitale ADK</a></li>
-          <li><a href="fahrstundenplanung.html">Fahrstundenplanung</a></li>
-          <li><a href="pruefungssimulation.html">Prüfungssimulation</a></li>
-          <li><a href="fahrschueler-app.html">Fahrschüler-App</a></li>
-          <li><a href="ki-assistenz.html">KI-Assistenz</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h2>Entscheiden</h2>
-        <ul>
-          <li><a href="preise.html">Preise</a></li>
-          <li><a href="vergleich.html">Vergleich</a></li>
-          <li><a href="sicherheit.html">Datenschutz &amp; Sicherheit</a></li>
-          <li><a href="faq.html">Häufige Fragen</a></li>
-          <li><a href="kontakt.html">Kontakt</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h2>Rechtliches</h2>
-        <ul>
-          <li><a href="impressum.html">Impressum</a></li>
-          <li><a href="datenschutz.html">Datenschutzerklärung</a></li>
-          <li><a href="agb.html">AGB</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="fuss__leiste">
-      <p>© 2026 Allindrive</p>
-      <p><a href="https://allindrive.netlify.app" rel="noopener">Zur App</a></p>
-    </div>
-  </div>
-</footer>
-<!--/FOOTER-->
-
+<script src="js/hls.light.min.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
