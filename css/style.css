@@ -64,8 +64,13 @@
   --breite: 1120px;
   --rand: clamp(20px, 5vw, 48px);
 
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  /* Vier Kurven für vier Aufgaben. Eine einzige Kurve für alles lässt
+     jede Bewegung gleich wirken, egal ob etwas hereinkommt, sich bewegt
+     oder nur die Farbe wechselt. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);      /* Eintritt: schnell an, weich aus */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);  /* Ortswechsel auf dem Schirm */
+  --ease-sanft: cubic-bezier(0.4, 0, 0.2, 1);      /* Farbe und Deckkraft */
+  --ease-druck: cubic-bezier(0.34, 1.4, 0.64, 1);  /* Druck: minimal über das Ziel */
 }
 
 :root[data-theme="light"] {
@@ -234,7 +239,8 @@ li:last-child {
 .skip {
   position: absolute;
   left: 20px;
-  top: -80px;
+  top: 16px;
+  transform: translateY(-140%);
   z-index: 200;
   padding: 11px 18px;
   border-radius: var(--r-klein);
@@ -242,11 +248,11 @@ li:last-child {
   color: var(--bg);
   font-weight: 700;
   text-decoration: none;
-  transition: top 180ms var(--ease-out);
+  transition: transform 180ms var(--ease-out);
 }
 
 .skip:focus {
-  top: 16px;
+  transform: none;
 }
 
 /* -------------------------------------------------------------------------
@@ -341,10 +347,10 @@ li:last-child {
   white-space: nowrap;
   /* Nur die Eigenschaften nennen, die sich wirklich aendern. */
   transition:
-    transform 160ms var(--ease-out),
-    background-color 160ms var(--ease-out),
-    border-color 160ms var(--ease-out),
-    color 160ms var(--ease-out);
+    transform 160ms var(--ease-druck),
+    background-color 160ms var(--ease-sanft),
+    border-color 160ms var(--ease-sanft),
+    color 160ms var(--ease-sanft);
 }
 
 /* Ein Knopf muss sich gedrueckt anfuehlen. */
@@ -418,7 +424,7 @@ li:last-child {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
-  transition: border-color 200ms var(--ease-out);
+  transition: border-color 200ms var(--ease-sanft);
 }
 
 @supports not (backdrop-filter: blur(1px)) {
@@ -474,8 +480,8 @@ li:last-child {
   font-weight: 500;
   white-space: nowrap;
   transition:
-    color 150ms var(--ease-out),
-    background-color 150ms var(--ease-out);
+    color 150ms var(--ease-sanft),
+    background-color 150ms var(--ease-sanft);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -907,7 +913,7 @@ li:last-child {
   font-size: 1.0625rem;
   letter-spacing: -0.015em;
   line-height: 1.45;
-  transition: color 150ms var(--ease-out);
+  transition: color 150ms var(--ease-sanft);
 }
 
 .fragen summary::-webkit-details-marker {
@@ -928,7 +934,7 @@ li:last-child {
   display: grid;
   place-items: center;
   color: var(--muted);
-  transition: transform 220ms var(--ease-out);
+  transition: transform 220ms var(--ease-in-out);
 }
 
 .fragen__zeichen svg {
@@ -1068,7 +1074,7 @@ li:last-child {
   color: var(--ink-2);
   text-decoration: none;
   font-size: 0.9375rem;
-  transition: color 150ms var(--ease-out);
+  transition: color 150ms var(--ease-sanft);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -2318,291 +2324,6 @@ html:not(.js) .flug__bild {
     border-color 200ms var(--ease-out);
 }
 
-/* ---------------------------------------------------- Bild zieht heran --
-   Bildschirmfotos wachsen minimal, während sie durchs Bild laufen. Das ist
-   die Kamerafahrt, die ein Standbild sonst nicht hat. */
-
-.js .heranziehen {
-  transform: scale(var(--zieh, 1));
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .koernung {
-    display: none;
-  }
-  .js .magnet,
-  .js .kippt,
-  .js .heranziehen {
-    transform: none;
-  }
-  .top {
-    transform: none;
-  }
-}
-
-/* =========================================================================
-   25 · Schwere Effekte
-
-   Ab hier wird es aufwendig. Drei Dinge halten das zusammen:
-
-   1. Alles läuft über transform und opacity. Nichts hier fasst Breite,
-      Höhe, top oder left an, also muss der Browser nie neu ausmessen.
-   2. Alles hängt an derselben rAF-Schleife wie der Rest.
-   3. Alles verschwindet bei prefers-reduced-motion. Eine Seite mit
-      Scroll-Übernahme und wanderndem Licht ist für manche Menschen
-      unbenutzbar, und das ist keine Geschmacksfrage.
-   ========================================================================= */
-
-/* ------------------------------------------------------------ Zeigerblob --
-   Ein großer weicher Schein, der dem Zeiger nachläuft. Er folgt gedämpft,
-   nicht sofort: Ein Fleck, der exakt am Cursor klebt, wirkt wie ein
-   Fehler im Bild. Liegt ganz hinten und fängt keine Klicks ab. */
-
-.blob {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 46vmax;
-  height: 46vmax;
-  margin: -23vmax 0 0 -23vmax;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0;
-  transform: translate3d(var(--bx, 50vw), var(--by, 50vh), 0);
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--accent) 13%, transparent) 0%,
-    transparent 62%
-  );
-  filter: blur(40px);
-  transition: opacity 700ms var(--ease-out);
-  will-change: transform;
-}
-
-.js .blob.ist-da {
-  opacity: 1;
-}
-
-/* ---------------------------------------------------------- Die Fahrbahn --
-   Eine Linie, die sich beim Scrollen durch die ganze Seite zeichnet. Sie
-   kommt aus der Bildmarke: dort läuft dieselbe gestrichelte Fahrbahn durch
-   das A. Hier ist sie das Rückgrat der Seite.
-
-   Gezeichnet wird über stroke-dashoffset, das ist die einzige Eigenschaft,
-   die eine Linie wirklich wachsen lässt statt sie einzublenden. */
-
-.fahrbahn {
-  position: absolute;
-  top: 0;
-  left: clamp(8px, 2.2vw, 34px);
-  width: 44px;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: visible;
-}
-
-/* Auf schmalen Bildschirmen ist links kein Platz neben dem Text. */
-@media (max-width: 760px) {
-  .fahrbahn {
-    display: none;
-  }
-}
-
-.fahrbahn__weg {
-  fill: none;
-  stroke: var(--line);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-dasharray: 14 20;
-  /* Der Anteil kommt aus js/main.js und wächst mit dem Scrollen. */
-  stroke-dashoffset: 0;
-}
-
-.fahrbahn__fahrt {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: var(--weg-laenge, 4000);
-  stroke-dashoffset: calc(var(--weg-laenge, 4000) * (1 - var(--weg-p, 0)));
-  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));
-}
-
-/* Der Wagen auf der Fahrbahn: ein Punkt, der die Linie entlangfährt. */
-.fahrbahn__wagen {
-  fill: var(--accent);
-  r: 5;
-  filter: drop-shadow(0 0 10px var(--accent));
-}
-
-/* -------------------------------------------------- Horizontaler Schwenk --
-   Ein Abschnitt, der festgehalten wird, während der Inhalt seitwärts
-   durchs Bild zieht. Vertikales Scrollen wird zu horizontaler Fahrt.
-
-   Die Höhe des Abschnitts bestimmt, wie lange der Schwenk dauert; sie
-   wird aus der Breite der Spur gerechnet, damit nie ein Rest übrig
-   bleibt oder die Spur zu früh endet. */
-
-.schwenk {
-  position: relative;
-}
-
-.schwenk__halt {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100dvh;
-  display: grid;
-  align-content: center;
-  overflow: hidden;
-}
-
-.schwenk__spur {
-  display: flex;
-  gap: clamp(20px, 3vw, 44px);
-  padding-inline: var(--rand);
-  width: max-content;
-  transform: translate3d(var(--schwenk, 0px), 0, 0);
-  will-change: transform;
-}
-
-.schwenk__karte {
-  width: clamp(260px, 34vw, 380px);
-  flex: none;
-  padding: 30px 28px;
-  border-radius: var(--r-gross);
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  display: grid;
-  align-content: start;
-  gap: 10px;
-  min-height: 260px;
-}
-
-.schwenk__nr {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--accent-ink);
-}
-
-.schwenk__karte h3 {
-  font-size: 1.3rem;
-}
-
-.schwenk__karte p {
-  margin: 0;
-  color: var(--ink-2);
-  font-size: 0.9688rem;
-  line-height: 1.6;
-}
-
-/* Ohne Skript liegt die Spur einfach als seitwärts scrollbare Reihe da. */
-html:not(.js) .schwenk,
-html:not(.js) .schwenk__halt {
-  height: auto;
-  position: static;
-}
-
-html:not(.js) .schwenk__spur {
-  overflow-x: auto;
-  transform: none;
-  max-width: 100%;
-}
-
-/* -------------------------------------------------------- Kartenstapel --
-   Abschnitte, die beim Scrollen aufeinander liegen bleiben. Jede Karte
-   schiebt sich über die vorige, die dabei zurückweicht und dunkler wird.
-   Erzeugt Tiefe, ohne dass etwas verschwindet. */
-
-.stapelfeld {
-  display: grid;
-  gap: 0;
-}
-
-.stapelkarte {
-  position: sticky;
-  top: clamp(80px, 12vh, 130px);
-  border-radius: var(--r-gross);
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  padding: clamp(28px, 4vw, 52px);
-  margin-bottom: 26px;
-  transform: scale(var(--stapel-s, 1)) translate3d(0, var(--stapel-y, 0px), 0);
-  transform-origin: 50% 0;
-  will-change: transform;
-}
-
-.stapelkarte__kopf {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  margin-bottom: 14px;
-}
-
-.stapelkarte__nr {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--accent-ink);
-}
-
-@media (min-width: 900px) {
-  .stapelkarte {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(28px, 4vw, 56px);
-    align-items: center;
-  }
-  .stapelkarte__kopf {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
-  }
-}
-
-html:not(.js) .stapelkarte {
-  position: static;
-  transform: none;
-}
-
-/* ------------------------------------------------------- Ziffernrollen --
-   Zahlen, die wie ein mechanisches Zählwerk hochlaufen. Jede Stelle ist
-   eine eigene Rolle; bewegt wird die Rolle, nicht der Text. */
-
-.rolle {
-  display: inline-flex;
-  gap: 1px;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}
-
-.rolle__stelle {
-  position: relative;
-  display: block;
-  width: 0.62em;
-  height: 1em;
-  overflow: hidden;
-}
-
-.rolle__band {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  transform: translateY(calc(var(--z, 0) * -1em));
-  transition: transform 1200ms var(--ease-out);
-  transition-delay: calc(var(--s, 0) * 70ms);
-}
-
-.rolle__band span {
-  display: block;
-  height: 1em;
-  text-align: center;
-}
-
 /* --------------------------------------------- Hintergrund wandert mit --
    Der Grund wechselt beim Scrollen minimal den Ton. Nicht als Farbverlauf
    über die Seite, sondern als leiser Schein, der von Abschnitt zu
@@ -2900,5 +2621,33 @@ main,
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none;
+  }
+}
+
+
+/* -------------------------------------------------------------------------
+   Keine Raumdrehung auf Berührgeräten
+
+   Auf einem Handy gibt es keinen Zeiger, der die Drehung motiviert, dafür
+   aber deutlich weniger Rechenleistung. Eine gekippte Ebene kostet dort
+   jede Bildwiederholung eine eigene Zeichenschicht, und der Gewinn ist
+   gleich null: Aus der Hand betrachtet liest sich die Kippung ohnehin
+   kaum. Also bleibt alles flach.
+   ------------------------------------------------------------------------- */
+
+@media (hover: none), (pointer: coarse) {
+  .buehne__geraet,
+  .flug__geraet,
+  .schirm,
+  .phone {
+    --auf-dreh: 0deg;
+    --auf-neig: 0deg;
+    --flug-dreh: 0deg;
+    --flug-neig: 0deg;
+  }
+
+  .buehne__geraet,
+  .flug__geraet {
+    perspective: none;
   }
 }
