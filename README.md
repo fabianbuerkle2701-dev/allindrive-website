@@ -85,6 +85,7 @@ Bestandteile über alle Seiten hinweg gleich.
 
 ```bash
 python3 werkzeug/bausteine.py    # Bildmarke, Symbole und Fußzeile einsetzen
+python3 werkzeug/versionen.py    # Inhaltskennung an CSS und JS hängen
 python3 werkzeug/sitemap.py      # sitemap.xml neu erzeugen
 python3 werkzeug/angaben.py      # Firmendaten in alle Rechtstexte eintragen
 python3 werkzeug/iphone.py       # Bildschirmfotos in die Gerätehüllen bringen
@@ -135,6 +136,18 @@ HTML-Dateien durch den Inhalt aus `werkzeug/bausteine/`. Es lässt sich beliebig
 oft laufen: beim zweiten Lauf tauscht es den Inhalt zwischen den Marken aus,
 statt ein zweites Mal einzufügen. Wer Kopf- oder Fußzeile ändern will, ändert
 die Vorlage in `werkzeug/bausteine/` und lässt das Werkzeug erneut laufen.
+
+`versionen.py` gehört vor **jeden** Deploy. Es hängt an `css/style.css` und
+`js/main.js` eine sechsstellige Kennung aus dem Dateiinhalt
+(`style.css?v=b31dbd`). Ohne sie bleiben die Adressen über Jahre gleich, und
+ein Besucher, der die Seite vorher schon offen hatte, bekommt nach einem
+Deploy das neue HTML mit dem alten Skript aus seinem Zwischenspeicher. Genau
+das ist einmal passiert: Gerätehüllen ohne die zugehörigen Maße, eine leere
+Leinwand statt der Nachtfahrt, und ein Laufband mit dem alten Tempo — drei
+kaputte Stellen auf einmal, und keine davon war im Quelltext zu finden.
+
+Ändert sich eine Datei nicht, ändert sich auch die Kennung nicht. Der
+Zwischenspeicher soll ja arbeiten, nur eben nicht über eine Änderung hinweg.
 
 `sitemap.py` nach jedem Hinzufügen oder Umbenennen einer Seite laufen lassen.
 

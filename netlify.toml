@@ -1,16 +1,26 @@
 # Auslieferung auf Netlify. Die Seite ist reines HTML, es wird nichts gebaut.
 
 # Es wird nichts kompiliert. Der Befehl setzt nur die wiederkehrenden
-# Bausteine (Bildmarke, Piktogramme, Fusszeile) in alle Seiten ein und
-# schreibt die sitemap.xml neu. Ohne ihn koennen unausgefuellte Marker
-# lautlos live gehen.
+# Bausteine (Bildmarke, Piktogramme, Fusszeile) in alle Seiten ein, haengt
+# die Inhaltskennung an Stilvorlage und Skript und schreibt die sitemap.xml
+# neu. Ohne ihn koennen unausgefuellte Marker lautlos live gehen.
+#
+# versionen.py laeuft nach bausteine.py: Der setzt die Bausteine ein, und
+# erst danach steht fest, wie die Seiten aussehen, die gestempelt werden.
 [build]
   publish = "."
-  command = "python3 werkzeug/bausteine.py && python3 werkzeug/sitemap.py"
+  command = "python3 werkzeug/bausteine.py && python3 werkzeug/versionen.py && python3 werkzeug/sitemap.py"
 
 # Schriften und Bilder aendern sich nicht mehr; sie duerfen lange im Zwischen-
 # speicher bleiben. HTML dagegen muss bei jedem Aufruf frisch geprueft werden,
 # sonst sehen Besucher nach einer Aenderung tagelang die alte Fassung.
+#
+# Stilvorlage und Skript stehen jetzt ebenfalls auf ein Jahr, obwohl sie sich
+# sehr wohl aendern: Sie werden ueber werkzeug/versionen.py mit einer Kennung
+# aus ihrem eigenen Inhalt angefordert (style.css?v=b31dbd). Aendert sich die
+# Datei, aendert sich die Adresse, und der Zwischenspeicher greift nicht mehr.
+# Vorher standen sie auf sieben Tagen ohne Kennung - das hiess: neues HTML,
+# altes Skript, und die Seite war halb kaputt.
 [[headers]]
   for = "/fonts/*"
   [headers.values]
@@ -24,12 +34,12 @@
 [[headers]]
   for = "/css/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*.html"
