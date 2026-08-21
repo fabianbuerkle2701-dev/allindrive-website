@@ -659,7 +659,18 @@ li:last-child {
   overflow: hidden;
 }
 
-.auftakt__film video {
+.auftakt__film canvas,
+.schluss__film canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Falls später eine echte Aufnahme eingetragen wird. */
+.auftakt__film video,
+.schluss__film video {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -696,7 +707,20 @@ li:last-child {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(0, 0, 0, 0.34);
+  /* Zwei Schleier statt einem.
+
+     Der erste läuft von links nach rechts und deckt nur, wo die Zeile
+     steht. Rechts läuft er auf fast nichts aus — dort darf die Strasse
+     durch. Eine gleichmässige Fläche müsste überall so dicht sein wie an
+     der ungünstigsten Stelle und nähme der Strasse dann alles.
+
+     Der zweite ist eine schmale Ellipse hinter dem Textblock selbst. Sie
+     hält den Kontrast dort, wo er gebraucht wird, statt ihn über das ganze
+     Bild zu verteilen. */
+  background:
+    radial-gradient(56% 44% at 26% 56%, rgba(0, 0, 0, 0.38), transparent 74%),
+    linear-gradient(100deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.12) 54%,
+                    rgba(0, 0, 0, 0) 100%);
 }
 
 .auftakt__saum {
@@ -761,9 +785,25 @@ li:last-child {
   }
 }
 
+/* Der Auftakt-Text steht heller als der zurückgenommene Text im Rest der
+   Seite. Grund ist der Untergrund: Überall sonst liegt eine ruhige Fläche
+   darunter, hier eine Strasse mit Laternen, deren hellste Stellen bis auf
+   Helligkeit 87 gehen. Mit --c-muted (53 %) fällt der Kontrast dort auf
+   3,7:1 und damit unter die 4,5:1, die für Fließtext gefordert sind.
+   Bei 72 % sind es auch an der ungünstigsten Stelle rund 7:1.
+
+   Die Alternative wäre gewesen, den Schleier wieder dichter zu machen —
+   dann hätte man aber das ganze Bild verdunkelt, um zwei Textzeilen zu
+   retten. */
+.auftakt__text,
+.auftakt__hinweis,
+.auftakt .augbraue,
+.rolle {
+  color: hsl(0 0% 72%);
+}
+
 .auftakt__text {
   font-size: 0.9375rem;
-  color: var(--c-muted);
   max-width: 32rem;
   margin-bottom: 44px;
 }
@@ -771,7 +811,6 @@ li:last-child {
 .auftakt__hinweis {
   margin-top: 22px;
   font-size: 0.8125rem;
-  color: var(--c-muted);
 }
 
 /* Der Hinweis ganz unten. */
@@ -1229,9 +1268,12 @@ li:last-child {
    Geschwindigkeiten weit auseinanderliegen.
    ------------------------------------------------------------------------- */
 
+/* Die Höhe ist auf den Inhalt abgestimmt, nicht rund gegriffen. Bei 300vh
+   füllten sechs Geräte nur das erste Drittel, und die restlichen zwei
+   Drittel scrollte man an einer leeren Fläche vorbei. */
 .schau {
   position: relative;
-  min-height: 300vh;
+  min-height: 185vh;
 }
 
 .schau__mitte {
@@ -1242,64 +1284,116 @@ li:last-child {
   display: grid;
   place-items: center;
   text-align: center;
-  z-index: 10;
+  z-index: 20;
   pointer-events: none;
   padding-inline: var(--rand);
 }
 
-.schau__mitte > * {
-  pointer-events: auto;
-  max-width: 34rem;
+/* Trennung zur Galerie dahinter: ein Schein um die Buchstaben, keine
+   abgedunkelte Fläche.
+
+   Zuerst lag hier ein grosser Radialverlauf. Zwei Probleme: Auf einem fast
+   schwarzen Grund liegen zwischen 94 % und 0 % Deckung nur eine Handvoll
+   darstellbarer Stufen, und die sah man als konzentrische Ringe. Und
+   gleichzeitig dunkelte er die Geräte kaum ab — er war sichtbar, ohne zu
+   wirken.
+
+   Ein Schatten folgt den Buchstaben statt einem Kreis. Er trennt genau
+   dort, wo getrennt werden muss, kann nicht ringförmig abreissen, und die
+   Geräte dahinter bleiben ganz zu sehen — das ist ja der Sinn der
+   Überlagerung. */
+.schau__mitte h2,
+.schau__mitte .augbraue,
+.schau__mitte .lede {
+  text-shadow:
+    0 1px 2px hsl(var(--bg) / 0.95),
+    0 2px 14px hsl(var(--bg) / 0.9),
+    0 0 44px hsl(var(--bg) / 0.75);
 }
 
+.schau__mitte > * {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  /* Die Breite hängt am Fenster, nicht an einem festen Wert. Auf schmalen
+     Bildschirmen bleiben links und rechts nur rund 430 px zwischen den
+     Geräten frei; eine Zeile von 34 rem liefe dort mitten durch sie
+     hindurch. So bricht sie stattdessen früher um und steht in der
+     Lücke. */
+  max-width: clamp(20rem, 50vw, 34rem);
+}
+
+/* Die Säulen laufen mit der Seite mit, sie sind nicht festgeheftet. Ein
+   Versuch mit position: sticky hielt sie zwar dauerhaft im Bild, aber
+   damit blieb von der Bewegung nur ein Zittern von zweihundert Pixeln
+   übrig — die Geräte hingen da, statt vorbeizuziehen.
+
+   Jetzt tragen sie zwei Bewegungen übereinander: die der Seite selbst,
+   und den Versatz aus data-tempo, der die beiden Spalten gegeneinander
+   laufen lässt. Die erste ist die grosse, die zweite macht daraus mehr
+   als zwei Listen, die zusammen hochfahren.
+
+   Kein overflow: clip hier. Es hatte in einer früheren Fassung zusammen
+   mit position: sticky den gesamten Inhalt weggeschnitten, und gebraucht
+   wird es nicht. */
 .schau__saeulen {
   position: absolute;
   inset: 0;
-  z-index: 20;
+  z-index: 10;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(24px, 8vw, 160px);
   max-width: 1400px;
   margin-inline: auto;
-  padding: 12vh var(--rand);
+  padding: 9vh var(--rand);
   pointer-events: none;
 }
 
+/* Gleichmässig über die Sektionshöhe verteilt statt oben gestapelt. Sonst
+   sammeln sich alle sechs Geräte im ersten Drittel und der Rest der
+   Sektion ist leer.
+
+   Die zweite Spalte verteilt mit space-around statt space-between: Das
+   legt oben und unten je einen halben Abstand dazu, und dadurch stehen
+   die Reihen versetzt statt paarweise nebeneinander. Ein padding-top
+   täte das nicht — bei fester Höhe rücken die Geräte dann nur enger
+   zusammen, statt sich zu verschieben. */
 .schau__saeule {
   display: grid;
-  gap: clamp(40px, 8vh, 90px);
-  align-content: start;
+  align-content: space-between;
   will-change: transform;
 }
 
+.schau__saeule:nth-child(2) {
+  align-content: space-around;
+}
+
+/* Die Karten sind Gerätehüllen (.phone). Rahmen, Radius und Blende kommen
+   von dort, hier steht nur, wie gross sie sind und wie schief sie hängen.
+
+   Die Breite ist absolut, nicht in Prozent: .phone rechnet Rahmenstärke,
+   Eckradius und Insel aus --phone-breite. Ein Prozentwert bezöge sich auf
+   die Spalte statt auf das Gerät, und die Proportionen stimmten nicht mehr. */
+.schau__karte.phone {
+  --phone-breite: clamp(150px, 20vw, 280px);
+}
+
 .schau__karte {
-  aspect-ratio: 1;
-  max-width: 320px;
-  width: 100%;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid var(--c-stroke);
-  background: var(--c-surface);
   pointer-events: auto;
   transform: rotate(var(--kipp, 0deg));
   transition: transform 400ms var(--ease-stark);
 }
 
+/* Aussen halten: In der Mitte steht die Überschrift, und die Geräte liegen
+   darüber. */
 .schau__saeule:nth-child(2) .schau__karte {
   justify-self: end;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .schau__karte:hover {
-    transform: rotate(0deg) scale(1.03);
+    transform: rotate(0deg) scale(1.04);
   }
-}
-
-.schau__karte img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
 }
 
 @media (max-width: 720px) {
@@ -1318,10 +1412,14 @@ li:last-child {
   }
   .schau__saeule {
     gap: 16px;
+    align-content: start;
     transform: none !important;
   }
+  .schau__karte.phone {
+    --phone-breite: min(40vw, 190px);
+  }
   .schau__karte {
-    max-width: none;
+    justify-self: center !important;
     transform: none;
   }
 }
@@ -1416,22 +1514,10 @@ li:last-child {
   inset: 0;
   z-index: -2;
   overflow: hidden;
-  /* Gespiegelt, damit derselbe Film am Seitenende nicht wie eine
-     Wiederholung des Auftakts wirkt. */
-  transform: scaleY(-1);
-}
-
-.schluss__film video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  max-width: none;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
+  /* Seitenverkehrt, damit dieselbe Strasse am Seitenende nicht wie eine
+     Wiederholung des Auftakts wirkt: Die Kurve fällt andersherum, die
+     Laternen stehen links. Senkrecht gespiegelt läge der Himmel unten. */
+  transform: scaleX(-1);
 }
 
 .schluss__schleier {
@@ -1938,10 +2024,10 @@ li:last-child {
 .soll__band i {
   display: block;
   height: 100%;
-  width: var(--soll, 0%);
-  border-radius: 3px;
+  width: 100%;
   background: var(--verlauf);
-  transition: width 900ms var(--ease-stark);
+  clip-path: inset(0 calc(100% - var(--soll, 0%)) 0 0 round 3px);
+  transition: clip-path 900ms var(--ease-stark);
 }
 
 .soll__fuss {
@@ -2015,10 +2101,16 @@ li:last-child {
   font-size: 0.75rem;
   line-height: 1.4;
   overflow-wrap: anywhere;
-  background: repeating-linear-gradient(-45deg, #fff6dc 0 12px, #ffeec2 12px 24px);
-  color: #4a3100;
-  font-weight: 600;
+  background:
+    repeating-linear-gradient(-45deg,
+      hsl(0 0% 11%) 0 11px,
+      hsl(0 0% 13%) 11px 22px);
+  color: hsl(0 0% 62%);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: inset 0 0 0 1px hsl(28 100% 50% / 0.28);
 }
+
 
 .phone__titel {
   margin-top: 16px;
@@ -2126,9 +2218,15 @@ li:last-child {
   .schau__saeule {
     transform: none !important;
   }
+  /* Die Leinwand zeichnet bei reduzierter Bewegung ein Standbild - das
+     darf stehen bleiben. Ein Video hätte weitergespielt. */
   .auftakt__film video,
   .schluss__film video {
     display: none;
+  }
+  .auftakt__film canvas,
+  .schluss__film canvas {
+    display: block;
   }
 }
 

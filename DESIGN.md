@@ -16,50 +16,69 @@ Großbuchstabenzeilen über Überschriften.
 
 ## Farben
 
-Definiert als CSS-Variablen auf `:root` in `css/style.css`. Hell ist der
-Ausgangszustand, weil Fahrlehrer bei Tageslicht arbeiten und die App selbst
-hell ist. Dunkel folgt der Systemeinstellung und lässt sich umschalten; die
-Wahl liegt unter `allindrive-farbschema` im lokalen Speicher.
+Definiert als CSS-Variablen auf `:root` in `css/style.css`. Die Seite ist
+durchgehend dunkel, ohne Umschalter. Vorher gab es beides und eine gespeicherte
+Wahl; mit dem Umbau auf den nächtlichen Auftakt war ein heller Modus keine
+Variante mehr, sondern ein zweites Design.
 
-| Rolle | Hell | Dunkel |
-|---|---|---|
-| Grund | `#ffffff` | `#100e0b` |
-| Ruhiger Grund (Bänder) | `#fbf9f6` | `#17140f` |
-| Text | `#16130e` | `#f7f3ec` |
-| Text, zweite Ebene | `#4e4840` | `#c4bcae` |
-| Text, zurückgenommen | `#857e73` | `#8d8578` |
-| Linie | `#e9e5de` | `#262220` |
-| Akzent (Fläche) | `#ff9300` | `#ff9300` |
-| Akzent (Text) | `#96520a` | `#ffab3d` |
+Die Grundwerte stehen als HSL-Anteile ohne `hsl()` drumherum:
+
+```css
+--bg: 0 0% 4%;   --surface: 0 0% 8%;   --text: 0 0% 96%;
+--muted: 0 0% 53%;   --stroke: 0 0% 12%;
+```
+
+So lässt sich jede davon mit beliebiger Deckkraft weiterverwenden —
+`hsl(var(--bg) / 0.82)` für einen Schleier — ohne einen zweiten Wert dafür zu
+pflegen. Die fertigen Farben liegen daneben als `--c-bg`, `--c-text` und so
+weiter.
+
+| Rolle | Wert |
+|---|---|
+| Grund | `hsl(0 0% 4%)` |
+| Fläche (Karten, Bänder) | `hsl(0 0% 8%)` |
+| Text | `hsl(0 0% 96%)` |
+| Text, zurückgenommen | `hsl(0 0% 53%)` |
+| Linie | `hsl(0 0% 12%)` |
+| Akzent | `#ff9300` |
+| Akzent, hell | `#ffb04d` |
 
 Das Orange `#ff9300` ist die Marken- und Aktionsfarbe der App. Auf der Seite
-trägt es ausschließlich die Hauptaktion, die Häkchen und kleine Markierungen.
-**Als Textfarbe wird es nie direkt verwendet**: auf Weiß erreicht es den
-Kontrastwert nicht. Dafür gibt es `--accent-ink`.
+trägt es die Hauptaktion, den Ring um die Bildmarke, kleine Markierungen — und
+die Laternen im gezeichneten Hintergrund, wo Natriumdampflicht zufällig genau
+diesen Ton hat.
 
-Bänder wechseln zwischen Grund und ruhigem Grund. Es gibt keinen Abschnitt,
-der ins jeweils andere Farbschema kippt.
+`--verlauf` läuft von `#ffb04d` nach `#ff9300`. Ein Ring oder Balken bekommt
+dadurch eine Richtung statt nur eine Farbe.
 
 ## Schrift
 
-Karla, eine variable Datei von 24 KB, lokal unter `fonts/karla.woff2`. Für
-Überschriften und Fließtext dieselbe Schrift: Überschriften trennen sich über
-Größe, Gewicht 700 und negative Laufweite deutlich genug ab. Eine zweite
-Schrift wäre hier Dekoration.
+Zwei Schriften, beide lokal unter `fonts/`.
 
-| Ebene | Größe | Gewicht | Laufweite |
-|---|---|---|---|
-| h1 | `clamp(2rem, 4.4vw, 3.5rem)` | 700 | `-0.038em` |
-| h2 | `clamp(1.7rem, 3.4vw, 2.55rem)` | 700 | `-0.032em` |
-| h3 | `1.125rem` | 700 | `-0.018em` |
-| Fließtext | `1.0625rem`, Zeilenhöhe 1.7 | 400 | normal |
-| Vorspann (`.lede`) | `clamp(1.0625rem, 1.5vw, 1.2rem)` | 400 | normal |
+**Inter** trägt alles: Überschriften, Fließtext, Bedienelemente. Die Datei ist
+nach Zeichenbereich geteilt (`inter-latin.woff2`, `inter-latin-ext.woff2`), damit
+eine deutsche Seite den osteuropäischen Teil gar nicht erst anfragt.
+
+**Instrument Serif kursiv** setzt einzelne Worte in Überschriften ab — „läuft
+*auf dem Handy*". Es ist die einzige Stelle, an der eine zweite Schrift
+vorkommt, und sie steht nie für einen ganzen Satz. Der Wechsel innerhalb einer
+Zeile trägt genau, weil er selten ist.
+
+| Ebene | Größe | Zeilenhöhe | Gewicht | Laufweite |
+|---|---|---|---|---|
+| h1 | `clamp(2.75rem, 7.5vw, 6rem)` | 0.94 | 500 | `-0.045em` |
+| h2 | `clamp(1.9rem, 4.2vw, 3.4rem)` | erbt | 500 | `-0.035em` |
+| h3 | `1.25rem` | 1.3 | 500 | `-0.02em` |
+| Fließtext | `1rem` | 1.65 | 400 | normal |
+| Vorspann (`.lede`) | `clamp(0.9375rem, 1.4vw, 1.0625rem)` | 1.65 | 400 | normal |
+
+Die Zeilenhöhe 0.94 in der h1 ist kein Versehen: Bei dieser Größe fallen zwei
+Zeilen sonst auseinander. `max-width: 56ch` auf dem Vorspann hält die
+Zeilenlänge lesbar, unabhängig davon, wie breit der Bildschirm wird.
 
 Überschriften haben `hyphens: auto`. Das ist im Deutschen keine Feinheit,
 sondern Voraussetzung: „Fahrschulverwaltungssoftware" ist breiter als ein
 Handybildschirm und schiebt ohne Trennung die ganze Seite zur Seite.
-
-Fließtext läuft auf höchstens 68 Zeichen, Vorspann auf 58.
 
 ## Maße
 
@@ -88,26 +107,69 @@ Luft als darunter.
 
 ## Bewegung
 
-Kurz, `ease-out`, und nur wo sie etwas erklärt.
+Fünf Kurven für fünf Aufgaben. Eine einzige Kurve für alles lässt jede Bewegung
+gleich wirken, egal ob etwas hereinkommt, sich bewegt oder nur die Farbe
+wechselt.
 
 ```css
---ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+--ease-out:    cubic-bezier(0.25, 0.1, 0.25, 1);   /* allgemein */
+--ease-stark:  cubic-bezier(0.16, 1, 0.3, 1);      /* Einfahrten, Balken */
+--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);    /* Wege mit Anfang und Ende */
+--ease-sanft:  cubic-bezier(0.4, 0, 0.2, 1);       /* Farbe, Deckkraft */
+--ease-druck:  cubic-bezier(0.2, 0, 0.13, 1);      /* Tastendruck */
 ```
 
-- Abschnitte fahren beim Erreichen einmal auf: 14 px anheben und aufblenden,
-  620 ms, Geschwister um 55 ms versetzt. Einmalig, nicht beim Zurückscrollen.
-- Knöpfe gehen beim Drücken auf `scale(0.97)` in 160 ms. Ohne diese Rückmeldung
-  wirkt ein Knopf tot.
-- Pfeillinks vergrößern beim Überfahren den Abstand zum Pfeil von 7 auf 11 px.
+- Abschnitte fahren beim Erreichen einmal auf: anheben und aufblenden,
+  Geschwister versetzt. Einmalig, nicht beim Zurückscrollen.
+- Knöpfe gehen beim Drücken auf `scale(0.97)`. Ohne diese Rückmeldung wirkt ein
+  Knopf tot.
 - Die Kopfzeile bekommt ihre Trennlinie erst, wenn wirklich gescrollt wurde.
-- Die Fahrbahn im Logo läuft dauerhaft. Sie ist die einzige Endlosbewegung
-  und gehört der Marke. Beim Scrollen läuft sie kurz schneller.
+- Die Fahrbahn im Logo läuft dauerhaft und wird beim Scrollen kurz schneller.
+- Das Laufband läuft mit **58 px/s**, nicht mit einem Prozentsatz seiner Breite.
+  Prozent hieße: ein Wort mehr in der Liste, und das ganze Band läuft schneller.
+- Die Gerätespalten in der Galerie laufen beim Scrollen gegeneinander
+  (`data-tempo`, negativ heißt gegen die Scrollrichtung).
+
+Alles Scroll-Abhängige hängt an **einer** rAF-Schleife in `js/main.js`. Ein
+eigener Zuhörer je Effekt ruckelt auf dem Handy sofort, weil jeder von ihnen
+das Layout neu ausmisst.
 
 Alle Bewegung hängt hinter `@media (prefers-reduced-motion: reduce)` und hinter
 der Klasse `js` am `<html>`. Ohne JavaScript ist alles sofort sichtbar.
 
 **Hover-Effekte stehen in `@media (hover: hover) and (pointer: fine)`.** Sonst
 bleibt auf Touchgeräten nach jeder Berührung der Hover-Zustand kleben.
+
+## Der gezeichnete Hintergrund
+
+Auftakt und Schluss zeigen eine nächtliche Landstraße in einer `<canvas>`, kein
+Video. Gezeichnet wird in Zentralperspektive: Ein Punkt `(x, z)` auf der Fahrbahn
+— `x` seitlich, `z` nach vorn, beides in Metern — landet bei `x · f / z` auf dem
+Bild. Alles Weitere fällt daraus heraus, ohne dass man es einzeln bauen müsste:
+Die Fahrbahn läuft im Fluchtpunkt zusammen, Striche werden mit der Entfernung
+kürzer und schmaler, Laternen rücken zusammen.
+
+Bewegung entsteht allein dadurch, dass `weg` wächst. Die Striche springen dabei
+nicht, weil der erste immer bei `ABSTAND − (weg % ABSTAND)` liegt.
+
+Drei Entscheidungen, die man dem Bild ansieht:
+
+- **Der Nebel am Horizont liegt über Himmel *und* Boden.** Läge er nur über dem
+  Himmel, zeichnete sich dort eine messerscharfe waagerechte Kante ab, weil die
+  eine Hälfte orange getönt wäre und die andere nicht. Diese eine Kante verrät
+  die Zeichnung sofort als Zeichnung.
+- **Die Masten sind unten fast unsichtbar.** Nachts sieht man von einem Mast nur
+  das, was beleuchtet wird. Durchgehend gleich hell wird aus der Straße eine
+  technische Zeichnung. Der Ausleger ist gebogen, nicht rechtwinklig — ein
+  rechter Winkel liest sich als Diagramm.
+- **Die Deckkraft der Markierungen steckt in einem senkrechten Verlauf**, nicht
+  in einem festen Wert. Unten am Bildrand rauscht die Fahrbahn vorbei und ein
+  greller Strich fällt dort als Fleck auf, am Horizont verschluckt ihn der
+  Dunst. Ein Verlauf erledigt beide Enden auf einmal.
+
+Bei reduzierter Bewegung wird ein Standbild derselben Straße gezeichnet. Die
+Schleife läuft nur, solange die Fläche im Bild ist — zwei Vollbild-Leinwände,
+die dauerhaft rechnen, merkt man auf einem älteren Gerät sofort.
 
 ## Die Bildmarke
 

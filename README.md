@@ -24,26 +24,48 @@ datenschutz.html      Gerüst, muss ausgefüllt werden
 agb.html              Gerüst, muss ausgefüllt werden
 404.html
 
-css/fonts.css         Eine Schrift, lokal
+css/fonts.css         Zwei Schriften, lokal
 css/style.css         Das gesamte Designsystem
-js/main.js            Farbschema, Menü, Einblenden beim Scrollen
-fonts/karla.woff2     Aus dem App-Bundle gelöst, 24 KB
+js/main.js            Menü, Einblendungen, Laufband, Nachtfahrt
+fonts/inter-*.woff2   Fließtext, nach Zeichenbereich geteilt
+fonts/instrument-serif-italic.woff2   Kursive Auszeichnung in Überschriften
 images/               Marke, Symbole
 images/app/           Bildschirmfotos aus der laufenden App
+images/iphone/        Aufnahmen für die Gerätehüllen, siehe unten
 werkzeug/             Kleine Skripte, siehe unten
 ```
 
 ## Grundentscheidungen
 
-**Eine Schrift.** Karla, in einer variablen Datei von 24 KB, für Überschriften
-und Fließtext. Sie stammt aus dem Bundle der App selbst und liegt lokal.
-Kein Abruf bei Google, also keine IP-Adresse der Besucher an Dritte und eine
-Einwilligungskategorie weniger.
+**Zwei Schriften, beide lokal.** Inter für Fließtext und Überschriften,
+Instrument Serif kursiv für die hervorgehobenen Worte darin. Kein Abruf bei
+Google, also keine IP-Adresse der Besucher an Dritte und eine
+Einwilligungskategorie weniger. Inter ist nach Zeichenbereich geteilt, damit
+deutsche Seiten die Datei mit den osteuropäischen Zeichen gar nicht erst
+anfragen.
 
-**Keine fremden Skripte.** Die Seite lädt ausschließlich eigene Dateien. Kein
-Tracking, keine Cookies. Gespeichert wird einzig die Wahl zwischen hellem und
-dunklem Farbschema, im lokalen Speicher des Browsers. Die
-Inhaltssicherheitsrichtlinie in `netlify.toml` ist deshalb eng gefasst.
+**Keine fremden Skripte, keine fremden Adressen.** Die Seite lädt
+ausschließlich eigene Dateien. Kein Tracking, keine Cookies, kein Eintrag im
+lokalen Speicher — auf dem Gerät des Besuchers bleibt nichts zurück. Die
+Inhaltssicherheitsrichtlinie in `netlify.toml` erlaubt deshalb nur `'self'`.
+
+**Der bewegte Hintergrund ist gezeichnet, kein Video.** Auftakt und Schluss
+zeigen eine nächtliche Landstraße, die `js/main.js` in eine `<canvas>` malt:
+Fahrbahn, Markierungen und Laternen in Zentralperspektive, dazu ein langsam
+wandernder Kurvenverlauf. Vorher lief dort ein eingebetteter Videostrom eines
+Video-Dienstes — der kostete 296 KB Abspieler, lud bei jedem Aufruf von einem
+fremden Server und brauchte einen eigenen Absatz in der Datenschutzerklärung.
+Die Zeichnung kostet nichts davon und passt zum Thema.
+
+Wer stattdessen eine echte Aufnahme zeigen will, legt sie unter `video/` ab
+und ergänzt an der Leinwand in `index.html`:
+
+```html
+<canvas data-fahrt data-fahrt-video="video/fahrt.mp4" aria-hidden="true"></canvas>
+```
+
+Dann tritt der Film an die Stelle der Zeichnung. `media-src` in
+`netlify.toml` deckt eigene Dateien bereits ab.
 
 **Echte Bildschirmfotos.** Die Bilder unter `images/app/` sind Aufnahmen aus der
 laufenden App, nicht nachgebaute Attrappen. Alle Personennamen darin sind vor
@@ -64,7 +86,49 @@ Bestandteile über alle Seiten hinweg gleich.
 ```bash
 python3 werkzeug/bausteine.py    # Bildmarke, Symbole und Fußzeile einsetzen
 python3 werkzeug/sitemap.py      # sitemap.xml neu erzeugen
+python3 werkzeug/angaben.py      # Firmendaten in alle Rechtstexte eintragen
+python3 werkzeug/iphone.py       # Bildschirmfotos in die Gerätehüllen bringen
 ```
+
+### Die offenen Angaben
+
+Impressum, Datenschutzerklärung und AGB stehen als vollständige Gerüste da,
+aber an 82 Stellen fehlen deine Angaben. Sie sind auf den Seiten gelb
+markiert, damit man sie nicht übersieht:
+
+```html
+<span class="offen">Telefonnummer</span>
+```
+
+Der Text darin ist zugleich der Schlüssel. Trag deine Angaben in
+`werkzeug/angaben.json` ein und lass `angaben.py` laufen — es ersetzt jede
+Lücke, für die ein Wert dasteht, und lässt alle anderen stehen. Es lässt sich
+beliebig oft laufen, du kannst also in Etappen arbeiten.
+
+`--pruefen` zeigt nur an, ohne zu ändern. Am Ende listet das Skript, was noch
+fehlt, und trennt dabei zwei Sorten:
+
+- **Angaben**, die du nachschlagen kannst: Anschrift, Registernummer, Hoster.
+- **Entscheidungen**, die keine Angabe sind: Haftungshöchstbetrag, Kündigungsfrist,
+  Aufbewahrungsdauer, Gerichtsstand. Die stehen bewusst nicht in
+  `angaben.json` — sie gehören vor der Veröffentlichung geprüft, und ein
+  Formularfeld dafür würde das Gegenteil nahelegen.
+
+**Die Domain steht ebenfalls dort.** Solange sie leer ist, zeigen alle
+`<link rel="canonical">` auf `https://www.allindrive.de/`. Das ist keine
+Kleinigkeit: Suchmaschinen folgen dieser Adresse und nehmen dann die falsche
+Seite in den Index auf.
+
+### Die fehlenden Bildschirmfotos
+
+In der Galerie und im Bento-Raster stecken elf Gerätehüllen, die noch auf
+Aufnahmen warten — sichtbar an der gestreiften Fläche mit dem Dateinamen
+darin. Leg die Aufnahmen unter `images/iphone/roh/` ab (die Datei dort sagt,
+welche gebraucht werden) und lass `iphone.py` laufen: Es schneidet die
+Statusleiste ab, skaliert auf 780 px und schreibt WebP.
+
+Nimm sie aus einem Testkonto auf. Auf den Aufnahmen dürfen keine Namen
+echter Fahrschüler stehen.
 
 `bausteine.py` ersetzt die Marker `<!--SPRITE-->` und `<!--FOOTER-->` in allen
 HTML-Dateien durch den Inhalt aus `werkzeug/bausteine/`. Es lässt sich beliebig

@@ -242,11 +242,13 @@
   <!-- ============================================================== Auftakt -->
   <section class="auftakt">
     <div class="auftakt__film">
-      <!-- Der Film liegt als HLS-Strom vor und wird von js/main.js
-           eingehängt. Läuft er nicht, trägt der wandernde Verlauf
-           darunter die Fläche allein. -->
-      <video data-film="https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8"
-             autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <!-- Eine Nachtfahrt, in js/main.js gezeichnet: keine Videodatei, kein
+           fremder Server. Kann die Leinwand nicht zeichnen, trägt der
+           wandernde Verlauf darunter die Fläche allein.
+
+           Für eine echte Aufnahme: data-fahrt-video="video/fahrt.mp4"
+           ergänzen, dann tritt der Film an die Stelle der Zeichnung. -->
+      <canvas data-fahrt aria-hidden="true"></canvas>
     </div>
     <div class="auftakt__schleier" aria-hidden="true"></div>
     <div class="auftakt__saum" aria-hidden="true"></div>
@@ -422,7 +424,7 @@
       <div>
         <p class="augbraue" style="justify-content:center">Auf dem Gerät</p>
         <h2>Die App, wie sie im <em>Auto</em> aussieht.</h2>
-        <p class="lede" style="margin-inline:auto">
+        <p class="lede" style="margin:16px auto 0">
           Kein nachgebautes Mockup. Aufnahmen aus der laufenden App, mit
           erfundenen Namen darin.
         </p>
@@ -430,28 +432,46 @@
     </div>
 
     <div class="schau__saeulen" aria-hidden="true">
-      <div class="schau__saeule" data-tempo="-260">
-        <figure class="schau__karte" style="--kipp:-3deg">
-          <img src="images/iphone/schuelerliste.webp" width="780" height="1706" loading="lazy"
+      <div class="schau__saeule" data-tempo="-190">
+        <figure class="schau__karte phone" style="--kipp:-3deg">
+          <span class="phone__insel"></span>
+          <span class="phone__glas">
+            <img src="images/iphone/schuelerliste.webp" width="780" height="1706" loading="lazy"
                alt="Schülerliste mit Fortschrittsringen">
+          </span>
         </figure>
-        <figure class="schau__karte" style="--kipp:2.5deg">
-          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>adk.webp</span>
+        <figure class="schau__karte phone" style="--kipp:2.5deg">
+          <span class="phone__insel"></span>
+          <span class="phone__glas">
+            <span class="phone__leer">Aufnahme folgt<br>adk.webp</span>
+          </span>
         </figure>
-        <figure class="schau__karte" style="--kipp:-1.5deg">
-          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>fahrstunde-karte.webp</span>
+        <figure class="schau__karte phone" style="--kipp:-1.5deg">
+          <span class="phone__insel"></span>
+          <span class="phone__glas">
+            <span class="phone__leer">Aufnahme folgt<br>fahrstunde-karte.webp</span>
+          </span>
         </figure>
       </div>
 
-      <div class="schau__saeule" data-tempo="340">
-        <figure class="schau__karte" style="--kipp:3deg">
-          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>kalender-woche.webp</span>
+      <div class="schau__saeule" data-tempo="260">
+        <figure class="schau__karte phone" style="--kipp:3deg">
+          <span class="phone__insel"></span>
+          <span class="phone__glas">
+            <span class="phone__leer">Aufnahme folgt<br>kalender-woche.webp</span>
+          </span>
         </figure>
-        <figure class="schau__karte" style="--kipp:-2.5deg">
-          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>pruefungssimulation.webp</span>
+        <figure class="schau__karte phone" style="--kipp:-2.5deg">
+          <span class="phone__insel"></span>
+          <span class="phone__glas">
+            <span class="phone__leer">Aufnahme folgt<br>pruefungssimulation.webp</span>
+          </span>
         </figure>
-        <figure class="schau__karte" style="--kipp:1.5deg">
-          <span class="phone__leer" style="position:relative;aspect-ratio:1">Aufnahme folgt<br>schueler-app.webp</span>
+        <figure class="schau__karte phone" style="--kipp:1.5deg">
+          <span class="phone__insel"></span>
+          <span class="phone__glas">
+            <span class="phone__leer">Aufnahme folgt<br>schueler-app.webp</span>
+          </span>
         </figure>
       </div>
     </div>
@@ -665,8 +685,7 @@
   <!-- ============================================================ Schluss -->
   <section class="schluss">
     <div class="schluss__film">
-      <video data-film="https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8"
-             autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <canvas data-fahrt aria-hidden="true"></canvas>
     </div>
     <div class="schluss__schleier" aria-hidden="true"></div>
 
@@ -750,7 +769,6 @@
 
 </main>
 
-<script src="js/hls.light.min.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

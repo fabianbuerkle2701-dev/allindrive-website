@@ -1,0 +1,58 @@
+{
+  "_hinweis": [
+    "Trag hier deine Angaben ein und lass danach werkzeug/angaben.py laufen.",
+    "Alles, was leer bleibt, bleibt auf den Seiten als gelbe Luecke stehen -",
+    "das Skript erfindet nichts. Du kannst also in mehreren Durchgaengen",
+    "arbeiten und es beliebig oft laufen lassen.",
+    "",
+    "Die Schluessel sind die Texte, die derzeit in den gelben Luecken stehen.",
+    "Was hier nicht auftaucht, sind Entscheidungen statt Angaben - Fristen,",
+    "Haftungsgrenzen, Kuendigungsregeln. Die stehen in der Liste, die",
+    "angaben.py am Ende ausgibt, und gehoeren in die Hand eines Anwalts."
+  ],
+
+  "domain": "",
+
+  "anbieter": {
+    "Anbietername": "",
+    "Rechtsform": "",
+    "Vertretungsberechtigte Person": "",
+    "Weitere Vertretungsberechtigte": "",
+    "Name der verantwortlichen Person": ""
+  },
+
+  "anschrift": {
+    "Straße und Hausnummer": "",
+    "Postleitzahl": "",
+    "Ort": "",
+    "Land": ""
+  },
+
+  "kontakt": {
+    "E-Mail-Adresse": "",
+    "Telefonnummer": "",
+    "E-Mail-Adresse Datenschutz": "",
+    "Adresse offen": "",
+    "Nummer offen": "",
+    "Zeiten offen": "",
+    "Anschrift offen": ""
+  },
+
+  "register": {
+    "Registergericht": "",
+    "Registerart": "",
+    "Registernummer": "",
+    "USt-IdNr.": "",
+    "Aufsichtsbehörde": ""
+  },
+
+  "betrieb": {
+    "Hosting-Dienstleister": "",
+    "Formulardienst": "",
+    "Formulardienst und Empfänger": "",
+    "Empfängeradresse offen": "",
+    "Serverstandort ergänzen": "",
+    "Standort ergänzen": "",
+    "Zuständige Aufsichtsbehörde mit Anschrift": ""
+  }
+}
